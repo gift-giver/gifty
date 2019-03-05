@@ -1,5 +1,8 @@
-// import componenets
+// import components
 import React, { Component } from 'react';
+import Header from './Components/Header';
+import Main from './Components/Main.js';
+import Footer from './Components/Footer.js';
 // import dependencies
 import axios from 'axios';
 import firebase from './firebase.js';
@@ -59,6 +62,9 @@ class App extends Component {
   render() {
     return (
       <div className="gifty-app">
+        <Header />
+        <Main />
+        <Footer />
       </div>
     );
   }
