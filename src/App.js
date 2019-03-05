@@ -41,9 +41,10 @@ class App extends Component {
         }
       })
       const imageResults = await imageSearch
-      return ({ listingResults, imageResults })
+
+      return  ({listingResults, imageResults})
     }
-    catch (error) {
+    catch(error) {
       console.log(error)
     }
   }
