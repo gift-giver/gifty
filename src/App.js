@@ -22,7 +22,7 @@ class App extends Component {
   getSearchData = async () => {
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const listingUrl = 'https://openapi.etsy.com/v2/listings/active';
-    const apiImgUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/images/';
+    const apiImgUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/shipping/info';
     try {
       const listingSearch = await axios.get(proxyUrl + listingUrl, {
         params: {
@@ -36,6 +36,10 @@ class App extends Component {
       })
       const listingResults = await listingSearch["data"]["results"]
       const imageSearchData = listingResults[0].listing_id
+      const listId=[]
+      imageSearchData.forEach((id) => {
+        console.log(id);
+      })
       const imageSearch = await axios.get(proxyUrl + apiImgUrl, {
         params: {
           api_key: '4jabbvn0odt4iogwe763zl4m',
