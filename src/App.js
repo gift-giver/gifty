@@ -12,7 +12,7 @@ class App extends Component {
 
     return (
       <div className="gifty-app">
-      <h1>Alanna's branch</h1>
+        <h1>Alanna's branch</h1>
       </div>
     );
   }
