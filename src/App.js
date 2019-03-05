@@ -31,7 +31,7 @@ class App extends Component {
          }
        })
        .then((result) => {
-
+        console.log(result.data.results)
          const itemDescription = result.data.results[1].title
          this.setState({
            itemDescription: itemDescription
@@ -58,16 +58,11 @@ class App extends Component {
    
   render() {
 
-
-
-   
-  
-
     return (
       <div className="gifty-app" >
         <img src={this.state.imageUrl}></img>
         <h2>{this.state.itemDescription}</h2>
-      </div>
+      </div> 
     );
   }
 }
