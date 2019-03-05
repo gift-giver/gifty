@@ -15,7 +15,6 @@ class App extends Component {
 
     this.state = {
       mainSearchBar: "",
-
     }
   }
 
@@ -28,7 +27,6 @@ class App extends Component {
     event.preventDefault();
 
     const data = await this.getSearchData(this.state.mainSearchBar)
-    console.log(data)
     this.setState({
       mainSearchBar: ""
     })
@@ -41,11 +39,25 @@ class App extends Component {
     })
   }
 
+  getShippingData = async (id) =>{
+    const apiShippingUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/shipping/info';
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const data = await axios.get(proxyUrl + apiShippingUrl, {
+      params: {
+        api_key: '4jabbvn0odt4iogwe763zl4m',
+        method: 'GET',
+        listing_id: id
+      }
+    })
+    const returnData = await data;
+    return returnData
+  }
   getSearchData = async (userQuery) => {
 
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const listingUrl = 'https://openapi.etsy.com/v2/listings/';
-    // const apiImgUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/images/';
+    const listingUrl = 'https://openapi.etsy.com/v2/listings/active';
+    // const apiShippingUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/shipping/info';
+    
 
     try {
       const listingSearch = await axios.get(proxyUrl + listingUrl, {
@@ -57,11 +69,23 @@ class App extends Component {
           state: 'active',
           keywords: userQuery,
           includes: "Images"
-          
         }
       })
       const listingResults = await listingSearch["data"]["results"];
-      // const imageSearchData = listingResults[0].listing_id
+      const locationArray = listingResults.map((item) => {
+        return item.listing_id
+       
+      })
+      
+      const locationSearchData = locationArray.map( (id) => {
+
+          return this.getShippingData(id);
+      })
+      Promise.all(locationSearchData).then(function(values){
+        console.log(values);
+        // return values;
+      })
+     
 
       // const imageSearch = await axios.get(proxyUrl + apiImgUrl, {
       //   params: {
