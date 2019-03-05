@@ -5,19 +5,10 @@ import axios from 'axios';
 import firebase from './firebase.js';
 // import styles
 import './App.css';
-<<<<<<< HEAD
-
-
-=======
->>>>>>> master
 class App extends Component {
   constructor() {
     super();
     this.state = {
-<<<<<<< HEAD
-      
-=======
->>>>>>> master
     }
   }
   async componentDidMount() {
