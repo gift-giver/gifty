@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import Header from './Components/Header';
 import Main from './Components/Main.js';
 import Footer from './Components/Footer.js';
+
 // import dependencies
 import axios from 'axios';
 import firebase from './firebase.js';
 // import styles
 import './App.css';
+
 
 class App extends Component {
   constructor() {
@@ -15,6 +17,7 @@ class App extends Component {
 
     this.state = {
       mainSearchBar: "",
+      resultInfo: [],
     }
   }
 
@@ -28,7 +31,8 @@ class App extends Component {
 
     const data = await this.getSearchData(this.state.mainSearchBar)
     this.setState({
-      mainSearchBar: ""
+      mainSearchBar: "",
+      resultInfo: data
     })
   }
 
@@ -39,26 +43,25 @@ class App extends Component {
     })
   }
 
-  getShippingData = async (id) =>{
-    const apiShippingUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/shipping/info';
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const data = await axios.get(proxyUrl + apiShippingUrl, {
-      params: {
-        api_key: '4jabbvn0odt4iogwe763zl4m',
-        method: 'GET',
-        listing_id: id
-      }
-    })
-    const returnData = await data;
-    return returnData
-  }
+  // getShippingData = async (id) =>{
+  //   const apiShippingUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/shipping/info';
+  //   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  //   const data = await axios.get(proxyUrl + apiShippingUrl, {
+  //     params: {
+  //       api_key: '4jabbvn0odt4iogwe763zl4m',
+  //       method: 'GET',
+  //       listing_id: id
+  //     }
+  //   })
+  //   const returnData = await data;
+  //   return returnData
+  // }
+
   getSearchData = async (userQuery) => {
 
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const listingUrl = 'https://openapi.etsy.com/v2/listings/active';
-    // const apiShippingUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/shipping/info';
-    
-
+    const apiImgUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/shipping/info';
     try {
       const listingSearch = await axios.get(proxyUrl + listingUrl, {
         params: {
@@ -72,19 +75,37 @@ class App extends Component {
         }
       })
       const listingResults = await listingSearch["data"]["results"];
-      const locationArray = listingResults.map((item) => {
-        return item.listing_id
-       
-      })
-      
-      const locationSearchData = locationArray.map( (id) => {
+      console.log(listingResults);
 
-          return this.getShippingData(id);
+     
+
+      const itemInfo = listingResults.map((items) => {
+        return {
+          price: items.price,
+          image: items.Images[0].url_570xN,
+          category: items.taxonomy_path,
+          url: items.url,
+          quantity: items.quantity,
+          title: items.title,
+          id: items.listing_id
+        }
       })
-      Promise.all(locationSearchData).then(function(values){
-        console.log(values);
-        // return values;
-      })
+   
+      return (itemInfo)
+
+      // const locationArray = listingResults.map((item) => {
+      //   return item.listing_id
+      
+    
+       
+      // const locationSearchData = locationArray.map( (id) => {
+
+      //     return this.getShippingData(id);
+      // })
+      // Promise.all(locationSearchData).then(function(values){
+      //   console.log(values[0].data.results);
+      //   // return values;
+      // })
      
 
       // const imageSearch = await axios.get(proxyUrl + apiImgUrl, {
@@ -96,13 +117,13 @@ class App extends Component {
       // })
       // const imageResults = await imageSearch["data"]["results"]
 
-
-      return  (listingResults)
-    }
-    catch(error) {
-      console.log(error)
-    }
+  
+    
   }
+  catch(error) {
+    console.log(error)
+  }
+}
   
   render() {
     return (
@@ -112,7 +133,9 @@ class App extends Component {
           onTextInput={this.handleTextInput}
           textInputValue={this.state.mainSearchBar}
         />
-        <Main />
+        <Main
+          itemInfo={this.state.resultInfo}
+        />
         <Footer />
       </div>
     );
