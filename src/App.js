@@ -14,28 +14,31 @@ import './App.css';
 class App extends Component {
   constructor() {
     super();
-
+    //mainSearchBar stores user query. resultInfo is the filtered data from the API, it's an array of objects.
     this.state = {
       mainSearchBar: "",
       resultInfo: [],
     }
   }
 
-  componentDidMount() {
-
-  }
-
+  //function to trigger axios call, following click of the submit button.
   handleSearchSubmit = async (event) => {
 
     event.preventDefault();
-
-    const data = await this.getSearchData(this.state.mainSearchBar)
+    //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
+    const data = await this.getSearchData(this.state.mainSearchBar);
+    //setting the state with the return from the axios call.
     this.setState({
-      mainSearchBar: "",
       resultInfo: data
     })
   }
 
+  onFocus = () => {
+    this.setState({
+      mainSearchBar: "",
+    })
+  }
+  //on change sets the state based on input value.
   handleTextInput = (event) => {
     
     this.setState({
@@ -43,31 +46,18 @@ class App extends Component {
     })
   }
 
-  // getShippingData = async (id) =>{
-  //   const apiShippingUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/shipping/info';
-  //   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  //   const data = await axios.get(proxyUrl + apiShippingUrl, {
-  //     params: {
-  //       api_key: '4jabbvn0odt4iogwe763zl4m',
-  //       method: 'GET',
-  //       listing_id: id
-  //     }
-  //   })
-  //   const returnData = await data;
-  //   return returnData
-  // }
-
+  //axios call; user queries params passed in from mainSearchBar state.
   getSearchData = async (userQuery) => {
 
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const listingUrl = 'https://openapi.etsy.com/v2/listings/active';
-    const apiImgUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/shipping/info';
+
     try {
       const listingSearch = await axios.get(proxyUrl + listingUrl, {
         params: {
           api_key: '4jabbvn0odt4iogwe763zl4m',
           method: 'GET',
-          offset: 20,
+          offset: 1,
           limit: 20,
           state: 'active',
           keywords: userQuery,
@@ -75,10 +65,8 @@ class App extends Component {
         }
       })
       const listingResults = await listingSearch["data"]["results"];
-      console.log(listingResults);
 
-     
-
+      //create an object with relevant data to push to state.
       const itemInfo = listingResults.map((items) => {
         return {
           price: items.price,
@@ -89,36 +77,8 @@ class App extends Component {
           title: items.title,
           id: items.listing_id
         }
-      })
-   
-      return (itemInfo)
-
-      // const locationArray = listingResults.map((item) => {
-      //   return item.listing_id
-      
-    
-       
-      // const locationSearchData = locationArray.map( (id) => {
-
-      //     return this.getShippingData(id);
-      // })
-      // Promise.all(locationSearchData).then(function(values){
-      //   console.log(values[0].data.results);
-      //   // return values;
-      // })
-     
-
-      // const imageSearch = await axios.get(proxyUrl + apiImgUrl, {
-      //   params: {
-      //     api_key: '4jabbvn0odt4iogwe763zl4m',
-      //     method: 'GET',
-      //     listing_id: imageSearchData,
-      //   }
-      // })
-      // const imageResults = await imageSearch["data"]["results"]
-
-  
-    
+      })  
+      return (itemInfo)    
   }
   catch(error) {
     console.log(error)
@@ -132,6 +92,7 @@ class App extends Component {
           onSearchSubmit={this.handleSearchSubmit}
           onTextInput={this.handleTextInput}
           textInputValue={this.state.mainSearchBar}
+          onFocus={this.onFocus}
         />
         <Main
           itemInfo={this.state.resultInfo}
