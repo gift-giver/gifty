@@ -8,7 +8,6 @@ const ItemCard = (props) => {
             <h2>{props.itemInfo.title}</h2>
             <p>{props.itemInfo.price}</p>
             
-            
         </div>
     )
         

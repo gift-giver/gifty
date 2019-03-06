@@ -31,7 +31,7 @@ class App extends Component {
 
     const data = await this.getSearchData(this.state.mainSearchBar)
     this.setState({
-      mainSearchBar: "",
+     
       resultInfo: data
     })
   }
@@ -43,25 +43,18 @@ class App extends Component {
     })
   }
 
-  // getShippingData = async (id) =>{
-  //   const apiShippingUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/shipping/info';
-  //   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  //   const data = await axios.get(proxyUrl + apiShippingUrl, {
-  //     params: {
-  //       api_key: '4jabbvn0odt4iogwe763zl4m',
-  //       method: 'GET',
-  //       listing_id: id
-  //     }
-  //   })
-  //   const returnData = await data;
-  //   return returnData
-  // }
+  onFocus = (e) => {
+    console.log('working')
+    this.setState({
+       mainSearchBar: "",
+    })
+  }
 
   getSearchData = async (userQuery) => {
 
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const listingUrl = 'https://openapi.etsy.com/v2/listings/active';
-    const apiImgUrl = 'https://openapi.etsy.com/v2/listings/:listing_id/shipping/info';
+
     try {
       const listingSearch = await axios.get(proxyUrl + listingUrl, {
         params: {
@@ -92,33 +85,6 @@ class App extends Component {
       })
    
       return (itemInfo)
-
-      // const locationArray = listingResults.map((item) => {
-      //   return item.listing_id
-      
-    
-       
-      // const locationSearchData = locationArray.map( (id) => {
-
-      //     return this.getShippingData(id);
-      // })
-      // Promise.all(locationSearchData).then(function(values){
-      //   console.log(values[0].data.results);
-      //   // return values;
-      // })
-     
-
-      // const imageSearch = await axios.get(proxyUrl + apiImgUrl, {
-      //   params: {
-      //     api_key: '4jabbvn0odt4iogwe763zl4m',
-      //     method: 'GET',
-      //     listing_id: imageSearchData,
-      //   }
-      // })
-      // const imageResults = await imageSearch["data"]["results"]
-
-  
-    
   }
   catch(error) {
     console.log(error)
@@ -131,6 +97,7 @@ class App extends Component {
         <Header 
           onSearchSubmit={this.handleSearchSubmit}
           onTextInput={this.handleTextInput}
+          onFocus={this.onFocus}
           textInputValue={this.state.mainSearchBar}
         />
         <Main
