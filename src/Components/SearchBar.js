@@ -13,6 +13,7 @@ const SearchBar = (props) => {
                 name="mainSearchBar"
                 onChange={(event) => props.onTextInput(event)}
                 value={props.textInputValue}
+                onFocus={props.onFocus}
             >
             </input>
             <button type="submit">Search</button>

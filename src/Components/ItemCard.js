@@ -6,9 +6,7 @@ const ItemCard = (props) => {
         <div>
             <img src={props.itemInfo.image}></img>
             <h2>{props.itemInfo.title}</h2>
-            <p>{props.itemInfo.price}</p>
-            
-            
+            <p>{`$ ${props.itemInfo.price}`}</p>
         </div>
     )
         
