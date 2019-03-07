@@ -19,8 +19,8 @@ class App extends Component {
       mainSearchBar: "",
       resultInfo: [],
       searchLocation: "Toronto",
-      price: "0",
-      rating: "0"
+      price: "noValue",
+      rating: "noValue"
     }
   }
 
@@ -29,8 +29,10 @@ class App extends Component {
 
     event.preventDefault();
     //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
+
+    const price = this.state.price !== "noValue" ? this.state.price : null 
     
-    const data = await this.getSearchData(this.state.mainSearchBar, this.state.searchLocation, this.state.price);
+    const data = await this.getSearchData(this.state.mainSearchBar, this.state.searchLocation, price);
     //setting the state with the return from the axios call.
 
     
@@ -79,8 +81,7 @@ class App extends Component {
           term: userQuery,
           categories:'food, All',
           open_now:true,
-          image_url: true,
-          sort_by:'rating'
+          image_url: true
 
           // attributes:"gender_neutral_restrooms",
           // attributes:"open_to_all",
