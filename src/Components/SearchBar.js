@@ -23,19 +23,26 @@ const SearchBar = (props) => {
                 </input>
 
                 <label htmlFor="priceSearch">Price level</label>
-                <select name="price" id="priceSearch">
-                    <option value="$">$</option>
-                    <option value="$$">$$</option>
-                    <option value="$$$">$$$</option>
-                    <option value="$$$$">$$$$</option>
+                <select name="price" id="priceSearch" priceValue={props.priceValue} onChange={(event) => props.onTextInput(event)}>
+                    <option value="0">--</option>
+                    <option value="1">$</option>
+                    <option value="2">$$</option>
+                    <option value="3">$$$</option>
+                    <option value="4">$$$$</option>
                 </select>
 
                 <label htmlFor="ratingSearch"></label>
-                <select name="rating" id="ratingSearch">
+                <select name="rating" id="ratingSearch" ratingValue={props.ratingValue} onChange={(event) => props.onTextInput(event)}>
+                    <option value="0">--</option>
+                    <option value="0">0 star</option>                   
                     <option value="1">1 star</option>
+                    <option value="1.5">1.5 star</option>
                     <option value="2">2 star</option>
+                    <option value="2.5">2.5 star</option>
                     <option value="3">3 star</option>
+                    <option value="3.5">3.5 star</option>
                     <option value="4">4 star</option>
+                    <option value="4.5">4.5 star</option>
                     <option value="5">5 star</option>
                 </select>
 
