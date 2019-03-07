@@ -10,12 +10,17 @@ class ItemDetails extends Component {
     }
 
 
-
     render(){
-        return(
-            <div className="itemModal">
-                <h1>{this.props.itemInfo.name}</h1>
-            </div>
+        return (
+            <React.Fragment>
+                <div className="backgroundBlur"></div>
+                <div className="itemModal">
+                    <button className="closeModal"
+                        onClick={this.props.onModalClose}>
+                            X</button> 
+                    <h1>{this.props.itemInfo.name}</h1>
+                </div>
+            </React.Fragment>
         )
     }
 }
