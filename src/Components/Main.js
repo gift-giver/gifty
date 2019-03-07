@@ -1,25 +1,48 @@
 import React, { Component } from 'react';
 import ItemCard from './ItemCard.js';
+import ItemDetails from './ItemDetails.js';
 
 class Main extends Component {
+
+  constructor(){
+    super();
+
+    this.state = {
+      modalIsHidden: true,
+      modalData: {}
+    }
+  }
+
+  onClickToModal = (info) => {
+    // console.log(info)
+    this.setState({
+      modalData: info,
+      modalIsHidden: false
+    })
+  }
+
   render() {
     return (
-      <ul>
-        {
-          this.props.itemInfo.map((info) => {
-            return (
-              <li key={info.id}>
-                <ItemCard
-                  
-                  itemInfo={info}
-                  />
-              </li>
-              
-            )
-          })
+      <div className="mainContainer">
+        <ul className="galleryGrid">
+          {
+            this.props.itemInfo.map((info) => {
+              return (
+                <li 
+                  key={info.id}
+                  onClick={() => this.onClickToModal(info)}
+                >
+                  <ItemCard
+                    itemInfo={info}
+                    />
+                </li>
+              )
+            })
+          }
+        </ul>
 
-        }
-      </ul>
+        {this.state.modalIsHidden === false ? <ItemDetails itemInfo={this.state.modalData}/> : null}
+      </div>
     );
   }
 }

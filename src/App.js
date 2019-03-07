@@ -28,10 +28,14 @@ class App extends Component {
     //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
     const data = await this.getSearchData(this.state.mainSearchBar);
     //setting the state with the return from the axios call.
+
+    
     this.setState({
+     
       resultInfo: data
     })
   }
+  
 
   onFocus = () => {
     this.setState({
@@ -50,35 +54,38 @@ class App extends Component {
   getSearchData = async (userQuery) => {
 
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const listingUrl = 'https://openapi.etsy.com/v2/categories';
+    const listingUrl = 'https://api.yelp.com/v3/businesses/search';
 
     try {
       const listingSearch = await axios.get(proxyUrl + listingUrl, {
+        headers: {
+          Authorization: `Bearer C7ZMd1ea7H3n1WxoD9MdVAa65MTz612MaPEKj6qOBy5hc0-JnSd76Svxv_7AoNH6_Y15XalttVt4pAvRadbAoSINmO2SttL2cJTTWNnONjEFv0CMS2OIeFJYZVKAXHYx `,
+        },
         params: {
-          api_key: '4jabbvn0odt4iogwe763zl4m',
           method: 'GET',
           offset: 1,
-          limit: 100,
-          state: 'active',
-          keywords: userQuery,
-          includes: "Images"
+          limit: 20,
+          location: 'toronto',
+          term: userQuery,
         }
       })
-      const listingResults = await listingSearch["data"]["results"];
+      const listingResults = await listingSearch["data"]["businesses"];
+      // console.log(listingResults)
 
       //create an object with relevant data to push to state.
-      const itemInfo = listingResults.map((items) => {
+      const placeInfo = listingResults.map((place) => {
         return {
-          price: items.price,
-          image: items.Images[0].url_570xN,
-          category: items.taxonomy_path,
-          url: items.url,
-          quantity: items.quantity,
-          title: items.title,
-          id: items.listing_id
+          price: place.price,
+          image: place.image_url, 
+          category: place.category,
+          url: place.url,
+          rating: place.rating,
+          name: place.name,
+          id: place.id,
+          address:place.location.displayAddress
         }
       })  
-      return (itemInfo)    
+      return (placeInfo)    
   }
   catch(error) {
     console.log(error)
@@ -91,8 +98,10 @@ class App extends Component {
         <Header 
           onSearchSubmit={this.handleSearchSubmit}
           onTextInput={this.handleTextInput}
+          onFocus={this.onFocus}
           textInputValue={this.state.mainSearchBar}
           onFocus={this.onFocus}
+
         />
         <Main
           itemInfo={this.state.resultInfo}

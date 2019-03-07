@@ -6,6 +6,7 @@ class Header extends Component {
     return (
       <div>
         <SearchBar 
+          onFocus={this.props.onFocus}
           onSearchSubmit={this.props.onSearchSubmit}
           onTextInput={this.props.onTextInput}
           textInputValue={this.props.textInputValue}
