@@ -36,3 +36,16 @@ img {
     max-height: 250px;
     min-height: 250px
 }
+
+.mainContainer {
+    position: relative;
+}
+
+.galleryGrid {
+
+}
+
+.itemModal {
+    position: absolute;
+    top: 10%
+}

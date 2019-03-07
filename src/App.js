@@ -70,7 +70,7 @@ class App extends Component {
         }
       })
       const listingResults = await listingSearch["data"]["businesses"];
-      console.log(listingResults)
+      // console.log(listingResults)
 
       //create an object with relevant data to push to state.
       const placeInfo = listingResults.map((place) => {
