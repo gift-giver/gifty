@@ -50,7 +50,7 @@ class App extends Component {
   getSearchData = async (userQuery) => {
 
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const listingUrl = 'https://openapi.etsy.com/v2/listings/active';
+    const listingUrl = 'https://openapi.etsy.com/v2/categories';
 
     try {
       const listingSearch = await axios.get(proxyUrl + listingUrl, {
@@ -58,7 +58,7 @@ class App extends Component {
           api_key: '4jabbvn0odt4iogwe763zl4m',
           method: 'GET',
           offset: 1,
-          limit: 20,
+          limit: 100,
           state: 'active',
           keywords: userQuery,
           includes: "Images"
