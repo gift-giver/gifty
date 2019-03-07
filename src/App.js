@@ -14,28 +14,35 @@ import './App.css';
 class App extends Component {
   constructor() {
     super();
-
+    //mainSearchBar stores user query. resultInfo is the filtered data from the API, it's an array of objects.
     this.state = {
       mainSearchBar: "",
       resultInfo: [],
     }
   }
 
-  componentDidMount() {
-
-  }
-
+  //function to trigger axios call, following click of the submit button.
   handleSearchSubmit = async (event) => {
 
     event.preventDefault();
+    //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
+    const data = await this.getSearchData(this.state.mainSearchBar);
+    //setting the state with the return from the axios call.
 
-    const data = await this.getSearchData(this.state.mainSearchBar)
+    
     this.setState({
      
       resultInfo: data
     })
   }
+  
 
+  onFocus = () => {
+    this.setState({
+      mainSearchBar: "",
+    })
+  }
+  //on change sets the state based on input value.
   handleTextInput = (event) => {
     
     this.setState({
@@ -43,48 +50,42 @@ class App extends Component {
     })
   }
 
-  onFocus = (e) => {
-    console.log('working')
-    this.setState({
-       mainSearchBar: "",
-    })
-  }
-
+  //axios call; user queries params passed in from mainSearchBar state.
   getSearchData = async (userQuery) => {
 
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const listingUrl = 'https://openapi.etsy.com/v2/listings/active';
+    const listingUrl = 'https://api.yelp.com/v3/businesses/search';
 
     try {
       const listingSearch = await axios.get(proxyUrl + listingUrl, {
+        headers: {
+          Authorization: `Bearer C7ZMd1ea7H3n1WxoD9MdVAa65MTz612MaPEKj6qOBy5hc0-JnSd76Svxv_7AoNH6_Y15XalttVt4pAvRadbAoSINmO2SttL2cJTTWNnONjEFv0CMS2OIeFJYZVKAXHYx `,
+        },
         params: {
-          api_key: '4jabbvn0odt4iogwe763zl4m',
           method: 'GET',
-          offset: 20,
+          offset: 1,
           limit: 20,
-          state: 'active',
-          keywords: userQuery,
-          includes: "Images"
+          location: 'toronto',
+          term: userQuery,
         }
       })
-      const listingResults = await listingSearch["data"]["results"];
-      console.log(listingResults);
+      const listingResults = await listingSearch["data"]["businesses"];
+      console.log(listingResults)
 
-     
-
-      const itemInfo = listingResults.map((items) => {
+      //create an object with relevant data to push to state.
+      const placeInfo = listingResults.map((place) => {
         return {
-          price: items.price,
-          image: items.Images[0].url_570xN,
-          category: items.taxonomy_path,
-          url: items.url,
-          quantity: items.quantity,
-          title: items.title,
-          id: items.listing_id
+          price: place.price,
+          image: place.image_url, 
+          category: place.category,
+          url: place.url,
+          rating: place.rating,
+          name: place.name,
+          id: place.id,
+          address:place.location.displayAddress
         }
-      })
-   
-      return (itemInfo)
+      })  
+      return (placeInfo)    
   }
   catch(error) {
     console.log(error)
@@ -99,6 +100,8 @@ class App extends Component {
           onTextInput={this.handleTextInput}
           onFocus={this.onFocus}
           textInputValue={this.state.mainSearchBar}
+          onFocus={this.onFocus}
+
         />
         <Main
           itemInfo={this.state.resultInfo}

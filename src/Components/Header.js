@@ -10,6 +10,7 @@ class Header extends Component {
           onSearchSubmit={this.props.onSearchSubmit}
           onTextInput={this.props.onTextInput}
           textInputValue={this.props.textInputValue}
+          onFocus={this.props.onFocus}
         />
       </div>
     );
