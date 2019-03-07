@@ -8,7 +8,7 @@ import Footer from './Components/Footer.js';
 import axios from 'axios';
 import firebase from './firebase.js';
 // import styles
-import './App.css';
+import './App.css'; 
 
 
 class App extends Component {
@@ -18,6 +18,7 @@ class App extends Component {
     this.state = {
       mainSearchBar: "",
       resultInfo: [],
+      searchLocation: "",
     }
   }
 
@@ -26,7 +27,7 @@ class App extends Component {
 
     event.preventDefault();
     //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
-    const data = await this.getSearchData(this.state.mainSearchBar);
+    const data = await this.getSearchData(this.state.mainSearchBar, this.state.searchLocation);
     //setting the state with the return from the axios call.
 
     
@@ -37,21 +38,27 @@ class App extends Component {
   }
   
 
-  onFocus = () => {
+  onFocus = (event) => {
+    
     this.setState({
-      mainSearchBar: "",
+      [event.target.name]: ""
     })
   }
   //on change sets the state based on input value.
   handleTextInput = (event) => {
-    
+    console.log(event.target.value, event.target.name)
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,  
     })
   }
+  // handleLocationInput = (event) => {
+  //   this.setState({
+      
+  //   })
+  // }
 
   //axios call; user queries params passed in from mainSearchBar state.
-  getSearchData = async (userQuery) => {
+  getSearchData = async (userQuery, locationQuery) => {
 
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const listingUrl = 'https://api.yelp.com/v3/businesses/search';
@@ -65,8 +72,16 @@ class App extends Component {
           method: 'GET',
           offset: 1,
           limit: 20,
-          location: 'toronto',
+          location: locationQuery,
           term: userQuery,
+          categories:'food, All',
+          open_now:true,
+          image_url:true
+
+          // attributes:"gender_neutral_restrooms",
+          // attributes:"open_to_all",
+          // attributes:"wheelchair_accessible",
+          // attributes:"hot_and_new"
         }
       })
       const listingResults = await listingSearch["data"]["businesses"];
@@ -100,8 +115,8 @@ class App extends Component {
           onTextInput={this.handleTextInput}
           onFocus={this.onFocus}
           textInputValue={this.state.mainSearchBar}
-          onFocus={this.onFocus}
-
+          searchLocationInput=
+          {this.state.searchLocation}
         />
         <Main
           itemInfo={this.state.resultInfo}
