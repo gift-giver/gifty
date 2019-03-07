@@ -19,7 +19,7 @@ class Main extends Component {
           })
 
         }
-      </ul>
+        </ul>
     );
   }
 }
