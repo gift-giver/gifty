@@ -77,7 +77,6 @@ class App extends Component {
           categories:'food, All',
           open_now:true,
           image_url: true,
-          sort_by:'rating'
 
           // attributes:"gender_neutral_restrooms",
           // attributes:"open_to_all",
