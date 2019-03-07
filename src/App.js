@@ -19,6 +19,8 @@ class App extends Component {
       mainSearchBar: "",
       resultInfo: [],
       searchLocation: "Toronto",
+      price: "noValue",
+      rating: "noValue"
     }
   }
 
@@ -27,7 +29,10 @@ class App extends Component {
 
     event.preventDefault();
     //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
-    const data = await this.getSearchData(this.state.mainSearchBar, this.state.searchLocation);
+
+    const price = this.state.price !== "noValue" ? this.state.price : null 
+    
+    const data = await this.getSearchData(this.state.mainSearchBar, this.state.searchLocation, price);
     //setting the state with the return from the axios call.
 
     
@@ -36,14 +41,16 @@ class App extends Component {
       resultInfo: data
     })
   }
-  
+ 
 
   onFocus = (event) => {
     
     this.setState({
       [event.target.name]: ""
+
     })
   }
+
   //on change sets the state based on input value.
   handleTextInput = (event) => {
     
@@ -51,14 +58,9 @@ class App extends Component {
       [event.target.name]: event.target.value,  
     })
   }
-  // handleLocationInput = (event) => {
-  //   this.setState({
-      
-  //   })
-  // }
 
   //axios call; user queries params passed in from mainSearchBar state.
-  getSearchData = async (userQuery, locationQuery) => {
+  getSearchData = async (userQuery, locationQuery, price) => {
 
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const listingUrl = 'https://api.yelp.com/v3/businesses/search';
@@ -72,11 +74,14 @@ class App extends Component {
           method: 'GET',
           offset: 1,
           limit: 20,
+
           location: locationQuery,
+          price: price,
+
           term: userQuery,
           categories:'food, All',
           open_now:true,
-          image_url:true
+          image_url: true
 
           // attributes:"gender_neutral_restrooms",
           // attributes:"open_to_all",
@@ -85,7 +90,7 @@ class App extends Component {
         }
       })
       const listingResults = await listingSearch["data"]["businesses"];
-      // console.log(listingResults)
+      console.log(listingResults)
 
       //create an object with relevant data to push to state.
       const placeInfo = listingResults.map((place) => {
@@ -117,6 +122,9 @@ class App extends Component {
           textInputValue={this.state.mainSearchBar}
           searchLocationInput=
           {this.state.searchLocation}
+          priceValue={this.state.price}
+          ratingValue={this.state.rating}
+          
         />
         <Main
           itemInfo={this.state.resultInfo}
