@@ -72,12 +72,15 @@ class App extends Component {
           method: 'GET',
           offset: 1,
           limit: 20,
+
           location: locationQuery,
           price: price,
+
           term: userQuery,
           categories:'food, All',
           open_now:true,
-          image_url:true
+          image_url: true,
+          sort_by:'rating'
 
           // attributes:"gender_neutral_restrooms",
           // attributes:"open_to_all",
@@ -86,7 +89,7 @@ class App extends Component {
         }
       })
       const listingResults = await listingSearch["data"]["businesses"];
-      // console.log(listingResults)
+      console.log(listingResults)
 
       //create an object with relevant data to push to state.
       const placeInfo = listingResults.map((place) => {
