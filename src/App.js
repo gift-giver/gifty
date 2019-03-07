@@ -18,7 +18,7 @@ class App extends Component {
     this.state = {
       mainSearchBar: "",
       resultInfo: [],
-      searchLocation: "",
+      searchLocation: "Toronto",
     }
   }
 
@@ -46,7 +46,7 @@ class App extends Component {
   }
   //on change sets the state based on input value.
   handleTextInput = (event) => {
-    console.log(event.target.value, event.target.name)
+    
     this.setState({
       [event.target.name]: event.target.value,  
     })
