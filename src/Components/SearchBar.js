@@ -23,8 +23,8 @@ const SearchBar = (props) => {
                 </input>
 
                 <label htmlFor="priceSearch">Price level</label>
-                <select name="price" id="priceSearch" priceValue={props.priceValue} onChange={(event) => props.onTextInput(event)}>
-                    <option value="0">--</option>
+                <select name="price" id="priceSearch" value={props.priceValue} onChange={(event) => props.onTextInput(event)}>
+                    <option value="noValue">--</option>
                     <option value="1">$</option>
                     <option value="2">$$</option>
                     <option value="3">$$$</option>
@@ -32,8 +32,8 @@ const SearchBar = (props) => {
                 </select>
 
                 <label htmlFor="ratingSearch"></label>
-                <select name="rating" id="ratingSearch" ratingValue={props.ratingValue} onChange={(event) => props.onTextInput(event)}>
-                    <option value="0">--</option>
+                <select name="rating" id="ratingSearch" value={props.ratingValue} onChange={(event) => props.onTextInput(event)}>
+                    <option value="noValue">--</option>
                     <option value="0">0 star</option>                   
                     <option value="1">1 star</option>
                     <option value="1.5">1.5 star</option>

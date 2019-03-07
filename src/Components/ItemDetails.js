@@ -17,7 +17,7 @@ class ItemDetails extends Component {
                 <div className="itemModal">
                     <button className="closeModal"
                         onClick={this.props.onModalClose}>
-                        X</button> 
+                        <i class="far fa-times-circle"></i></button> 
                     <img src={this.props.itemInfo.image} alt={this.props.itemInfo.name}></img>
                     <div className='modalInfoContainer'>
                         <h2>{this.props.itemInfo.name}</h2>

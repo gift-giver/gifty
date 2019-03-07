@@ -64,19 +64,24 @@ img {
     float:left;
 }
 
-.modalInfoContainer {
-
-}
-
 .closeModal {
-    background-color:black;
-    border:white 1px solid;
-    color:white;
-    border-radius: 50%;
+    border:none;
+    background:transparent;
     position:relative;
     right:0;
+    
+}
+
+.closeModal i {
+    color: #7D6EF5;
+    border-radius: 50%;
+    background-color:#281565;
+    font-size: 2rem;
+    
 
 }
+
+
 
 .backgroundBlur {
     opacity: .6;
@@ -90,4 +95,13 @@ img {
     background-color:white;
     
     
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(45deg);
+    }
 }
