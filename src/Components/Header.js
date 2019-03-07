@@ -12,6 +12,8 @@ class Header extends Component {
           textInputValue={this.props.textInputValue}
           searchLocationInput=
           {this.props.searchLocationInput}
+          priceValue={this.props.priceValue}
+          ratingValue={this.props.ratingValue}
         />
       </div>
     );
