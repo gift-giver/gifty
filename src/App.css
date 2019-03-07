@@ -18,6 +18,10 @@ body {
     max-width: 1280px;
 }
 
+/* #281565 - Midnight Blue */
+/* #B1D5Ef - Pale SUnflower Blue */
+/* #7D6EF5 - Medium slate blue*/
+
 ul {
 }
 
@@ -47,5 +51,38 @@ img {
 
 .itemModal {
     position: absolute;
-    top: 10%
+    /* top: 0;
+    bottom:0;
+    left:0;
+    right:0; */
+    background-color:blue;
+    width: 50%;
+    text-align: center;
+
+    margin: 17% 25% 0 25%;
+    z-index: 100
+}
+
+.closeModal {
+    background-color:black;
+    border:white 1px solid;
+    color:white;
+    border-radius: 50%;
+    position:relative;
+    right:0;
+
+}
+
+.backgroundBlur {
+    opacity: .6;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background-color:white;
+    
+    
 }

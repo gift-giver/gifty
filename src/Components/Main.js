@@ -21,6 +21,13 @@ class Main extends Component {
     })
   }
 
+  onModalClose = () => {
+    this.setState({
+      modalData: {},
+      modalIsHidden:true
+    })
+  }
+
   render() {
     return (
       <div className="mainContainer">
@@ -34,6 +41,7 @@ class Main extends Component {
                 >
                   <ItemCard
                     itemInfo={info}
+                    
                     />
                 </li>
               )
@@ -41,7 +49,7 @@ class Main extends Component {
           }
         </ul>
 
-        {this.state.modalIsHidden === false ? <ItemDetails itemInfo={this.state.modalData}/> : null}
+        {this.state.modalIsHidden === false ? <ItemDetails itemInfo={this.state.modalData} onModalClose={this.onModalClose}/> : null}
       </div>
     );
   }
