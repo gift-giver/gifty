@@ -21,7 +21,7 @@ class MainApp extends Component {
     }
 
     componentDidMount(){
-        console.log(this.props.name)
+        
     }
     //function to trigger axios call, following click of the submit button.
     handleSearchSubmit = async (event) => {

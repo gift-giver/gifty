@@ -1,6 +1,6 @@
 // import components
 import React, { Component } from 'react';
-import MainApp from './Components/MainApp.js';
+// import MainApp from './Components/MainApp.js';
 // import LoginPage from './Components/LoginPage.js';
 // import router
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
@@ -16,42 +16,8 @@ class App extends Component {
     super();
     
     this.state = {
-      user: null,
-      loggedIn: false
+
     }
-  }
-
-  componentDidMount(){
-
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ 
-          user: user
-        });
-      }
-    });
-  }
-
-  login = () => {
-
-    auth.signInWithPopup(provider)
-      .then((result) => {
-        const user = result.user;
-        this.setState({
-          user: user,
-          loggedIn: true
-        });
-      });
-  }
-
-  logout = () => {
-
-    auth.signOut()
-      .then(() => {
-        this.setState({
-          user: null
-        });
-      });
   }
   
   
@@ -59,15 +25,8 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <header>
-
-            <Link to="MainApp">Guest</Link>
-
-            {this.state.user ? <button onClick={this.logout}>Log Out</button> : <button onClick={this.login}>Login</button>}
-          </header>
-          <Route path="/MainApp" exact render={() => { return (<MainApp name={this.state.user} />) }} />
-          <Route exact path="/MainApp" render={() => (this.state.loggedIn ? (<Redirect to="/MainApp" />) : (<App />))} />
-          
+          <button>Log In</button>
+          <button>Guest</button>
         </div>
       </Router>
     )
