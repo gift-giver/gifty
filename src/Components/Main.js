@@ -34,7 +34,7 @@ class Main extends Component {
         <ul className="galleryGrid">
           {
             this.props.itemInfo.map((info) => {
-              return (
+              return (  
                 <li 
                   key={info.id}
                   onClick={() => this.onClickToModal(info)}
@@ -47,6 +47,7 @@ class Main extends Component {
               )
             })
           }
+
         </ul>
 
         {this.state.modalIsHidden === false ? <ItemDetails itemInfo={this.state.modalData} onModalClose={this.onModalClose}/> : null}

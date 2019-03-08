@@ -15,13 +15,19 @@ class MainApp extends Component {
             mainSearchBar: "",
             resultInfo: [],
             searchLocation: "Toronto",
-            price: "noValue",
-            rating: "noValue"
+            price: "0",
+            rating: "0",
+            filteredResultInfo:[]
         }
     }
 
-    componentDidUpdate(){
-        console.log("mount")
+
+    componentDidUpdate(prevProps, prevState){
+        //if prevState.rating isn't' equal to what was specified by user run this function. Stops continuous loop
+        if(prevState.rating !== this.state.rating || prevState.price !== this.state.price){
+
+            this.filterByRating(this.state.resultInfo);
+        }
     }
 
     //function to trigger axios call, following click of the submit button.
@@ -29,11 +35,13 @@ class MainApp extends Component {
 
         event.preventDefault();
 
-        const price = this.state.price !== "noValue" ? this.state.price : null
+        const price = this.state.price !== "0" ? this.state.price : null
 
         //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
-        const data = await this.getSearchData(this.state.mainSearchBar, this.state.searchLocation, price);
-
+        const data = await this.getSearchData(this.state.mainSearchBar, this.state.searchLocation);
+        
+        // taking data from the axios call to be filtered
+        const filteredData = this.filterByRating(data)
         //setting the state with the return from the axios call.
         this.setState({
 
@@ -57,7 +65,7 @@ class MainApp extends Component {
     }
 
     //axios call; user queries params passed in from mainSearchBar state.
-    getSearchData = async (userQuery, locationQuery, price) => {
+    getSearchData = async (userQuery, locationQuery) => {
 
         const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         const listingUrl = 'https://api.yelp.com/v3/businesses/search';
@@ -73,7 +81,6 @@ class MainApp extends Component {
                     limit: 20,
 
                     location: locationQuery,
-                    price: price,
 
                     term: userQuery,
                     categories: 'food, All',
@@ -108,6 +115,21 @@ class MainApp extends Component {
         }
     }
 
+    filterByRating = (infoArray) =>{
+        // acting on infoArray, infoArray is 1 of 2 values, either the value from state or data directly from axios call
+        // in here we are comparing the rating from the original data call to the rating specified by user which is held in state
+        const filteredArray = infoArray.filter((item) => {
+            return(
+                item.rating >= Number(this.state.rating) && item.price != undefined && item.price.length >= Number(this.state.price)
+            )
+        })
+        this.setState({
+            // use the array created by filter to set the state
+            filteredResultInfo: filteredArray
+        })
+
+    };
+
     render(){
 
         return(
@@ -120,10 +142,10 @@ class MainApp extends Component {
                     searchLocationInput={this.state.searchLocation}
                     priceValue={this.state.price}
                     ratingValue={this.state.rating}
-
                 />
                 <Main
-                    itemInfo={this.state.resultInfo}
+                    itemInfo={this.state.filteredResultInfo}
+                    ratingValue={this.state.rating}
                 />
                 <Footer />
             </div>
