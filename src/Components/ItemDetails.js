@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
+import MyList from './MyList.js';
+import firebase from './../firebase.js'
 
 class ItemDetails extends Component {
     constructor(){
@@ -7,6 +10,45 @@ class ItemDetails extends Component {
         this.state = {
 
         }
+    }
+
+    pushToFirebase = (e) => {
+        console.log(e.target.value);
+        const info = this.props.itemInfo;
+         let myChoice = {}
+         for (let key in info) {
+             if (info[key] != undefined) {
+                 myChoice[key] = info[key];
+             }
+         }
+        
+        console.log(myChoice.id);
+
+         console.log(e.key)
+
+        const checkUserChoice = []
+        if (checkUserChoice.includes(info) === false) {
+            checkUserChoice.push(info)
+        } else {
+           console.log('You already have this') 
+        }
+
+
+
+        const userChoice = []
+        if (userChoice.length === 10) {
+            alert('you cant have more than 10!')
+        } else {
+            userChoice.push(info);
+        }
+        
+        console.log(userChoice);
+      
+
+
+        // const dbRef = firebase.database().ref(`GuestList`);
+        // dbRef.push(myChoice);
+      
     }
 
 
@@ -22,10 +64,16 @@ class ItemDetails extends Component {
                     <div className='modalInfoContainer'>
                         <h2>{this.props.itemInfo.name}</h2>
                         <p>{this.props.itemInfo.rating}</p>
-                     
+                      
+                        <button onClick={this.pushToFirebase} key={this.props.itemInfo.id}>Add To List</button>
+                        {
+
+                        }
+                       
+                   
                     </div>
-
-
+              
+                    
                 </div>
             </React.Fragment>
         )
