@@ -16,8 +16,60 @@ class App extends Component {
     super();
     
     this.state = {
-
+      user: null,
+      loggedIn: false,
+      redirect: false,
+      isHidden:false
     }
+  }
+
+  componentDidMount(){
+
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ 
+          user: user,
+          loggedIn: false,
+         
+        });
+      }
+    });
+  }
+
+  toggleHidden= (e) => {
+    this.setState({
+      isHidden: !this.state.isHidden
+    })
+  }
+
+  onClick = () => {
+    this.setState({
+      user: "guest",
+      redirect: true
+    })
+  }
+   login = () => {
+
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        this.setState({
+          user: user,
+          redirect: true,
+          isHidden: true
+        });
+      });
+  }
+
+  logout = () => {
+
+    auth.signOut()
+      .then(() => {
+        this.setState({
+          user: null,
+          isHidden: false
+        });
+      });
   }
   
   
@@ -25,9 +77,36 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <button>Log In</button>
-          <button>Guest</button>
-        </div>
+          
+        {this.state.loggedIn === false ? 
+          
+          (<header>
+              {
+                this.state.isHidden === false ? (
+                <button onClick={this.onClick}>Guest</button>
+                ) : null
+                
+              }
+             
+            
+            {/* <Link to="/MainApp"></Link> */}
+
+            {this.state.user ? (<button onClick={this.logout}>Log Out</button>) : (<button onClick={this.login}>Login</button>)}
+              <Route path="/MainApp" component={MainApp} /> 
+          </header>) 
+          : 
+      
+          (<Route to="/MainApp" component={MainApp} />)
+               
+      
+      }
+      {
+        this.state.redirect && 
+          <Redirect to="/MainApp"/>
+
+      }
+    
+       </div>
       </Router>
     )
   }
