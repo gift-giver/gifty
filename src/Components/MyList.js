@@ -13,7 +13,6 @@ class MyList extends Component {
     render() {
         return (
             <div>
-           
                 <h2>HI</h2>
             </div>
      

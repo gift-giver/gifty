@@ -9,7 +9,7 @@ const ItemCard = (props) => {
              <h2>{props.itemInfo.name}</h2>
             <p>{props.itemInfo.price}</p>
            
-
+           
         </div>
     )
 }
