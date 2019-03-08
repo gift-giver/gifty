@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
+import MyList from './MyList.js';
+import firebase from './../firebase.js'
 
 class ItemDetails extends Component {
     constructor(){
@@ -7,6 +10,22 @@ class ItemDetails extends Component {
         this.state = {
 
         }
+    }
+
+    pushToFirebase = (e) => {
+        const info = this.props.itemInfo;
+        let myChoice = {}
+        for (let key in info) {
+            if (info[key] != undefined) {
+                myChoice[key] = info[key];
+            }
+        }
+      
+
+
+        const dbRef = firebase.database().ref(`GuestList`);
+        dbRef.push(myChoice);
+      
     }
 
 
@@ -22,10 +41,11 @@ class ItemDetails extends Component {
                     <div className='modalInfoContainer'>
                         <h2>{this.props.itemInfo.name}</h2>
                         <p>{this.props.itemInfo.rating}</p>
-                     
+                       
+                   
                     </div>
-
-
+                    <button onClick={this.pushToFirebase}>Add To List</button>
+                    
                 </div>
             </React.Fragment>
         )

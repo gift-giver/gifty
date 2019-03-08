@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Main from './Main.js';
 import Footer from './Footer.js';
+import MyList from './MyList.js';
 // import dependencies
 import axios from 'axios';
 import firebase from './../firebase.js';
+import { Route, Link } from 'react-router-dom';
 
 class MainApp extends Component {
 
@@ -16,7 +18,8 @@ class MainApp extends Component {
             resultInfo: [],
             searchLocation: "Toronto",
             price: "noValue",
-            rating: "noValue"
+            rating: "noValue",
+            userChoice: ''
         }
     }
 
@@ -53,6 +56,20 @@ class MainApp extends Component {
         this.setState({
             [event.target.name]: event.target.value,
         })
+    }
+
+
+    userChoice = (e) => {
+        this.setState({
+            userChoice: e.target.value
+        }, () => {
+                const placeChoice = this.state.data = this.state.data.filter(res => {
+                    // return res.name === this.state.userChoice
+                    console.log(res);
+
+                });
+            })
+
     }
 
     //axios call; user queries params passed in from mainSearchBar state.
@@ -121,8 +138,11 @@ class MainApp extends Component {
                     ratingValue={this.state.rating}
 
                 />
+                
                 <Main
                     itemInfo={this.state.resultInfo}
+                    recieveUserChoice={this.userChoice}
+                    userChoice={this.state.userChoice}
                 />
                 <Footer />
             </div>

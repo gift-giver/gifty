@@ -1,6 +1,7 @@
 // import components
 import React, { Component } from 'react';
 import MainApp from './Components/MainApp.js';
+import MyList from './Components/MyList.js';
 // import LoginPage from './Components/LoginPage.js';
 // import router
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
@@ -36,11 +37,23 @@ class App extends Component {
     });
   }
 
+//   const dbRef = firebase.database().ref();
+//   dbRef.on('value', response => {
+//     const newState = [];
+//     const data = response.val();
+//     for (let key in data) {
+//   newState.push({
+//     key: key,
+//     title: data[key]
+//   })
+// }
+//      })
   toggleHidden= (e) => {
     this.setState({
       isHidden: !this.state.isHidden
     })
   }
+
 
   onClick = () => {
     this.setState({
@@ -59,6 +72,7 @@ class App extends Component {
           isHidden: true
         });
       });
+     
   }
 
   logout = () => {
@@ -67,8 +81,11 @@ class App extends Component {
       .then(() => {
         this.setState({
           user: null,
-          isHidden: false
+          isHidden: false,
+          redirect:null
         });
+        
+       
       });
   }
   
@@ -87,9 +104,8 @@ class App extends Component {
                 ) : null
                 
               }
-             
+          
             
-            {/* <Link to="/MainApp"></Link> */}
 
             {this.state.user ? (<button onClick={this.logout}>Log Out</button>) : (<button onClick={this.login}>Login</button>)}
               <Route path="/MainApp" component={MainApp} /> 
@@ -99,12 +115,24 @@ class App extends Component {
           (<Route to="/MainApp" component={MainApp} />)
                
       
-      }
+          }
+          {this.state.loggedIn === true ?
+
+            
+              this.state.redirect && (
+                <button onClick={this.onClick}>Guest</button>
+              ) : null
+            
+
+
+          }
+          <Route path="/MyList" exact component={MyList} /> 
       {
         this.state.redirect && 
           <Redirect to="/MainApp"/>
 
-      }
+          }
+        
     
        </div>
       </Router>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import SearchBar from './SearchBar.js';
+import { Route, Link } from 'react-router-dom';
 
 class Header extends Component {
   render() {
@@ -15,6 +16,8 @@ class Header extends Component {
           priceValue={this.props.priceValue}
           ratingValue={this.props.ratingValue}
         />
+        <Link to="/MyList">See My List</Link>
+        
       </div>
     );
   }
