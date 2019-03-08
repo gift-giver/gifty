@@ -29,6 +29,7 @@ class App extends Component {
       if (user) {
         this.setState({ 
           user: user,
+          loggedIn: false,
          
         });
       }
@@ -65,7 +66,8 @@ class App extends Component {
     auth.signOut()
       .then(() => {
         this.setState({
-          user: null
+          user: null,
+          isHidden: false
         });
       });
   }
