@@ -1,6 +1,6 @@
 // import components
 import React, { Component } from 'react';
-// import MainApp from './Components/MainApp.js';
+import MainApp from './Components/MainApp.js';
 // import LoginPage from './Components/LoginPage.js';
 // import router
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';

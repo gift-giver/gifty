@@ -42,7 +42,7 @@ class Main extends Component {
                   <ItemCard
                     itemInfo={info}
                     
-                    />
+                  />
                 </li>
               )
             })

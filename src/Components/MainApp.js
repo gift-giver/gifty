@@ -20,9 +20,10 @@ class MainApp extends Component {
         }
     }
 
-    componentDidMount(){
-        
+    componentDidUpdate(){
+        console.log("mount")
     }
+
     //function to trigger axios call, following click of the submit button.
     handleSearchSubmit = async (event) => {
 
@@ -111,7 +112,7 @@ class MainApp extends Component {
 
         return(
             <div className="gifty-app">
-                 <Header
+                <Header
                     onSearchSubmit={this.handleSearchSubmit}
                     onTextInput={this.handleTextInput}
                     onFocus={this.onFocus}
