@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ItemCard from './ItemCard.js';
 import ItemDetails from './ItemDetails.js';
+import { Route, Link } from 'react-router-dom';
+import MyList from './MyList.js';
 
 class Main extends Component {
 
@@ -31,6 +33,8 @@ class Main extends Component {
   render() {
     return (
       <div className="mainContainer">
+       
+
         <ul className="galleryGrid">
           {
             this.props.itemInfo.map((info) => {
@@ -49,6 +53,8 @@ class Main extends Component {
           }
 
         </ul>
+        
+
 
         {this.state.modalIsHidden === false ? <ItemDetails itemInfo={this.state.modalData} onModalClose={this.onModalClose}/> : null}
       </div>
