@@ -12,44 +12,7 @@ class ItemDetails extends Component {
         }
     }
 
-    pushToFirebase = (e) => {
-        console.log(e.target.value);
-        const info = this.props.itemInfo;
-         let myChoice = {}
-         for (let key in info) {
-             if (info[key] != undefined) {
-                 myChoice[key] = info[key];
-             }
-         }
-        
-        console.log(myChoice.id);
-
-         console.log(e.key)
-
-        const checkUserChoice = []
-        if (checkUserChoice.includes(info) === false) {
-            checkUserChoice.push(info)
-        } else {
-           console.log('You already have this') 
-        }
-
-
-
-        const userChoice = []
-        if (userChoice.length === 10) {
-            alert('you cant have more than 10!')
-        } else {
-            userChoice.push(info);
-        }
-        
-        console.log(userChoice);
-      
-
-
-        // const dbRef = firebase.database().ref(`GuestList`);
-        // dbRef.push(myChoice);
-      
-    }
+   
 
 
     render(){
@@ -60,16 +23,12 @@ class ItemDetails extends Component {
                     <button className="closeModal"
                         onClick={this.props.onModalClose}>
                         X</button> 
-                    <img src={this.props.itemInfo.image} alt={this.props.itemInfo.name}></img>
+                    <img src={this.props.itemInfo.image_url} alt={this.props.itemInfo.name}></img>
                     <div className='modalInfoContainer'>
                         <h2>{this.props.itemInfo.name}</h2>
                         <p>{this.props.itemInfo.rating}</p>
                       
-                        <button onClick={this.pushToFirebase} key={this.props.itemInfo.id}>Add To List</button>
-                        {
-
-                        }
-                       
+                        <button onClick={() => this.props.pushToFirebase(this.props.itemInfo)} key={this.props.itemInfo.id}>Add To List</button>
                    
                     </div>
               
