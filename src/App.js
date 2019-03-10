@@ -72,11 +72,12 @@ class App extends Component {
     const data = await this.getSearchData(this.state.mainSearchBar, this.state.searchLocation);
 
     // taking data from the axios call to be filtered
-    const filteredData = this.filterByRating(data)
+     this.filterByRating(data)
     //setting the state with the return from the axios call.
     this.setState({
 
-      resultInfo: filteredData
+      resultInfo: data
+
     })
   }
 

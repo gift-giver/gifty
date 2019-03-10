@@ -36,7 +36,36 @@ header {
 main{
     min-height: 100vh;
     padding-top: 18vh;
+    background-image: linear-gradient(90deg, rgba(40, 21, 101, 0.49957981483609073) 20%, rgba(125, 110, 245, 0.475210066936931) 70%, rgba(177, 213, 239, 0.4387955011106005) 100%),
+    url('./assets/food-salad-restaurant-person.jpg');
+    background-size:cover;
+    background-repeat:no-repeat;
 }
+
+
+
+.myListLink,
+.mainSearchLink {
+    text-decoration: none;
+    color: black;
+    background-color: #7D6EF5;
+    margin: 20px 0 0 5px;
+    padding: 1rem;
+    float: right;
+    position:relative;
+    transition: .1s all linear;
+      
+}
+
+.myListLink:hover,
+.myListLink:focus,
+.mainSearchLink:hover,
+.mainSearchLink:focus {
+    background-color:white;
+    color:black;
+}
+
+
 
 li {
     width:30%;
@@ -144,6 +173,11 @@ li {
 }
 
 /* MYLIST PAGE STYLES*/
+
+.myListMain {
+    background-color:#281565;
+    height: 100vh;
+}
 
 .myListDetailCard img{
     width: 100%;
