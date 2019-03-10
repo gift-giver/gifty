@@ -29,17 +29,15 @@ class App extends Component {
   }
 }
 
+  // create a new firebase list 
   createNewFirebaseList = () => {
-
+    // reference firebase object in which all  guest lists will live
     const dbRef = firebase.database().ref(`GuestList`);
-
-    const newFirebaseList = {
-      listName: "",
-      list: []
-    }
-
+    // new firebase list will live inside an object, reference by firebase provided key
+    const newFirebaseList = {}
+    // push new list to firebase reference, hold created firebase reference key for that object in variable firebaseKey
     const firebaseKey = dbRef.push(newFirebaseList)
-
+    // set state with current firebaseKey; allows session to save to one list which is later deletable
     this.setState({
       firebaseListId: firebaseKey["path"]["pieces_"][1]
     })
@@ -47,31 +45,33 @@ class App extends Component {
 
 
   componentDidMount() {
-
+    // reference firebase list; reference structure: GuestList -> newUserCreatedList
     const dbRef = firebase.database().ref(`GuestList/${this.state.firebaseListId}`);
+
     dbRef.on('value', response => {
-      const newState = [];
+
+      const returnedList = [];
 
       const data = response.val();
 
-      for (let key in data) {
-        newState.push({
+      for(let key in data) {
+
+        returnedList.push({
           key: key,
-          title: data[key]
+          restaurantInfo: data[key]
         })
       }
 
       this.setState({
-        userList: newState
+        userList: returnedList
       })
 
     })
   }
 
 
-
   componentDidUpdate(prevProps, prevState) {
-    //if prevState.rating isn't' equal to what was specified by user run this function. Stops continuous loop
+    //if prevState.rating isn't equal to what was specified by user run this function. Stops continuous loop
     if (prevState.rating !== this.state.rating || prevState.price !== this.state.price) {
 
       this.filterByRating(this.state.resultInfo);
@@ -127,9 +127,7 @@ class App extends Component {
           method: 'GET',
           offset: 1,
           limit: 20,
-
           location: locationQuery,
-
           term: userQuery,
           categories: 'food, All',
           open_now: true,
@@ -143,7 +141,7 @@ class App extends Component {
       })
       const listingResults = await listingSearch["data"]["businesses"];
 
-      //create an object with relevant data to push to state.
+      // filter out keys with a value of undefined; causes problems when pushing to firebase
       const placeInfo = listingResults.map((place) => {
 
         let filteredResults = {};
@@ -153,11 +151,11 @@ class App extends Component {
             filteredResults[key] = place[key];
           }
         }
+        // return filteredResults as the result of the map operation, new list info held within placeInfo
         return filteredResults
       })
-    
-      return (placeInfo)
-      
+      // return placeInfo to caller -> used to set state
+      return placeInfo
     }
     catch (error) {
       console.log(error)

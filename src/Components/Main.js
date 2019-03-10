@@ -31,7 +31,7 @@ class Main extends Component {
 
   render() {
     return (
-      <React.Fragment className="mainContainer">
+      <div className="mainContainer">
         <Link to="/MyList">See My List</Link>
         
         <section>
@@ -58,7 +58,7 @@ class Main extends Component {
               onModalClose={this.onModalClose} /> : null}
 
             </section>
-      </React.Fragment>
+      </div>
     );
   }
 }
