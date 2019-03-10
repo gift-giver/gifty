@@ -192,7 +192,6 @@ class App extends Component {
   removeFromFirebase = (event) => {
     
     const key = event["target"]["id"]
-    console.log(key)
     const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}/${key}`);
 
     dbRef.remove()
