@@ -6,84 +6,28 @@ import { BrowserRouter as Router, Route, Redirect, Link }
 from 'react-router-dom';
 import firebase from './../firebase.js';
 
- const provider = new firebase.auth.GoogleAuthProvider();
-    const auth = firebase.auth();
+//  const provider = new firebase.auth.GoogleAuthProvider();
+//     const auth = firebase.auth();
 
 class LoginPage extends Component {
     constructor(){
-
         super();
+        this.state={
 
-        this.state = {
-            user: null,
-            loggedIn: false,
-            redirect: false,
-            isHidden: false
         }
     }
-
-    componentDidMount() {
-
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({
-                    user: user,
-                    loggedIn: false,
-
-                });
-            }
-        });
-    }
-
-    toggleHidden = (e) => {
-        this.setState({
-            isHidden: !this.state.isHidden
-        })
-    }
-
-
-    onClick = () => {
-        this.setState({
-            user: "guest",
-            redirect: true
-        })
-    }
-    login = () => {
-
-        auth.signInWithPopup(provider)
-            .then((result) => {
-                const user = result.user;
-                this.setState({
-                    user: user,
-                    redirect: true,
-                    isHidden: true
-                });
-            });
-
-    }
-
-    logout = () => {
-
-        auth.signOut()
-            .then(() => {
-                this.setState({
-                    user: null,
-                    isHidden: false,
-                    redirect: null
-                });
-
-
-            });
-    }
-
+    
+    
 
 
     render(){
 
         return(
 
-        <form>
-            <label htmlFor="userName">Enter </label>
+        <form >
+            <label htmlFor="listName">Who do you want to take out for dinner? </label>
+            <input type="text" id="listName" placeholder="enter your guest's name"/>
+                <Link onClick={this.props.createNewFirebaseList} to="/MainApp">Find the perfect spot to dine</Link>
 
             
         </form>
@@ -134,3 +78,69 @@ export default LoginPage
 //                 <Redirect to="/MainApp" />
 
 //         }
+
+ // constructor(){
+
+    //     super();
+
+    //     this.state = {
+    //         user: null,
+    //         loggedIn: false,
+    //         redirect: false,
+    //         isHidden: false
+    //     }
+    // }
+
+    // componentDidMount() {
+
+    //     auth.onAuthStateChanged((user) => {
+    //         if (user) {
+    //             this.setState({
+    //                 user: user,
+    //                 loggedIn: false,
+
+    //             });
+    //         }
+    //     });
+    // }
+
+    // toggleHidden = (e) => {
+    //     this.setState({
+    //         isHidden: !this.state.isHidden
+    //     })
+    // }
+
+
+    // onClick = () => {
+    //     this.setState({
+    //         user: "guest",
+    //         redirect: true
+    //     })
+    // }
+    // login = () => {
+
+    //     auth.signInWithPopup(provider)
+    //         .then((result) => {
+    //             const user = result.user;
+    //             this.setState({
+    //                 user: user,
+    //                 redirect: true,
+    //                 isHidden: true
+    //             });
+    //         });
+
+    // }
+
+    // logout = () => {
+
+    //     auth.signOut()
+    //         .then(() => {
+    //             this.setState({
+    //                 user: null,
+    //                 isHidden: false,
+    //                 redirect: null
+    //             });
+
+
+    //         });
+    // }
