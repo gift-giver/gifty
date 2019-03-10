@@ -31,6 +31,7 @@ class Main extends Component {
 
   render() {
     return (
+
       <React.Fragment className="mainContainer">
         <Link to="/MyList">See My List</Link>
         
@@ -56,6 +57,7 @@ class Main extends Component {
               itemInfo={this.state.modalData}
               pushToFirebase={this.props.pushToFirebase}
               onModalClose={this.onModalClose} /> : null}
+
 
             </section>
       </React.Fragment>
