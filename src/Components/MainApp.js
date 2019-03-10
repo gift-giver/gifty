@@ -6,9 +6,12 @@ import Footer from './Footer.js';
 
 
 const MainApp = (props) => {
-        return (
-            <React.Fragment>
-                <Header
+
+
+        return(
+
+            <div>
+                 <Header
                     onSearchSubmit={props.onSearchSubmit}
                     onTextInput={props.onTextInput}
                     onFocus={props.onFocus}
@@ -25,7 +28,7 @@ const MainApp = (props) => {
                     pushToFirebase={props.pushToFirebase}
                 />
                 <Footer />
-            </React.Fragment>
+            </div>
         )
     }
 

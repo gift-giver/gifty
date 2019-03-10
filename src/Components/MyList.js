@@ -51,12 +51,12 @@ class MyList extends Component {
                 <ul>
                     {
                         this.props.userList.map((listItem) => {
-                            console.log(listItem.title.image_url);
+                            console.log(listItem.restaurantInfo.image_url);
                             return (
-                                <li key={listItem.title.id} className="myListDetailCard">
-                                    <img src={listItem.title.image_url}/>
-                                    <h2>{listItem.title.name}</h2>
-                                    <p>{listItem.title.price}</p>
+                                <li key={listItem.restaurantInfo.id} className="myListDetailCard">
+                                    <img src={listItem.restaurantInfo.image_url}/>
+                                    <h2>{listItem.restaurantInfo.name}</h2>
+                                    <p>{listItem.restaurantInfo.price}</p>
                                     <button onClick={(event) => this.props.removeFromFirebase(event)} id={listItem.key}>Remove</button>
                                 </li>
                             )
