@@ -17,20 +17,37 @@ body {
 .wrapper {
     max-width: 1280px;
 }
+a {
+    text-decoration:none;
+}
 
 /* #281565 - Midnight Blue */
 /* #B1D5Ef - Pale SUnflower Blue */
 /* #7D6EF5 - Medium slate blue*/
 
+header {
+    height:15vh;
+    position:fixed;
+    width:100%;
+    background-color: #B1D5Ef
+}
+
+main{
+    min-height: 100vh;
+    padding-top: 15vh;
+}
 
 li {
-    width:23%;
+    width:30%;
     max-height:550px;
     min-height: 550px;
     list-style:none;
     float:left;
     margin: 10px;
-    text-align:center;   
+    padding:10px;
+    text-align:center; 
+    background-color:#7D6EF5;
+    box-shadow: 0px 0px 5px 5px rgba(177, 213, 239, 0.3);
 }
 
 .itemInfoContainer h2 {
@@ -41,7 +58,9 @@ li {
     display:block;
     width:100%;
     max-height: 250px;
-    min-height: 250px
+    min-height: 250px;
+    box-shadow: 0px 0px 5px 5px rgba(255, 255, 255, 0.3);
+
 }
 
 .logoContainer {
@@ -60,6 +79,8 @@ li {
 
 .galleryGrid {
     margin:0 auto;
+    background-color:#281565;
+    padding-left: 5%;
 }
 
 /* ITEM DETAILS AND DETAILS MODAL STYLING */
