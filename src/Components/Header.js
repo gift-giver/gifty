@@ -1,22 +1,24 @@
-import React, {Component} from 'react';
+import React from 'react';
 import SearchBar from './SearchBar.js';
 
-class Header extends Component {
-  render() {
+
+const Header = (props) => {
     return (
-      <div>
+      <React.Fragment>
         <SearchBar 
-          onFocus={this.props.onFocus}
-          onSearchSubmit={this.props.onSearchSubmit}
-          onTextInput={this.props.onTextInput}
-          textInputValue={this.props.textInputValue}
+          onFocus={props.onFocus}
+          onSearchSubmit={props.onSearchSubmit}
+          onTextInput={props.onTextInput}
+          textInputValue={props.textInputValue}
           searchLocationInput=
-          {this.props.searchLocationInput}
-          priceValue={this.props.priceValue}
-          ratingValue={this.props.ratingValue}
+          {props.searchLocationInput}
+          priceValue={props.priceValue}
+          ratingValue={props.ratingValue}
         />
-      </div>
+       
+        
+      </React.Fragment>
     );
-  }
 }
+
 export default Header;

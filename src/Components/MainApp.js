@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './Header';
 import Main from './Main.js';
 import Footer from './Footer.js';
 // import dependencies
-import axios from 'axios';
-import firebase from './../firebase.js';
+
 
 class MainApp extends Component {
 
@@ -140,19 +139,37 @@ class MainApp extends Component {
                     onFocus={this.onFocus}
                     textInputValue={this.state.mainSearchBar}
                     searchLocationInput={this.state.searchLocation}
-                    priceValue={this.state.price}
-                    ratingValue={this.state.rating}
+           
+                    priceValue={props.priceValue}
+                    ratingValue={props.ratingValue}
                 />
+
                 <Main
-                    itemInfo={this.state.filteredResultInfo}
-                    ratingValue={this.state.rating}
+                    itemInfo={props.itemInfo}
+                    ratingValue={props.ratingValue}
+                    pushToFirebase={props.pushToFirebase}
                 />
                 <Footer />
-            </div>
+            </React.Fragment>
         )
-    }
-
 }
 
-
 export default MainApp;
+
+// POTENTIAL ERROR HANDLING
+
+// const checkUserChoice = []
+        // if (checkUserChoice.includes(info) === false) {
+        //     checkUserChoice.push(info)
+        // } else {
+        //     console.log('You already have this')
+        // }
+
+        // const userChoice = []
+        // if (userChoice.length === 10) {
+        //     alert('you cant have more than 10!')
+        // } else {
+        //     userChoice.push(info);
+        // }
+
+        // console.log(userChoice);
