@@ -19,22 +19,36 @@ class App extends Component {
               mainSearchBar: "",
               resultInfo: [],
               searchLocation: "Toronto",
-
               price: "0",
               rating: "0",
               filteredResultInfo: [],
-
               userChoice: '',
-              userList: []
+              userList: [],
+              firebaseListId: ""
 
   }
 }
 
+  createNewFirebaseList = () => {
+
+    const dbRef = firebase.database().ref(`GuestList`);
+
+    const newFirebaseList = {
+      listName: "",
+      list: []
+    }
+
+    const firebaseKey = dbRef.push(newFirebaseList)
+
+    this.setState({
+      firebaseListId: firebaseKey["path"]["pieces_"][1]
+    })
+  }
 
 
-  async componentDidMount() {
+  componentDidMount() {
 
-    const dbRef = await firebase.database().ref(`GuestList`);
+    const dbRef = firebase.database().ref(`GuestList/${this.state.firebaseListId}`);
     dbRef.on('value', response => {
       const newState = [];
 
@@ -63,6 +77,7 @@ class App extends Component {
       this.filterByRating(this.state.resultInfo);
     }
   }
+
   //function to trigger axios call, following click of the submit button.
   handleSearchSubmit = async (event) => {
 
@@ -166,14 +181,14 @@ class App extends Component {
 
   pushToFirebase = (itemInfo) => {
 
-    const dbRef = firebase.database().ref(`GuestList`);
+    const dbRef = firebase.database().ref(`GuestList/${this.state.firebaseListId}`);
     dbRef.push(itemInfo);
   }
 
   removeFromFirebase = (event) => {
     const key = event.target.id
 
-    const dbRef = firebase.database().ref(`GuestList/${key}`);
+    const dbRef = firebase.database().ref(`GuestList/${this.state.firebaseListId}/${key}`);
     dbRef.remove()
 
   }
@@ -182,7 +197,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route path="/" exact component={LoginPage}/>
+          <Route path="/" exact render={() => { return (<LoginPage createNewFirebaseList={this.createNewFirebaseList}/>)}}/>
           <Route path="/MainApp" render={() => { return (<MainApp 
 
             onSearchSubmit={this.handleSearchSubmit}
