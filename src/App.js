@@ -14,35 +14,20 @@ import './App.css';
 class App extends Component {
   constructor(){
   super();
-        //mainSearchBar stores user query. resultInfo is the filtered data from the API, it's an array of objects.
-      this.state = {
-              mainSearchBar: "",
-              resultInfo: [],
-              searchLocation: "Toronto",
-              price: "0",
-              rating: "0",
-              filteredResultInfo: [],
-              userChoice: '',
-              userList: [],
-              firebaseListId: ""
+    //mainSearchBar stores user query. resultInfo is the filtered data from the API, it's an array of objects.
+    this.state = {
+        mainSearchBar: "",
+        resultInfo: [],
+        searchLocation: "Toronto",
+        price: "0",
+        rating: "0",
+        filteredResultInfo: [],
+        userChoice: '',
+        userList: [],
+        firebaseListId: ""
 
   }
 }
-
-  // create a new firebase list 
-  createNewFirebaseList = () => {
-    // reference firebase object in which all  guest lists will live
-    const dbRef = firebase.database().ref(`GuestList`);
-    // new firebase list will live inside an object, reference by firebase provided key
-    const newFirebaseList = {}
-    // push new list to firebase reference, hold created firebase reference key for that object in variable firebaseKey
-    const firebaseKey = dbRef.push(newFirebaseList)
-    // set state with current firebaseKey; allows session to save to one list which is later deletable
-    this.setState({
-      firebaseListId: firebaseKey["path"]["pieces_"][1]
-    })
-  }
-
 
   componentDidMount() {
     // reference firebase list; reference structure: GuestList -> newUserCreatedList
@@ -69,21 +54,19 @@ class App extends Component {
     })
   }
 
-
   componentDidUpdate(prevProps, prevState) {
-    //if prevState.rating isn't equal to what was specified by user run this function. Stops continuous loop
+    // if prevState.rating or prevState.price isn't equal to what was specified by user: run this function
     if (prevState.rating !== this.state.rating || prevState.price !== this.state.price) {
 
       this.filterByRating(this.state.resultInfo);
     }
   }
 
+  // * EVENT HANDLERS * //
   //function to trigger axios call, following click of the submit button.
   handleSearchSubmit = async (event) => {
 
     event.preventDefault();
-
-    const price = this.state.price !== "0" ? this.state.price : null
 
     //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
     const data = await this.getSearchData(this.state.mainSearchBar, this.state.searchLocation);
@@ -105,7 +88,7 @@ class App extends Component {
   }
 
   //on change sets the state based on input value.
-  handleTextInput = (event) => {
+  handleOnChangeEvents = (event) => {
 
     this.setState({
       [event.target.name]: event.target.value,
@@ -139,6 +122,7 @@ class App extends Component {
           // attributes:"hot_and_new"
         }
       })
+      
       const listingResults = await listingSearch["data"]["businesses"];
 
       // filter out keys with a value of undefined; causes problems when pushing to firebase
@@ -154,6 +138,7 @@ class App extends Component {
         // return filteredResults as the result of the map operation, new list info held within placeInfo
         return filteredResults
       })
+
       // return placeInfo to caller -> used to set state
       return placeInfo
     }
@@ -166,29 +151,51 @@ class App extends Component {
     // acting on infoArray, infoArray is 1 of 2 values, either the value from state or data directly from axios call
     // in here we are comparing the rating from the original data call to the rating specified by user which is held in state
     const filteredArray = infoArray.filter((item) => {
+
       return (
-        item.rating >= Number(this.state.rating) && item.price != undefined && item.price.length >= Number(this.state.price)
+        item.rating >= Number(this["state"]["rating"]) 
+          && item["price"] != undefined 
+          && item["price"].length >= Number(this["state"]["price"])
       )
     })
+
+    // use the array created by filter to set the state
     this.setState({
-      // use the array created by filter to set the state
       filteredResultInfo: filteredArray
     })
 
   };
 
+  // * FIREBASE FUNCTIONS * //
+  // create a new firebase list 
+  createNewFirebaseList = () => {
+    // reference firebase object in which all  guest lists will live
+    const dbRef = firebase.database().ref(`GuestList`);
+    // new firebase list will live inside an object, reference by firebase provided key
+    const newFirebaseList = {}
+    // push new list to firebase reference, hold created firebase reference key for that object in variable firebaseKey
+    const firebaseKey = dbRef.push(newFirebaseList)
+    // set state with current firebaseKey; allows session to save to one list which is later deletable
+    this.setState({
+      firebaseListId: firebaseKey["path"]["pieces_"][1]
+    })
+  }
+
+  // push item to firebase 
   pushToFirebase = (itemInfo) => {
 
-    const dbRef = firebase.database().ref(`GuestList/${this.state.firebaseListId}`);
+    const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
+
     dbRef.push(itemInfo);
   }
 
+  // remove selected item from firebase; firebase key used as id on button, accessed by event.target.id
   removeFromFirebase = (event) => {
-    const key = event.target.id
 
-    const dbRef = firebase.database().ref(`GuestList/${this.state.firebaseListId}/${key}`);
+    const key = event["target"]["id"]
+    const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}/${key}`);
+
     dbRef.remove()
-
   }
 
   render() {
@@ -199,7 +206,7 @@ class App extends Component {
           <Route path="/MainApp" render={() => { return (<MainApp 
 
             onSearchSubmit={this.handleSearchSubmit}
-            onTextInput={this.handleTextInput}
+            onTextInput={this.handleOnChangeEvents}
             onFocus={this.onFocus}
             textInputValue={this.state.mainSearchBar}
             searchLocationInput={this.state.searchLocation}
@@ -221,4 +228,5 @@ class App extends Component {
     )
   }
 }
+
 export default App;
