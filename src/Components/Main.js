@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import ItemCard from './ItemCard.js';
 import ItemDetails from './ItemDetails.js';
-import { Route, Link } from 'react-router-dom';
-import MyList from './MyList.js';
+import {Link } from 'react-router-dom';
 
 class Main extends Component {
 
@@ -11,12 +10,12 @@ class Main extends Component {
 
     this.state = {
       modalIsHidden: true,
-      modalData: {}
+      modalData: {},
     }
   }
 
   onClickToModal = (info) => {
-    // console.log(info)
+
     this.setState({
       modalData: info,
       modalIsHidden: false
@@ -32,32 +31,34 @@ class Main extends Component {
 
   render() {
     return (
-      <div className="mainContainer">
-       
-
-        <ul className="galleryGrid">
-          {
-            this.props.itemInfo.map((info) => {
-              return (  
-                <li 
-                  key={info.id}
-                  onClick={() => this.onClickToModal(info)}
-                >
-                  <ItemCard
-                    itemInfo={info}
-                    
-                  />
-                </li>
-              )
-            })
-          }
-
-        </ul>
+      <React.Fragment className="mainContainer">
+        <Link to="/MyList">See My List</Link>
         
+        <section>
+          <ul className="galleryGrid">
+            {
+              this.props.itemInfo.map((info) => {
+                return (
+                  <li
+                    key={info.id}
+                    onClick={() => this.onClickToModal(info)}
+                  >
+                    <ItemCard
+                      itemInfo={info}
+                    />
+                  </li>
+               
+                )
+              })
+            }
+            </ul>
+            {this.state.modalIsHidden === false ? <ItemDetails
+              itemInfo={this.state.modalData}
+              pushToFirebase={this.props.pushToFirebase}
+              onModalClose={this.onModalClose} /> : null}
 
-
-        {this.state.modalIsHidden === false ? <ItemDetails itemInfo={this.state.modalData} onModalClose={this.onModalClose}/> : null}
-      </div>
+            </section>
+      </React.Fragment>
     );
   }
 }
