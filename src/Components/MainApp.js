@@ -4,16 +4,19 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 // import dependencies
 
+
 const MainApp = (props) => {
 
         return(
-            <div className="MyResults">
+
+            <div>
                  <Header
                     onSearchSubmit={props.onSearchSubmit}
                     onTextInput={props.onTextInput}
                     onFocus={props.onFocus}
                     textInputValue={props.textInputValue}
                     searchLocationInput={props.searchLocationInput}
+
                     priceValue={props.priceValue}
                     ratingValue={props.ratingValue}
                 />

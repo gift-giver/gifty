@@ -8,26 +8,26 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 import firebase from './firebase.js';
 // import styles
-import './App.css'; 
+import './App.css';
 
 
 class App extends Component {
-  constructor(){
-  super();
+  constructor() {
+    super();
     //mainSearchBar stores user query. resultInfo is the filtered data from the API, it's an array of objects.
     this.state = {
-        mainSearchBar: "",
-        resultInfo: [],
-        searchLocation: "Toronto",
-        price: "0",
-        rating: "0",
-        filteredResultInfo: [],
-        userChoice: '',
-        userList: [],
-        firebaseListId: ""
+      mainSearchBar: "",
+      resultInfo: [],
+      searchLocation: "Toronto",
+      price: "0",
+      rating: "0",
+      filteredResultInfo: [],
+      userChoice: '',
+      userList: [],
+      firebaseListId: ""
 
+    }
   }
-}
 
   componentDidMount() {
     // reference firebase list; reference structure: GuestList -> newUserCreatedList
@@ -39,7 +39,7 @@ class App extends Component {
 
       const data = response.val();
 
-      for(let key in data) {
+      for (let key in data) {
 
         returnedList.push({
           key: key,
@@ -122,7 +122,6 @@ class App extends Component {
           // attributes:"hot_and_new"
         }
       })
-      
       const listingResults = await listingSearch["data"]["businesses"];
 
       // filter out keys with a value of undefined; causes problems when pushing to firebase
@@ -153,9 +152,9 @@ class App extends Component {
     const filteredArray = infoArray.filter((item) => {
 
       return (
-        item.rating >= Number(this["state"]["rating"]) 
-          && item["price"] != undefined 
-          && item["price"].length >= Number(this["state"]["price"])
+        item.rating >= Number(this["state"]["rating"])
+        && item["price"] != undefined
+        && item["price"].length >= Number(this["state"]["price"])
       )
     })
 
@@ -191,8 +190,9 @@ class App extends Component {
 
   // remove selected item from firebase; firebase key used as id on button, accessed by event.target.id
   removeFromFirebase = (event) => {
-
+    
     const key = event["target"]["id"]
+    console.log(key)
     const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}/${key}`);
 
     dbRef.remove()
@@ -202,28 +202,32 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route path="/" exact render={() => { return (<LoginPage createNewFirebaseList={this.createNewFirebaseList}/>)}}/>
-          <Route path="/MainApp" render={() => { return (<MainApp 
+          <Route path="/" exact render={() => { return (<LoginPage createNewFirebaseList={this.createNewFirebaseList} />) }} />
+          <Route path="/MainApp" render={() => {
+            return (<MainApp
 
-            onSearchSubmit={this.handleSearchSubmit}
-            onTextInput={this.handleOnChangeEvents}
-            onFocus={this.onFocus}
-            textInputValue={this.state.mainSearchBar}
-            searchLocationInput={this.state.searchLocation}
-            priceValue={this.state.price}
-            ratingValue={this.state.rating}
-            itemInfo={this.state.filteredResultInfo}
-            ratingValue={this.state.rating}
-            pushToFirebase={this.pushToFirebase}/>)}}
+              onSearchSubmit={this.handleSearchSubmit}
+              onTextInput={this.handleOnChangeEvents}
+              onFocus={this.onFocus}
+              textInputValue={this.state.mainSearchBar}
+              searchLocationInput={this.state.searchLocation}
+              priceValue={this.state.price}
+              ratingValue={this.state.rating}
+              itemInfo={this.state.filteredResultInfo}
+              ratingValue={this.state.rating}
+              pushToFirebase={this.pushToFirebase} />)
+          }}
           />
 
-          <Route path="/MyList" render={() => { return (
-            <MyList 
-               userList={this.state.userList} 
-               removeFromFirebase={this.removeFromFirebase}/> 
-          )}}/>
-        
-       </div>
+          <Route path="/MyList" render={() => {
+            return (
+              <MyList
+                userList={this.state.userList}
+                removeFromFirebase={this.removeFromFirebase} />
+            )
+          }} />
+
+        </div>
       </Router>
     )
   }

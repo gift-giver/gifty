@@ -31,11 +31,12 @@ class Main extends Component {
 
   render() {
     return (
+
       <div className="mainContainer">
         <Link to="/MyList">See My List</Link>
         
         <section>
-          <ul className="galleryGrid">
+          <ul className="galleryGrid clearfix">
             {
               this.props.itemInfo.map((info) => {
                 return (

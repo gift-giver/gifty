@@ -5,9 +5,13 @@ const RandomSelectionModal = (props) => {
     console.log(props.randomChoice.name)
     return (
         <React.Fragment>
-            <h2>Try This!</h2>
-            <p>{props.randomChoice.name}</p>
-            <button onClick={props.randomizeSelection}>Try Again!</button>
+            <div className="backgroundBlur"></div>
+            <div className="itemModal">
+                <h2>Try This!</h2>
+                <img src={props.randomChoice.img_url} alt=""/>
+                <p>{props.randomChoice.name}</p>
+                <button onClick={props.randomizeSelection}>Try Again!</button>
+            </div>
 
         </React.Fragment>
     )

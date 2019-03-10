@@ -22,23 +22,36 @@ body {
 /* #B1D5Ef - Pale SUnflower Blue */
 /* #7D6EF5 - Medium slate blue*/
 
-ul {
-}
 
 li {
     width:23%;
-    height:400px;
-     
+    max-height:550px;
+    min-height: 550px;
     list-style:none;
     float:left;
-    margin: 10px;   
+    margin: 10px;
+    text-align:center;   
 }
 
-img {
+.itemInfoContainer h2 {
+    font-size: 20px;
+}
+
+.itemCardImage {
     display:block;
     width:100%;
     max-height: 250px;
     min-height: 250px
+}
+
+.logoContainer {
+    height: 100px;
+    width:51%;
+    margin:0 auto;
+}
+.logo {
+    height: 100%;
+    width:100%;
 }
 
 .mainContainer {
@@ -46,6 +59,17 @@ img {
 }
 
 .galleryGrid {
+    margin:0 auto;
+}
+
+/* ITEM DETAILS AND DETAILS MODAL STYLING */
+
+.itemDetailsContainer {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
 
 }
 
@@ -54,28 +78,33 @@ img {
     background-color:#B1D5Ef;
     width: 60%;
     text-align: center;
-    margin: 0 20%;
+    margin: 15% 20%;
     z-index: 100;
     padding: 1rem;
+    max-height: 50vh;
 }
 
-.itemModal img{
-    width: 50%;
+.itemDetailsImageContainer {
+    height: 46vh;
+    width:50%;
+    float:right;
+}
+.itemDetailsImageContainer img {
+    width: 100%;
     float:left;
+    height:100% ;
 }
 
 .modalInfoContainer {
-
+    width: 50%;
 }
 
 .closeModal {
     background-color:black;
-    border:white 1px solid;
     color:white;
     border-radius: 50%;
     position:relative;
     right:0;
-
 }
 
 .backgroundBlur {
@@ -87,7 +116,24 @@ img {
     right:0;
     bottom:0;
     left:0;
-    background-color:white;
+    background-color:#B1D5Ef;
     
     
+}
+
+/* MYLIST PAGE STYLES*/
+
+.myListDetailCard img{
+    width: 100%;
+}
+
+/* FOOTER STYLES */
+
+footer {
+    clear:both;
+    text-align:center;
+    padding:1px;
+    width: 100%;
+    background-color:#7D6EF5;
+
 }
