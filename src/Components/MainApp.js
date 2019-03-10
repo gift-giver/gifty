@@ -7,7 +7,7 @@ import Footer from './Footer.js';
 const MainApp = (props) => {
 
         return(
-            <React.Fragment className="MyResults">
+            <React.Fragment>
                  <Header
                     onSearchSubmit={props.onSearchSubmit}
                     onTextInput={props.onTextInput}

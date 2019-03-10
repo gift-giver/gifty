@@ -41,13 +41,7 @@ class MyList extends Component {
         })
     }
 
-//     {
-//     this.state.randomModalShow === true ? <RandomSelectionModal
-//         randomizeSelection={this.randomizeSelection}
-//         randomChoice={this.state.randomChoice}
-//         randomModalToggle={this.randomModalToggle} />
-//     : null
-// }
+
 
     render(){
         return (
@@ -57,8 +51,9 @@ class MyList extends Component {
                 <ul>
                     {
                         this.props.userList.map((listItem) => {
+                            console.log(listItem.title.image_url);
                             return (
-                                <li key={listItem.title.id}>
+                                <li key={listItem.title.id} className="myListDetailCard">
                                     <img src={listItem.title.image_url}/>
                                     <h2>{listItem.title.name}</h2>
                                     <p>{listItem.title.price}</p>
@@ -68,12 +63,16 @@ class MyList extends Component {
                         })
                     }
                 </ul>
+
+            {
+            this.state.randomModalShow === true ? <RandomSelectionModal
+                randomizeSelection={this.randomizeSelection}
+                randomChoice={this.state.randomChoice}
+                randomModalToggle={this.randomModalToggle} />
+            : null
+            }
                 
-                <RandomSelectionModal
-                    randomizeSelection={this.randomizeSelection}
-                    randomChoice={this.state.randomChoice}
-                    randomModalToggle={this.randomModalToggle} />
-                <Footer />
+            
 
             </React.Fragment>  
         )
