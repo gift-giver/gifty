@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import RandomSelectionModal from './RandomSelectionModal.js';
-import Footer from './Footer.js';
 import { Link } from 'react-router-dom';
 
 class MyList extends Component {
@@ -55,7 +54,7 @@ class MyList extends Component {
                             {/* console.log(this.state.randomChoice) */}
                             return (
                                 <li key={listItem.restaurantInfo.id} className="myListDetailCard">
-                                    <img src={listItem.restaurantInfo.image_url}/>
+                                    <img src={listItem.restaurantInfo.image_url} alt={listItem.restaurantInfo.name}/>
                                     <h2>{listItem.restaurantInfo.name}</h2>
                                     <p>{listItem.restaurantInfo.price}</p>
                                     <button onClick={(event) => this.props.removeFromFirebase(event)} id={listItem.key}>Remove</button>

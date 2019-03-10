@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-// import router
-import MainApp from './MainApp.js';
-import MyList from './MyList.js';
-import { BrowserRouter as Router, Route, Redirect, Link } 
-from 'react-router-dom';
-import firebase from './../firebase.js';
+import { Link } from 'react-router-dom';
 
 //  const provider = new firebase.auth.GoogleAuthProvider();
 //     const auth = firebase.auth();
