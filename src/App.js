@@ -5,7 +5,7 @@ import MyList from './Components/MyList.js';
 import LoginPage from './Components/LoginPage.js';
 import axios from 'axios';
 // import router
-import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import firebase from './firebase.js';
 // import styles
 import './App.css';
@@ -76,7 +76,7 @@ class App extends Component {
     //setting the state with the return from the axios call.
     this.setState({
 
-      resultInfo: data
+      resultInfo: filteredData
     })
   }
 
@@ -153,7 +153,7 @@ class App extends Component {
 
       return (
         item.rating >= Number(this["state"]["rating"])
-        && item["price"] != undefined
+        && item["price"] !== undefined
         && item["price"].length >= Number(this["state"]["price"])
       )
     })
@@ -213,7 +213,6 @@ class App extends Component {
               priceValue={this.state.price}
               ratingValue={this.state.rating}
               itemInfo={this.state.filteredResultInfo}
-              ratingValue={this.state.rating}
               pushToFirebase={this.pushToFirebase} />)
           }}
           />
