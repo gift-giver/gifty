@@ -16,7 +16,7 @@ class Header extends Component {
           priceValue={this.props.priceValue}
           ratingValue={this.props.ratingValue}
         />
-        <Link to="/MyList">See My List</Link>
+       
         
       </div>
     );

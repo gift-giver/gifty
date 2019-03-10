@@ -17,11 +17,39 @@ class MainApp extends Component {
             mainSearchBar: "",
             resultInfo: [],
             searchLocation: "Toronto",
+
             price: "0",
             rating: "0",
-            filteredResultInfo:[]
+            filteredResultInfo:[],
+
+            userChoice: '',
+            userList: []
+
         }
     }
+
+    async componentDidMount() {
+
+        const dbRef = await firebase.database().ref(`GuestList`);
+         dbRef.on('value', response => {
+            const newState = [];
+
+            const data = response.val();
+
+            for (let key in data) {
+                newState.push({
+                    key: key,
+                    title: data[key]
+                })
+            }
+
+            this.setState({
+                userList: newState
+            })
+
+        })
+    }
+
 
 
     componentDidUpdate(prevProps, prevState){
@@ -66,13 +94,14 @@ class MainApp extends Component {
     }
 
 
+
     userChoice = (e) => {
         this.setState({
             userChoice: e.target.value
         }, () => {
                 const placeChoice = this.state.data = this.state.data.filter(res => {
                     // return res.name === this.state.userChoice
-                    console.log(res);
+                
 
                 });
             })
@@ -112,17 +141,32 @@ class MainApp extends Component {
 
             //create an object with relevant data to push to state.
             const placeInfo = listingResults.map((place) => {
-                return {
-                    price: place.price,
-                    image: place.image_url,
-                    category: place.category,
-                    url: place.url,
-                    rating: place.rating,
-                    name: place.name,
-                    id: place.id,
-                    address: place.location.displayAddress
+           
+                let filteredResults = {};
+                
+                for (let key in place) {
+                    if (place[key] !== undefined) {
+                        filteredResults[key] = place[key];
+                    }
                 }
+                return (
+                    filteredResults
+                    // filteredResults = {
+                    //     price: place.price,
+                    //     image: place.image_url,
+                    //     category: place.category,
+                    //     url: place.url,
+                    //     rating: place.rating,
+                    //     name: place.name,
+                    //     id: place.id,
+                    //     address: place.location.displayAddress
+
+                    // }
+                )
+                
+
             })
+           
             return (placeInfo)
         }
         catch (error) {
@@ -145,6 +189,23 @@ class MainApp extends Component {
 
     };
 
+    pushToFirebase = (itemInfo) => {
+        console.log(itemInfo, 'this is it');
+        // const info = this.state.filteredResultInfo;
+
+        const dbRef = firebase.database().ref(`GuestList`);
+        dbRef.push(itemInfo);
+    }
+
+    removeFromFirebase = (event) => {
+        const key = event.target.id
+        const dbRef = firebase.database().ref(`GuestList/${key}`);
+        dbRef.remove()
+
+
+
+    }
+
     render(){
 
         return(
@@ -158,10 +219,20 @@ class MainApp extends Component {
                     priceValue={this.state.price}
                     ratingValue={this.state.rating}
                 />
+            
                 
                 <Main
                     itemInfo={this.state.filteredResultInfo}
                     ratingValue={this.state.rating}
+                    removeFromFirebase={this.removeFromFirebase}
+
+
+                    // recieveUserChoice={this.userChoice}
+                    // userChoice={this.state.userChoice}
+                    pushToFirebase={this.pushToFirebase}
+                    userList={this.state.userList}
+                   
+
                 />
                 <Footer />
             </div>
@@ -172,3 +243,21 @@ class MainApp extends Component {
 
 
 export default MainApp;
+
+// POTENTIAL ERROR HANDLING
+
+// const checkUserChoice = []
+        // if (checkUserChoice.includes(info) === false) {
+        //     checkUserChoice.push(info)
+        // } else {
+        //     console.log('You already have this')
+        // }
+
+        // const userChoice = []
+        // if (userChoice.length === 10) {
+        //     alert('you cant have more than 10!')
+        // } else {
+        //     userChoice.push(info);
+        // }
+
+        // console.log(userChoice);
