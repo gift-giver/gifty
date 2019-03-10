@@ -30,7 +30,7 @@ const MainApp = (props) => {
                     />
                 </main>
                 <Footer />
-            </div>
+            </React.Fragment>
         )
     }
 

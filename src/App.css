@@ -26,15 +26,16 @@ a {
 /* #7D6EF5 - Medium slate blue*/
 
 header {
-    height:15vh;
+    height:18vh;
     position:fixed;
     width:100%;
-    background-color: #B1D5Ef
+    background-color: #B1D5Ef;
+    z-index: 200;
 }
 
 main{
     min-height: 100vh;
-    padding-top: 15vh;
+    padding-top: 18vh;
 }
 
 li {

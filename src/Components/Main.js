@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ItemCard from './ItemCard.js';
 import ItemDetails from './ItemDetails.js';
-import {Link } from 'react-router-dom';
+
 
 class Main extends Component {
 
@@ -33,7 +33,7 @@ class Main extends Component {
     return (
 
       <div className="mainContainer">
-        <Link to="/MyList">See My List</Link>
+        
         
         <section>
           <ul className="galleryGrid clearfix">
