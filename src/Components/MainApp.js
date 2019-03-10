@@ -6,6 +6,7 @@ import Footer from './Footer.js';
 
 
 const MainApp = (props) => {
+
         return (
             <React.Fragment>
                 <header>
@@ -21,6 +22,7 @@ const MainApp = (props) => {
                         />
                 </header>
                 <main>
+
                 <Main
                     itemInfo={props.itemInfo}
                     ratingValue={props.ratingValue}
@@ -28,7 +30,7 @@ const MainApp = (props) => {
                     />
                 </main>
                 <Footer />
-            </React.Fragment>
+            </div>
         )
     }
 
