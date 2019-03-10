@@ -132,14 +132,15 @@ class MainApp extends Component {
     render(){
 
         return(
-            <div className="gifty-app">
-                <Header
-                    onSearchSubmit={this.handleSearchSubmit}
-                    onTextInput={this.handleTextInput}
-                    onFocus={this.onFocus}
-                    textInputValue={this.state.mainSearchBar}
-                    searchLocationInput={this.state.searchLocation}
-           
+
+            <React.Fragment>
+                 <Header
+                    onSearchSubmit={props.onSearchSubmit}
+                    onTextInput={props.onTextInput}
+                    onFocus={props.onFocus}
+                    textInputValue={props.textInputValue}
+                    searchLocationInput={props.searchLocationInput}
+
                     priceValue={props.priceValue}
                     ratingValue={props.ratingValue}
                 />
