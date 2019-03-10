@@ -45,13 +45,14 @@ class MyList extends Component {
 
     render(){
         return (
-            <React.Fragment>
+            <div className='myListMain'>
                 <button onClick={this.randomizeSelection}>Feeling Lucky??</button> 
-                <Link to="/MainApp">Search again!</Link>
+                <Link to="/MainApp" className="mainSearchLink">Search again!</Link>
                 <ul>
                     {
                         this.props.userList.map((listItem) => {
                             console.log(listItem.restaurantInfo.image_url);
+                            {/* console.log(this.state.randomChoice) */}
                             return (
                                 <li key={listItem.restaurantInfo.id} className="myListDetailCard">
                                     <img src={listItem.restaurantInfo.image_url}/>
@@ -64,17 +65,14 @@ class MyList extends Component {
                     }
                 </ul>
 
-            {
-            this.state.randomModalShow === true ? <RandomSelectionModal
-                randomizeSelection={this.randomizeSelection}
-                randomChoice={this.state.randomChoice}
-                randomModalToggle={this.randomModalToggle} />
-            : null
-            }
-                
-            
-
-            </React.Fragment>  
+                {
+                this.state.randomModalShow === true ? <RandomSelectionModal
+                    randomizeSelection={this.randomizeSelection}
+                    randomChoice={this.state.randomChoice}
+                    randomModalToggle={this.randomModalToggle} />
+                : null
+                }
+            </div>  
         )
     }
 }

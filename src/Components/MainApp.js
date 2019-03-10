@@ -22,6 +22,7 @@ const MainApp = (props) => {
                         />
                 </header>
                 <main>
+                    
 
                 <Main
                     itemInfo={props.itemInfo}
