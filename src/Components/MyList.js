@@ -58,10 +58,10 @@ class MyList extends Component {
                     {
                         this.props.userList.map((listItem) => {
                             return (
-                                <li key={listItem.title.id}>
-                                    <img src={listItem.title.image_url}/>
-                                    <h2>{listItem.title.name}</h2>
-                                    <p>{listItem.title.price}</p>
+                                <li key={listItem.restaurantInfo.id}>
+                                    <img src={listItem.restaurantInfo.image_url}/>
+                                    <h2>{listItem.restaurantInfo.name}</h2>
+                                    <p>{listItem.restaurantInfo.price}</p>
                                     <button onClick={(event) => this.props.removeFromFirebase(event)} id={listItem.key}>Remove</button>
                                 </li>
                             )
