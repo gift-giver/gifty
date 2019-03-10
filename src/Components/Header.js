@@ -1,10 +1,12 @@
 import React from 'react';
 import SearchBar from './SearchBar.js';
+import {Link } from 'react-router-dom';
 
 
 const Header = (props) => {
     return (
       <React.Fragment>
+        <Link to="/MyList">See My List</Link>
         <SearchBar 
           onFocus={props.onFocus}
           onSearchSubmit={props.onSearchSubmit}
