@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component} from 'react';
 import Header from './Header';
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -6,6 +6,7 @@ import Footer from './Footer.js';
 
 
 const MainApp = (props) => {
+
 
         return(
 
@@ -29,7 +30,8 @@ const MainApp = (props) => {
                 <Footer />
             </div>
         )
-}
+    }
+
 
 export default MainApp;
 
