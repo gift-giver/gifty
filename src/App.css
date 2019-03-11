@@ -31,6 +31,7 @@ header {
     width:100%;
     background-color: #B1D5Ef;
     z-index: 200;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.51);
 }
 
 main{
@@ -56,13 +57,13 @@ main{
 
 .loginForm {
     text-align:center;
-    width:50%;
-    height: 30vh;
-    border: black 1px solid;
+    width:40%;
+    height: 40vh;
+    border: black 4px solid;
     margin: 0 auto;
-    margin-top: 35vh;
+    margin-top: 30vh;
     padding: 2rem;
-    background-color:#281565;
+    background-color: rgba(40, 21, 101, 0.89957981483609073);
     
 }
 .loginForm label{
@@ -77,6 +78,9 @@ main{
     display:block;
     margin: 20px auto;
     text-align:center;
+    background:transparent;
+    border:none;
+    border-bottom:white 2px solid;
 }
 
 .loginForm a {
@@ -91,7 +95,8 @@ main{
 
 /* LINKS */
 .myListLinkMain,
-.mainSearchLink {
+.mainSearchLink,
+.formSubmitLink {
     text-decoration: none;
     color: black;
     background-color: #7D6EF5;
@@ -106,9 +111,63 @@ main{
 .myListLinkMain:hover,
 .myListLinkMain:focus,
 .mainSearchLink:hover,
-.mainSearchLink:focus {
+.mainSearchLink:focus,
+.formSubmitLink:hover,
+.formSubmitLink:focus {
     background-color:white;
     color:black;
+}
+
+/* SEARCH FORM STYLES */
+fieldset {
+    border:none;
+}
+
+fieldset label {
+    margin-left: 10px;
+}
+
+fieldset input {
+    padding: 10px;
+}
+
+button[type='submit'] {
+    background:transparent;
+    margin-top:10px;
+    padding: 5px;   
+    border:none;
+    background-color:#281565;
+    color:white;
+}
+
+#searchLocation,
+#mainSearchBar {
+    background:transparent;
+    border:none;    
+    border-bottom: 2px solid #281565;
+
+}
+
+#searchLocation:hover,
+#searchLocation:focus,
+#mainSearchBar:hover,
+#mainSearchBar:focus {
+    
+}
+
+.locationFilter,
+.ratingFilter,
+.priceFilter,
+.keywordSearch{
+    width:100%;
+
+}
+
+.searchBarLeft,
+.searchBarRight {
+    float:left;
+    width:50%;
+    text-align:center;
 }
 
 
@@ -203,6 +262,8 @@ li {
     position:relative;
     right:0;
 }
+
+
 
 .backgroundBlur {
     opacity: .6;

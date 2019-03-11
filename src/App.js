@@ -111,7 +111,7 @@ class App extends Component {
           limit: 20,
           location: locationQuery,
           term: userQuery,
-          categories: 'food, All',
+          categories: 'restaurants, All',
           open_now: true,
           image_url: true
 
@@ -121,6 +121,7 @@ class App extends Component {
           // attributes:"hot_and_new"
         }
       })
+      console.log(userQuery);
       const listingResults = await listingSearch["data"]["businesses"];
 
       // filter out keys with a value of undefined; causes problems when pushing to firebase

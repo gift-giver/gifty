@@ -27,7 +27,7 @@ class LoginPage extends Component {
             <form className='loginForm'>
                 <label htmlFor="listName">Who do you want to take out for dinner? </label>
                 <input type="text" id="listName" placeholder="enter your guest's name"/>
-                    <Link onClick={this.props.createNewFirebaseList} to="/MainApp">Find the perfect spot to dine</Link>
+                    <Link onClick={this.props.createNewFirebaseList} to="/MainApp" className="formSubmitLink">Find the perfect spot to dine</Link>
 
                 
                 </form>
