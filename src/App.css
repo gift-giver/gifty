@@ -26,7 +26,7 @@ a {
 /* #7D6EF5 - Medium slate blue*/
 
 header {
-    height:18vh;
+    height:20vh;
     position:fixed;
     width:100%;
     background-color: #B1D5Ef;
@@ -34,14 +34,16 @@ header {
 }
 
 main{
-    min-height: 100vh;
-    padding-top: 18vh;
+    height: 90vh;
+    padding-top: 20vh;
     background-image: linear-gradient(90deg, rgba(40, 21, 101, 0.49957981483609073) 20%, rgba(125, 110, 245, 0.475210066936931) 70%, rgba(177, 213, 239, 0.4387955011106005) 100%),
     url('./assets/food-salad-restaurant-person.jpg');
     background-size:cover;
     background-repeat:no-repeat;
+    text-align:center;
 }
 
+/* LOGIN STYLES */
 .mainLogin {
     height: 100vh;
     width: 100%;
@@ -87,7 +89,8 @@ main{
     padding: 20px;
 }
 
-.myListLink,
+/* LINKS */
+.myListLinkMain,
 .mainSearchLink {
     text-decoration: none;
     color: black;
@@ -100,8 +103,8 @@ main{
       
 }
 
-.myListLink:hover,
-.myListLink:focus,
+.myListLinkMain:hover,
+.myListLinkMain:focus,
 .mainSearchLink:hover,
 .mainSearchLink:focus {
     background-color:white;
@@ -109,7 +112,7 @@ main{
 }
 
 
-
+/* CARDS */
 li {
     width:30%;
     max-height:550px;
@@ -217,9 +220,14 @@ li {
 
 /* MYLIST PAGE STYLES*/
 
+.myListHeader h2{
+    width: 50%;
+}
+
 .myListMain {
     background-color:#281565;
     height: 100vh;
+    padding-top:2rem;
 }
 
 .myListDetailCard img{
@@ -233,6 +241,7 @@ footer {
     text-align:center;
     padding:1px;
     width: 100%;
+    height:10vh;
     background-color:#7D6EF5;
 
 }

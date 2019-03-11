@@ -21,9 +21,9 @@ const MainApp = (props) => {
                         ratingValue={props.ratingValue}
                         />
                 </header>
+                
                 <main>
                     
-
                 <Main
                     itemInfo={props.itemInfo}
                     ratingValue={props.ratingValue}

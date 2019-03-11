@@ -46,34 +46,39 @@ class MyList extends Component {
 
     render(){
         return (
-            <div className='myListMain'>
-                <button onClick={this.randomizeSelection}>Feeling Lucky??</button> 
-                <Link to="/MainApp" className="mainSearchLink">Search again!</Link>
-                <ul>
-                    {
-                        this.props.userList.map((listItem) => {
-                            console.log(listItem.restaurantInfo.image_url);
-                            {/* console.log(this.state.randomChoice) */}
-                            return (
-                                <li key={listItem.restaurantInfo.id} className="myListDetailCard">
-                                    <img src={listItem.restaurantInfo.image_url}/>
-                                    <h2>{listItem.restaurantInfo.name}</h2>
-                                    <p>{listItem.restaurantInfo.price}</p>
-                                    <button onClick={(event) => this.props.removeFromFirebase(event)} id={listItem.key}>Remove</button>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
+            <React.Fragment>
+                <div className="myListHeader">
+                    <h2>List Name Goes Here!</h2>
+                    <Link to="/MainApp" className="mainSearchLink">Search again!</Link>
+                </div>
+                <div className='myListMain'>
+                    <button onClick={this.randomizeSelection}>Feeling Lucky??</button> 
+                    <ul>
+                        {
+                            this.props.userList.map((listItem) => {
+                                console.log(listItem.restaurantInfo.image_url);
+                                {/* console.log(this.state.randomChoice) */}
+                                return (
+                                    <li key={listItem.restaurantInfo.id} className="myListDetailCard">
+                                        <img src={listItem.restaurantInfo.image_url}/>
+                                        <h2>{listItem.restaurantInfo.name}</h2>
+                                        <p>{listItem.restaurantInfo.price}</p>
+                                        <button onClick={(event) => this.props.removeFromFirebase(event)} id={listItem.key}>Remove</button>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
 
-                {
-                this.state.randomModalShow === true ? <RandomSelectionModal
-                    randomizeSelection={this.randomizeSelection}
-                    randomChoice={this.state.randomChoice}
-                    randomModalToggle={this.randomModalToggle} />
-                : null
-                }
-            </div>  
+                    {
+                    this.state.randomModalShow === true ? <RandomSelectionModal
+                        randomizeSelection={this.randomizeSelection}
+                        randomChoice={this.state.randomChoice}
+                        randomModalToggle={this.randomModalToggle} />
+                    : null
+                    }
+                    </div>  
+            </React.Fragment>
         )
     }
 }
