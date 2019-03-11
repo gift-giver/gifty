@@ -79,6 +79,9 @@ class App extends Component {
       resultInfo: data
 
     })
+    if (data.length === 0) {
+      alert("there are no results for this search" );
+    }
   }
 
   onFocus = (event) => {

@@ -12,6 +12,7 @@ import oneStar from "./../assets/1.png";
 import zeroStar from "./../assets/0.png";
 
 const ItemCard = (props) => {
+    // const rating = props.itemInfo.rating
     return (
         <React.Fragment>
             <img src={props.itemInfo.image_url} alt={props.name} className="itemCardImage" />
