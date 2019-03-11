@@ -75,8 +75,9 @@ class MyList extends Component {
         return (
             <React.Fragment>
                 <div className="myListHeader">
-                    <h2>List Name Goes Here!</h2>
+                    <h2>Spec-taco-lar Eats with {this.props.userName}</h2>
                     <Link to="/MainApp" className="mainSearchLink">Search again!</Link>
+                    <button onClick={this.props.removeFullListFromFirebase}>Remove this entire list</button>
                 </div>
                 <div className='myListMain'>
                     <button onClick={this.randomizeSelection}>Feeling Lucky??</button> 
