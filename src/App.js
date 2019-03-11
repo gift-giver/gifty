@@ -27,37 +27,37 @@ class App extends Component {
       firebaseListId: ""
 
     }
-  }
+  } 
 
   componentDidMount() {
     // reference firebase list; reference structure: GuestList -> newUserCreatedList
     const dbRef = firebase.database().ref(`GuestList/${this.state.firebaseListId}`);
 
     dbRef.on('value', response => {
-
+      // create a new array for items from firebase to be pushed to
       const returnedList = [];
-
+      // a vraible that holds the info returned from firebase
       const data = response.val();
-
+      // 2 for..in loops are required to access the info we have nested; 
+      //push values to new array, key for quick reference when deleting and restaurnat data used for display in MyLIst
       for (let key in data) {
-
-        returnedList.push({
-          key: key,
-          restaurantInfo: data[key]
-        })
+        for(let key2 in data[key]){
+          returnedList.push({
+            key: key2,
+            restaurantInfo: data[key][key2]
+          })
+        }
       }
-
+      // set state with newly created array of firbase returned items; used to display list content in MyList
       this.setState({
         userList: returnedList
       })
-
     })
   }
 
   componentDidUpdate(prevProps, prevState) {
     // if prevState.rating or prevState.price isn't equal to what was specified by user: run this function
     if (prevState.rating !== this.state.rating || prevState.price !== this.state.price) {
-
       this.filterByRating(this.state.resultInfo);
     }
   }
@@ -67,20 +67,17 @@ class App extends Component {
   handleSearchSubmit = async (event) => {
 
     event.preventDefault();
-
     //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
     const data = await this.getSearchData(this.state.mainSearchBar, this.state.searchLocation);
-
     // taking data from the axios call to be filtered
-     this.filterByRating(data)
+    this.filterByRating(data)
     //setting the state with the return from the axios call.
     this.setState({
-
       resultInfo: data
-
     })
   }
 
+  // on focus of text inputs, clear input value
   onFocus = (event) => {
 
     this.setState({

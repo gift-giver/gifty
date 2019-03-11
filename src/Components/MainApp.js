@@ -16,20 +16,19 @@ const MainApp = (props) => {
                         onFocus={props.onFocus}
                         textInputValue={props.textInputValue}
                         searchLocationInput={props.searchLocationInput}
-
                         priceValue={props.priceValue}
                         ratingValue={props.ratingValue}
-                        />
+                    />
                 </header>
-                <main>
-                    
 
-                <Main
-                    itemInfo={props.itemInfo}
-                    ratingValue={props.ratingValue}
-                    pushToFirebase={props.pushToFirebase}
+                <main>
+                    <Main
+                        itemInfo={props.itemInfo}
+                        ratingValue={props.ratingValue}
+                        pushToFirebase={props.pushToFirebase}
                     />
                 </main>
+
                 <Footer />
             </React.Fragment>
         )

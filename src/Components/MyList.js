@@ -58,10 +58,9 @@ class MyList extends Component {
                  </div>
                 
                 <ul>
-                    {
+                    {   
                         this.props.userList.map((listItem) => {
-                            // console.log(listItem.restaurantInfo.image_url);
-                            {/* console.log(this.state.randomChoice) */}
+                            console.log(listItem)
                             return (
                                 <li key={listItem.restaurantInfo.id} className="myListDetailCard">
                                     <img src={listItem.restaurantInfo.image_url} alt={listItem.restaurantInfo.name}/>
