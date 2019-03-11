@@ -26,6 +26,9 @@ const MainApp = (props) => {
                         itemInfo={props.itemInfo}
                         ratingValue={props.ratingValue}
                         pushToFirebase={props.pushToFirebase}
+
+                        modalContentData={props.modalContentData}
+                        modalContentIsHidden={props.modalContentIsHidden}
                     />
                 </main>
 

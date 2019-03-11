@@ -22,7 +22,9 @@ class LoginPage extends Component {
 
         return(
             <div className="mainLogin">
-                <form className="loginForm clearfix">
+                <form className="loginForm clearfix" 
+                    
+                >
                     <label className="listNameLabel"htmlFor="listName">Name Your Guest? </label>
                     <input type="text" id="listName" placeholder="guest's name"
                     onChange={this.props.onChangeEvent}
@@ -30,9 +32,10 @@ class LoginPage extends Component {
                     name='userName'    
                     />
                     
-                        <Link className="linkToMainApp" to="/MainApp"
+                    <Link className="linkToMainApp" to="/MainApp"
                         onClick={(event) => this.props.createNewFirebaseList(event)}
-                        className="linkToMainApp">Lettuce Eat!</Link>
+
+                    className="linkToMainApp">Lettuce Eat!</Link>
                     
                 </form>
             </div>
@@ -42,7 +45,10 @@ class LoginPage extends Component {
     }
 }
 
-export default LoginPage
+// handleNewListClick = { this.handleNewListClick }
+// handleNewListKeyPress = { this.handleNewListKeyPress }
+
+export default LoginPage;
 
 // {
 //                 this.state.loggedIn === false ?
