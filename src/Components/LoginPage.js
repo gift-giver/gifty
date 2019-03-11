@@ -23,14 +23,15 @@ class LoginPage extends Component {
     render(){
 
         return(
+        <div className="mainLogin">
+            <form className='loginForm'>
+                <label htmlFor="listName">Who do you want to take out for dinner? </label>
+                <input type="text" id="listName" placeholder="enter your guest's name"/>
+                    <Link onClick={this.props.createNewFirebaseList} to="/MainApp">Find the perfect spot to dine</Link>
 
-        <form >
-            <label htmlFor="listName">Who do you want to take out for dinner? </label>
-            <input type="text" id="listName" placeholder="enter your guest's name"/>
-                <Link onClick={this.props.createNewFirebaseList} to="/MainApp">Find the perfect spot to dine</Link>
-
-            
-        </form>
+                
+                </form>
+        </div>
 
            
         )

@@ -21,17 +21,18 @@ class MyList extends Component {
         const randomNumber = this.getRanNum()
         // get random number based on length of array myList
         if (randomNumber !== this.state.randomNumber) {
-
+            
             // select piece from that list using index
-            const randomChoice = this.props.userList[randomNumber].title;
+            const randomChoice = this.props.userList[randomNumber]
             // place info in modal that pops up on screen
-
+            console.log(this.props.userList);
             this.setState({
                 randomNumber: randomNumber,
                 randomChoice: randomChoice,
                 randomModalShow: true
             })
         } else { this.randomizeSelection() };
+      
     }
 
     randomModalToggle = () => {
