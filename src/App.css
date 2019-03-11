@@ -21,12 +21,20 @@ a {
     text-decoration:none;
 }
 
+/* remove default padding */
+
+h1,
+h2,
+section {
+    padding: 0;
+    margin: 0;
+}
 /* #281565 - Midnight Blue */
 /* #B1D5Ef - Pale SUnflower Blue */
 /* #7D6EF5 - Medium slate blue*/
 
 header {
-    height:18vh;
+    height: 20vh;
     position:fixed;
     width:100%;
     background-color: #B1D5Ef;
@@ -34,8 +42,8 @@ header {
 }
 
 main{
-    min-height: 100vh;
-    padding-top: 18vh;
+    height: 90vh;
+    padding-top: 20vh;
     background-image: linear-gradient(90deg, rgba(40, 21, 101, 0.49957981483609073) 20%, rgba(125, 110, 245, 0.475210066936931) 70%, rgba(177, 213, 239, 0.4387955011106005) 100%),
     url('./assets/food-salad-restaurant-person.jpg');
     background-size:cover;
@@ -183,6 +191,14 @@ li {
     width: 100%;
 }
 
+.randomSelectionContainer {
+    padding-top: 20px;
+}
+
+.myListMainHeader {
+    margin-bottom: 100px;
+}
+
 /* FOOTER STYLES */
 
 footer {
@@ -191,5 +207,7 @@ footer {
     padding:1px;
     width: 100%;
     background-color:#7D6EF5;
+    height: 10vh;
+    margin: 0;
 
 }
