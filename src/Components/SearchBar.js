@@ -16,10 +16,10 @@ const SearchBar = (props) => {
                         type="text" 
                         id="mainSearchBar"
                         placeholder="Search Items" 
-                        name="mainSearchBar"
-                        onFocus={(event) => props.onFocus(event)}
-                        onChange={(event) => props.onTextInput(event)}
-                        value={props.textInputValue}
+                        name="cuisineTextInput"
+                        onFocus={(event) => props.onFocusEvent(event)}
+                        onChange={(event) => props.onChangeEvent(event)}
+                        value={props.cuisineTextInputValue}
                         required
                     >
                     </input>
@@ -27,7 +27,7 @@ const SearchBar = (props) => {
 
                 <div className="priceFilter">
                     <label htmlFor="priceSearch">Price level</label>
-                    <select name="price" id="priceSearch" value={props.priceValue} onChange={(event) => props.onTextInput(event)}>
+                    <select name="price" id="priceSearch" value={props.priceValue} onChange={(event) => props.onChangeEvent(event)}>
                         <option value="0">--</option>
                         <option value="1">$</option>
                         <option value="2">$$</option>
@@ -39,7 +39,7 @@ const SearchBar = (props) => {
                 <section className="searchBarRight">
                 <div className="ratingFilter">
                     <label htmlFor="ratingSearch"></label>
-                    <select name="rating" id="ratingSearch" value={props.ratingValue} onChange={(event) => props.onTextInput(event)}>
+                    <select name="rating" id="ratingSearch" value={props.ratingValue} onChange={(event) => props.onChangeEvent(event)}>
                         <option value="0">0 star</option>                   
                         <option value="1">1 star</option>
                         <option value="1.5">1.5 star</option>
@@ -58,11 +58,11 @@ const SearchBar = (props) => {
                     <input 
                         type="text"
                         placeholder="Search City"
-                        onFocus={(event) => props.onFocus(event)}
-                        onChange={(event) => props.onTextInput(event)}
-                        value={props.searchLocationInput}
-                        name="searchLocation"
-                        id="searchLocation"
+                        onFocus={(event) => props.onFocusEvent(event)}
+                        onChange={(event) => props.onChangeEvent(event)}
+                        value={props.locationTextInputValue}
+                        name="locationTextInput"
+                        id="locationSearch"
                     />
                     <button type="submit">Search</button>
                     </div>
@@ -75,3 +75,4 @@ const SearchBar = (props) => {
 }
 
 export default SearchBar;
+
