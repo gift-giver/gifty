@@ -30,11 +30,9 @@ class LoginPage extends Component {
                     name='userName'    
                     />
                     
-                        <Link className="linkToMainApp" to="/MainApp"
+                    <Link className="linkToMainApp" to="/MainApp"
                         onClick={(event) => this.props.createNewFirebaseList(event)}
-                        className="linkToMainApp">
-                        
-                        
+                        className="linkToMainApp">Lettuce Eat!
                     </Link>
                     
                 </form>
