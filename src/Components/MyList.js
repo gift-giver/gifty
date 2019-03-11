@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import RandomSelectionModal from './RandomSelectionModal.js';
-import Footer from './Footer.js';
 import { Link } from 'react-router-dom';
 import logo from './../assets/Yelp_trademark_RGB_outline.png';
 import fiveStar from "./../assets/5.png";
@@ -20,8 +19,16 @@ class MyList extends Component {
         this.state = {
             randomNumber: null,
             randomChoice: '',
-            randomModalShow: false
+            randomModalShow: false,
+            modalRandData: {},
         }
+    }
+
+    onRandModalClose = () => {
+        this.setState({
+            modalRandData: {},
+            randomModalShow: false
+        })
     }
 
     getRanNum = () => {
@@ -34,9 +41,10 @@ class MyList extends Component {
         if (randomNumber !== this.state.randomNumber) {
             
             // select piece from that list using index
-            const randomChoice = this.props.userList[randomNumber]
+            const randomChoice = this.props.userList[randomNumber].restaurantInfo;
             // place info in modal that pops up on screen
-            console.log(this.props.userList);
+            // console.log(randomChoice)
+            // console.log(this.props.userList)
             this.setState({
                 randomNumber: randomNumber,
                 randomChoice: randomChoice,
@@ -52,8 +60,6 @@ class MyList extends Component {
             randomModalShow: !this.state.randomModalShow
         })
     }
-
-
 
     render(){
         return (

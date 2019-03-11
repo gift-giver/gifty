@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-// import router
-import MainApp from './MainApp.js';
-import MyList from './MyList.js';
-import { BrowserRouter as Router, Route, Redirect, Link } 
-from 'react-router-dom';
-import firebase from './../firebase.js';
+import { Link, NavLink} from 'react-router-dom';
 
 //  const provider = new firebase.auth.GoogleAuthProvider();
+
+//TODO: firebase auth method to check everytime what login you would like to use for users with more then one login
+// provider.setCustomParameters({
+//     prompt: "select_account"    // force google to ask which account to use
+// })
+
 //     const auth = firebase.auth();
 
 class LoginPage extends Component {
@@ -16,22 +17,17 @@ class LoginPage extends Component {
 
         }
     }
-    
-    
-
 
     render(){
 
         return(
-        <div className="mainLogin">
-            <form className='loginForm'>
-                <label htmlFor="listName">Who do you want to take out for dinner? </label>
-                <input type="text" id="listName" placeholder="enter your guest's name"/>
-                    <Link onClick={this.props.createNewFirebaseList} to="/MainApp" className="formSubmitLink">Find the perfect spot to dine</Link>
-
-                
+            <div className="mainLogin">
+                <form className="loginForm clearfix">
+                    <label className="listNameLabel"htmlFor="listName">Name Your Guest? </label>
+                    <input type="text" id="listName" placeholder="guest's name"/>
+                        <Link className="linkToMainApp"onClick={this.props.createNewFirebaseList} to="/MainApp">Lettuce Eat!</Link>
                 </form>
-        </div>
+            </div>
 
            
         )

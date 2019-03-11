@@ -12,14 +12,15 @@ import oneStar from "./../assets/1.png";
 import zeroStar from "./../assets/0.png";
 
 const ItemCard = (props) => {
+    // const rating = props.itemInfo.rating
     return (
         <React.Fragment>
-            <img src={props.itemInfo.image_url} className="itemCardImage" />
+            <img src={props.itemInfo.image_url} alt={props.name} className="itemCardImage" />
             <div className="itemInfoContainer">
              <h2>{props.itemInfo.name}</h2>
              <p>{props.itemInfo.price}</p>
              <div className="logoContainer">
-                <a href={props.itemInfo.url} target="_blank"> <img src={logo} alt="Yelp Logo" className="logo" /></a>
+                    <a href={props.itemInfo.url} target="_blank" rel="noopener noreferrer"> <img src={logo} alt="Yelp Logo" className="logo" /></a>
             </div>
             {
                 props.itemInfo.rating === 5 &&
