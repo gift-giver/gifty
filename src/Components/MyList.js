@@ -20,13 +20,24 @@ class MyList extends Component {
         })
     }
 
-    getRanNum = () => {
+    getRandomNumber = () => {
+
         return Math.floor(Math.random() * this.props.userList.length)
     }
 
+    // triggered by the inital randomize button click; checks userList length for a length greater than 1
     randomizeSelection = () => {
-        const randomNumber = this.getRanNum()
+
+        this.props.userList.length > 1 ? this.getRandomSelection() : alert("There must be more than 1 item in your list to receive a suggestion")
         // get random number based on length of array myList
+        // user list must have more than 1 item in it to work
+    }
+
+    // called if userList has a length greater than 1 or triggered by the try again button, returns a random selection from userList
+    getRandomSelection = () => {
+
+        const randomNumber = this.getRandonNumber()
+
         if (randomNumber !== this.state.randomNumber) {
 
             // select piece from that list using index
@@ -39,7 +50,7 @@ class MyList extends Component {
                 randomChoice: randomChoice,
                 randomModalShow: true
             })
-        } else { this.randomizeSelection() };
+        } else { this.getRandomSelection() };
     }
 
     randomModalToggle = () => {
@@ -60,7 +71,7 @@ class MyList extends Component {
                 <ul>
                     {   
                         this.props.userList.map((listItem) => {
-                            console.log(listItem)
+                            
                             return (
                                 <li key={listItem.restaurantInfo.id} className="myListDetailCard">
                                     <img src={listItem.restaurantInfo.image_url} alt={listItem.restaurantInfo.name}/>
@@ -77,6 +88,7 @@ class MyList extends Component {
                 this.state.randomModalShow === true ? 
                 <RandomSelectionModal
                     randomizeSelection={this.randomizeSelection}
+                    getRandomSelection={this.getRandomSelection}
                     randomChoice={this.state.randomChoice}
                     randomModalToggle={this.randomModalToggle} 
                     onRandModalClose = {this.onRandModalClose}

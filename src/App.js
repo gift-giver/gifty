@@ -16,16 +16,15 @@ class App extends Component {
     super();
     //mainSearchBar stores user query. resultInfo is the filtered data from the API, it's an array of objects.
     this.state = {
-      mainSearchBar: "",
-      resultInfo: [],
-      searchLocation: "Toronto",
+      firebaseListId: "",
+      cuisineTextInput: "",
+      locationTextInput: "Toronto",
       price: "0",
       rating: "0",
+      resultInfo: [],
       filteredResultInfo: [],
-      userChoice: '',
       userList: [],
-      firebaseListId: ""
-
+      userChoice: ''
     }
   } 
 
@@ -41,6 +40,7 @@ class App extends Component {
       // 2 for..in loops are required to access the info we have nested; 
       //push values to new array, key for quick reference when deleting and restaurnat data used for display in MyLIst
       for (let key in data) {
+        
         for(let key2 in data[key]){
           returnedList.push({
             key: key2,
@@ -68,7 +68,7 @@ class App extends Component {
 
     event.preventDefault();
     //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
-    const data = await this.getSearchData(this.state.mainSearchBar, this.state.searchLocation);
+    const data = await this.getSearchData(this.state.cuisineTextInput, this.state.locationTextInput);
     // taking data from the axios call to be filtered
     this.filterByRating(data)
     //setting the state with the return from the axios call.
@@ -78,8 +78,8 @@ class App extends Component {
   }
 
   // on focus of text inputs, clear input value
-  onFocus = (event) => {
-
+  handleFocusEvent = (event) => {
+    
     this.setState({
       [event.target.name]: ""
     })
@@ -169,7 +169,9 @@ class App extends Component {
     // reference firebase object in which all  guest lists will live
     const dbRef = firebase.database().ref(`GuestList`);
     // new firebase list will live inside an object, reference by firebase provided key
-    const newFirebaseList = {}
+    const newFirebaseList = {
+      listName: ""
+    }
     // push new list to firebase reference, hold created firebase reference key for that object in variable firebaseKey
     const firebaseKey = dbRef.push(newFirebaseList)
     // set state with current firebaseKey; allows session to save to one list which is later deletable
@@ -181,9 +183,16 @@ class App extends Component {
   // push item to firebase 
   pushToFirebase = (itemInfo) => {
 
-    const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
+    if(this.state.userList.length <= 10){
+      
+      const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
+  
+      dbRef.push(itemInfo);
 
-    dbRef.push(itemInfo);
+    } else {
+      alert("You may only have 10 items in your list, please remove one to add a new item")
+    }
+
   }
 
   // remove selected item from firebase; firebase key used as id on button, accessed by event.target.id
@@ -200,26 +209,28 @@ class App extends Component {
       <Router>
         <div>
           <Route path="/" exact render={() => { return (<LoginPage createNewFirebaseList={this.createNewFirebaseList} />) }} />
+
           <Route path="/MainApp" render={() => {
-            return (<MainApp
-
-              onSearchSubmit={this.handleSearchSubmit}
-              onTextInput={this.handleOnChangeEvents}
-              onFocus={this.onFocus}
-              textInputValue={this.state.mainSearchBar}
-              searchLocationInput={this.state.searchLocation}
-              priceValue={this.state.price}
-              ratingValue={this.state.rating}
-              itemInfo={this.state.filteredResultInfo}
-              pushToFirebase={this.pushToFirebase} />)
-          }}
-          />
-
+            return (
+              <MainApp
+                onSearchSubmit={this.handleSearchSubmit}
+                onChangeEvent={this.handleOnChangeEvents}
+                onFocusEvent={this.handleFocusEvent}
+                cuisineTextInputValue={this.state.cuisineTextInput}
+                locationTextInputValue={this.state.locationTextInput}
+                priceValue={this.state.price}
+                ratingValue={this.state.rating}
+                itemInfo={this.state.filteredResultInfo}
+                pushToFirebase={this.pushToFirebase} 
+              />)
+          }} />
+          
           <Route path="/MyList" render={() => {
             return (
               <MyList
                 userList={this.state.userList}
-                removeFromFirebase={this.removeFromFirebase} />
+                removeFromFirebase={this.removeFromFirebase} 
+              />
             )
           }} />
 
