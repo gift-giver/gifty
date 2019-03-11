@@ -56,7 +56,11 @@ class Main extends Component {
             {this.state.modalIsHidden === false ? <ItemDetails
               itemInfo={this.state.modalData}
               pushToFirebase={this.props.pushToFirebase}
-              onModalClose={this.onModalClose} /> : null}
+              onModalClose={this.onModalClose} 
+              modalContentData={this.props.modalContentData}
+              modalContentIsHidden={this.props.modalContentIsHidden}
+              /> : null}
+              
 
             </section>
       </div>

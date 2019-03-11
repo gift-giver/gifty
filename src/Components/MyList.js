@@ -13,6 +13,7 @@ import onePointFive from "./../assets/1.5.png";
 import oneStar from "./../assets/1.png";
 import zeroStar from "./../assets/0.png";
 
+
 class MyList extends Component {
     constructor(){
         super();
@@ -23,6 +24,9 @@ class MyList extends Component {
             modalRandData: {},
         }
     }
+
+
+   
 
     onRandModalClose = () => {
         this.setState({
