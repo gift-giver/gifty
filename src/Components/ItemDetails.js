@@ -17,6 +17,7 @@ const ItemDetails = (props) => {
                         <p>{props.itemInfo.rating}</p>
                       
                         <button onClick={() => props.pushToFirebase(props.itemInfo)} key={props.itemInfo.id}>Add To List</button>
+                        {/* //TODO: Need to add a if else or something here to change add my list to see my list when clicked */}
                    
                     </div>
                     

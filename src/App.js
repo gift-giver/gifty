@@ -79,6 +79,9 @@ class App extends Component {
       resultInfo: data
 
     })
+    if (data.length === 0) {
+      alert("there are no results for this search" );
+    }
   }
 
   onFocus = (event) => {
@@ -113,7 +116,7 @@ class App extends Component {
           limit: 20,
           location: locationQuery,
           term: userQuery,
-          categories: 'food, All',
+          categories: 'restaurants, All',
           open_now: true,
           image_url: true
 
