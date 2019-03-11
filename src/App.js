@@ -239,13 +239,20 @@ initialFirebaseCall = (firebaseKey) => {
     const listCheck = this.checkuserList(itemInfo);
     console.log(!listCheck);
 
-    if(this.state.userList.length + 1 <= 10 && !listCheck){
+    if(this.state.userList.length + 1 <= 10 ){
       console.log(this.state.userList.length + 1)
       const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
       
       
       dbRef.push(itemInfo);
       
+      Swal.fire({
+        position: 'top-end',
+        type: 'success',
+        title: 'Your choice has been saved!',
+        showConfirmButton: false,
+        timer: 1500
+      })
 
       this.setState({
         modalContentData: { },
@@ -253,11 +260,12 @@ initialFirebaseCall = (firebaseKey) => {
       })
     
     } else {
-      if (this.state.userList.length + 1 <= 10){
+      
+      // if (this.state.userList.length + 1 <= 10){
         alert("You may only have 10 items in your list, please remove one to add a new item")
-      } else if (!listCheck === false) {
-        alert("You've already got this!")
-      }
+      // } else if (!listCheck === false) {
+      //   alert("You've already got this!")
+      // }
       
     }
   }
