@@ -8,12 +8,11 @@ const Header = (props) => {
       <React.Fragment>
         <Link to="/MyList" className="myListLinkmain">See My List</Link>
         <SearchBar 
-          onFocus={props.onFocus}
+          onFocusEvent={props.onFocusEvent}
           onSearchSubmit={props.onSearchSubmit}
-          onTextInput={props.onTextInput}
-          textInputValue={props.textInputValue}
-          searchLocationInput=
-          {props.searchLocationInput}
+          onChangeEvent={props.onChangeEvent}
+          cuisineTextInputValue={props.cuisineTextInputValue}
+          locationTextInputValue={props.locationTextInputValue}
           priceValue={props.priceValue}
           ratingValue={props.ratingValue}
         />

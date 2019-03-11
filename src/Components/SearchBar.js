@@ -9,21 +9,21 @@ const SearchBar = (props) => {
         >
             <fieldset>
                 <legend>What are you hungry for?</legend>
-                <label htmlFor="mainSearchBar">Search for local cuisine</label>
+                <label htmlFor="cuisineTextInput">Search for local cuisine</label>
                 <input 
                     type="text" 
-                    id="mainSearchBar"
+                    id="cuisineTextInput"
                     placeholder="Search Items" 
-                    name="mainSearchBar"
-                    onFocus={(event) => props.onFocus(event)}
-                    onChange={(event) => props.onTextInput(event)}
-                    value={props.textInputValue}
+                    name="cuisineTextInput"
+                    onFocus={(event) => props.onFocusEvent(event)}
+                    onChange={(event) => props.onChangeEvent(event)}
+                    value={props.cuisineTextInputValue}
                     required
                 >
                 </input>
 
-                <label htmlFor="priceSearch">Price level</label>
-                <select name="price" id="priceSearch" value={props.priceValue} onChange={(event) => props.onTextInput(event)}>
+                <label htmlFor="priceFilter">Price level</label>
+                <select name="price" id="priceFilter" value={props.priceValue} onChange={(event) => props.onChangeEvent(event)}>
                     <option value="0">--</option>
                     <option value="1">$</option>
                     <option value="2">$$</option>
@@ -31,8 +31,8 @@ const SearchBar = (props) => {
                     <option value="4">$$$$</option>
                 </select>
 
-                <label htmlFor="ratingSearch"></label>
-                <select name="rating" id="ratingSearch" value={props.ratingValue} onChange={(event) => props.onTextInput(event)}>
+                <label htmlFor="ratingFilter"></label>
+                <select name="rating" id="ratingFilter" value={props.ratingValue} onChange={(event) => props.onChangeEvent(event)}>
                     <option value="0">0 star</option>                   
                     <option value="1">1 star</option>
                     <option value="1.5">1.5 star</option>
@@ -49,11 +49,12 @@ const SearchBar = (props) => {
                 <input 
                     type="text"
                     placeholder="Search City"
-                    onFocus={(event) => props.onFocus(event)}
-                    onChange={(event) => props.onTextInput(event)}
-                    value={props.searchLocationInput}
-                    name="searchLocation"
-                    id="searchLocation"
+                    onFocus={(event) => props.onFocusEvent(event)}
+                    onChange={(event) => props.onChangeEvent(event)}
+                    value={props.locationTextInputValue}
+                    name="locationTextInput"
+                    id="locationTextInput"
+                    required
                 />
                 <button type="submit">Search</button>
 

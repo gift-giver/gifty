@@ -12,24 +12,23 @@ const MainApp = (props) => {
                 <header>
                     <Header
                         onSearchSubmit={props.onSearchSubmit}
-                        onTextInput={props.onTextInput}
-                        onFocus={props.onFocus}
-                        textInputValue={props.textInputValue}
-                        searchLocationInput={props.searchLocationInput}
-
+                        onChangeEvent={props.onChangeEvent}
+                        onFocusEvent={props.onFocusEvent}
+                        cuisineTextInputValue={props.cuisineTextInputValue}
+                        locationTextInputValue={props.locationTextInputValue}
                         priceValue={props.priceValue}
                         ratingValue={props.ratingValue}
-                        />
+                    />
                 </header>
-                <main>
-                    
 
-                <Main
-                    itemInfo={props.itemInfo}
-                    ratingValue={props.ratingValue}
-                    pushToFirebase={props.pushToFirebase}
+                <main>
+                    <Main
+                        itemInfo={props.itemInfo}
+                        ratingValue={props.ratingValue}
+                        pushToFirebase={props.pushToFirebase}
                     />
                 </main>
+
                 <Footer />
             </React.Fragment>
         )
