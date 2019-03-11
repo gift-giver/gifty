@@ -5,7 +5,7 @@ import MyList from './Components/MyList.js';
 import LoginPage from './Components/LoginPage.js';
 import axios from 'axios';
 // import router
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import firebase from './firebase.js';
 // import styles
 import './App.css';
@@ -29,15 +29,21 @@ class App extends Component {
     }
   } 
 
-  componentDidMount() {
-   
-  }
+  // componentDidMount() {
+  //  if(this.state.firebaseListId === ""){
+  //     console.log('lost key')
+  //   } else {
+  //     console.log('I have a key!')
+  //   }
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     // if prevState.rating or prevState.price isn't equal to what was specified by user: run this function
     if (prevState.rating !== this.state.rating || prevState.price !== this.state.price) {
       this.filterByRating(this.state.resultInfo);
     }
+
+    
   }
 
   // * EVENT HANDLERS * //
@@ -221,6 +227,14 @@ initialFirebaseCall = (firebaseKey) => {
     dbRef.remove()
   }
 
+  removeFullListFromFirebase = (event) => {
+    
+    const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
+
+    dbRef.remove()
+  
+  }
+
   render() {
     return (
       <Router>
@@ -253,10 +267,12 @@ initialFirebaseCall = (firebaseKey) => {
               <MyList
                 userList={this.state.userList}
                 removeFromFirebase={this.removeFromFirebase} 
+                userName={this.state.userName}
+                removeFullListFromFirebase={this.removeFullListFromFirebase}
               />
             )
           }} />
-
+          
         </div>
       </Router>
     )
