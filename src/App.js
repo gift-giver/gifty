@@ -116,7 +116,7 @@ class App extends Component {
           limit: 20,
           location: locationQuery,
           term: userQuery,
-          categories: 'food, All',
+          categories: 'restaurants, All',
           open_now: true,
           image_url: true
 
