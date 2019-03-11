@@ -14,7 +14,7 @@ import zeroStar from "./../assets/0.png";
 const ItemCard = (props) => {
     return (
         <React.Fragment>
-            <img src={props.itemInfo.image_url} alt={this.props.name} className="itemCardImage" />
+            <img src={props.itemInfo.image_url} alt={props.name} className="itemCardImage" />
             <div className="itemInfoContainer">
              <h2>{props.itemInfo.name}</h2>
              <p>{props.itemInfo.price}</p>

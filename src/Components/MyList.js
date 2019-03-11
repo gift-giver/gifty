@@ -8,8 +8,16 @@ class MyList extends Component {
         this.state = {
             randomNumber: null,
             randomChoice: '',
-            randomModalShow: false
+            randomModalShow: false,
+            modalRandData: {},
         }
+    }
+
+    onRandModalClose = () => {
+        this.setState({
+            modalRandData: {},
+            randomModalShow: false
+        })
     }
 
     getRanNum = () => {
@@ -22,9 +30,10 @@ class MyList extends Component {
         if (randomNumber !== this.state.randomNumber) {
 
             // select piece from that list using index
-            const randomChoice = this.props.userList[randomNumber].title;
+            const randomChoice = this.props.userList[randomNumber].restaurantInfo;
             // place info in modal that pops up on screen
-
+            // console.log(randomChoice)
+            // console.log(this.props.userList)
             this.setState({
                 randomNumber: randomNumber,
                 randomChoice: randomChoice,
@@ -40,17 +49,18 @@ class MyList extends Component {
         })
     }
 
-
-
     render(){
         return (
             <div className='myListMain'>
-                <button onClick={this.randomizeSelection}>Feeling Lucky??</button> 
-                <Link to="/MainApp" className="mainSearchLink">Search again!</Link>
+                <div className="myListMainHeader">
+                    <button onClick={this.randomizeSelection}>Feeling Lucky??</button> 
+                    <Link to="/MainApp" className="mainSearchLink">Search again!</Link>
+                 </div>
+                
                 <ul>
                     {
                         this.props.userList.map((listItem) => {
-                            console.log(listItem.restaurantInfo.image_url);
+                            // console.log(listItem.restaurantInfo.image_url);
                             {/* console.log(this.state.randomChoice) */}
                             return (
                                 <li key={listItem.restaurantInfo.id} className="myListDetailCard">
@@ -65,10 +75,13 @@ class MyList extends Component {
                 </ul>
 
                 {
-                this.state.randomModalShow === true ? <RandomSelectionModal
+                this.state.randomModalShow === true ? 
+                <RandomSelectionModal
                     randomizeSelection={this.randomizeSelection}
                     randomChoice={this.state.randomChoice}
-                    randomModalToggle={this.randomModalToggle} />
+                    randomModalToggle={this.randomModalToggle} 
+                    onRandModalClose = {this.onRandModalClose}
+                />
                 : null
                 }
             </div>  
