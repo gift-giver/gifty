@@ -29,30 +29,7 @@ class App extends Component {
   } 
 
   componentDidMount() {
-    // reference firebase list; reference structure: GuestList -> newUserCreatedList
-    const dbRef = firebase.database().ref(`GuestList/${this.state.firebaseListId}`);
-
-    dbRef.on('value', response => {
-      // create a new array for items from firebase to be pushed to
-      const returnedList = [];
-      // a vraible that holds the info returned from firebase
-      const data = response.val();
-      // 2 for..in loops are required to access the info we have nested; 
-      //push values to new array, key for quick reference when deleting and restaurnat data used for display in MyLIst
-      for (let key in data) {
-        
-        for(let key2 in data[key]){
-          returnedList.push({
-            key: key2,
-            restaurantInfo: data[key][key2]
-          })
-        }
-      }
-      // set state with newly created array of firbase returned items; used to display list content in MyList
-      this.setState({
-        userList: returnedList
-      })
-    })
+    
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -163,7 +140,6 @@ class App extends Component {
     this.setState({
       filteredResultInfo: filteredArray
     })
-
   };
 
   // * FIREBASE FUNCTIONS * //
@@ -177,9 +153,39 @@ class App extends Component {
     }
     // push new list to firebase reference, hold created firebase reference key for that object in variable firebaseKey
     const firebaseKey = dbRef.push(newFirebaseList)
+
+    this.iniialFirebaseCall(firebaseKey["path"]["pieces_"][1])
     // set state with current firebaseKey; allows session to save to one list which is later deletable
     this.setState({
-      firebaseListId: firebaseKey["path"]["pieces_"][1]
+      firebaseListId: firebaseKey["path"]["pieces_"][1],
+    })
+  }
+
+  initialFirebaseCall = (firebaseKey) => {
+    // reference firebase list; reference structure: GuestList -> newUserCreatedList
+    const dbRef = firebase.database().ref(`GuestList/${firebaseKey}`);
+
+    dbRef.on('value', response => {
+      // create a new array for items from firebase to be pushed to
+      const returnedList = [];
+      // a vraible that holds the info returned from firebase
+      const data = response.val();
+      // 2 for..in loops are required to access the info we have nested; 
+      //push values to new array, key for quick reference when deleting and restaurnat data used for display in MyLIst
+      for (let key in data) {
+        if(typeof data[key] !== "string"){
+          returnedList.push({
+            key: key,
+            restaurantInfo: data[key]
+          })
+        }
+      }
+
+      // set state with newly created array of firbase returned items; used to display list content in MyList
+      this.setState({
+        userList: returnedList,
+        // firebaseListId: firebaseKey
+      })
     })
   }
 
@@ -210,7 +216,8 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route path="/" exact render={() => { return (<LoginPage createNewFirebaseList={this.createNewFirebaseList} />) }} />
+          <Route path="/" exact render={() => { 
+            return (<LoginPage createNewFirebaseList={this.createNewFirebaseList} />) }} />
 
           <Route path="/MainApp" render={() => {
             return (

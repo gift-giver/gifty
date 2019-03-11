@@ -11,11 +11,11 @@ import { Link, NavLink} from 'react-router-dom';
 //     const auth = firebase.auth();
 
 class LoginPage extends Component {
+
     constructor(){
         super();
-        this.state={
 
-        }
+        this.state={}
     }
 
     render(){
@@ -24,7 +24,7 @@ class LoginPage extends Component {
             <div className="mainLogin">
                 <form className="loginForm clearfix">
                     <label className="listNameLabel"htmlFor="listName">Name Your Guest? </label>
-                    <input type="text" id="listName" placeholder="guest's name"/>
+                    <input type="text" id="listName" placeholder="guest's name" />
                         <Link className="linkToMainApp"onClick={this.props.createNewFirebaseList} to="/MainApp">Lettuce Eat!</Link>
                 </form>
             </div>
