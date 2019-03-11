@@ -110,7 +110,7 @@ class App extends Component {
           limit: 20,
           location: locationQuery,
           term: userQuery,
-          categories: 'food, All',
+          categories: 'restaurants, All',
           open_now: true,
           image_url: true
 
@@ -192,7 +192,6 @@ class App extends Component {
     } else {
       alert("You may only have 10 items in your list, please remove one to add a new item")
     }
-
   }
 
   // remove selected item from firebase; firebase key used as id on button, accessed by event.target.id
