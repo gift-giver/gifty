@@ -23,7 +23,7 @@ const ItemCard = (props) => {
                 <h2>{props.itemInfo.name}</h2>
                 <p>{props.itemInfo.price}</p>
                 <a href={`tel://` + props.itemInfo.display_phone}>{props.itemInfo.display_phone}</a>
-                <a href={`http://maps.google.com/?q=${props.itemInfo.location.display_address}`} target="_blank">{props.itemInfo.location.display_address}</a>
+                <a href={`http://maps.google.com/?q=${props.itemInfo.location.display_address}`} target="_blank" rel="noopener noreferrer">{props.itemInfo.location.display_address}</a>
 
                 <div className="logoContainer">
                     <a href={props.itemInfo.url} target="_blank" rel="noopener noreferrer">Read more on Yelp<img src={logo} alt="Yelp Logo" className="logo" /></a>
@@ -31,83 +31,83 @@ const ItemCard = (props) => {
 
                 {
                     props.itemInfo.rating === 5 &&
-                    <React.Fragment>
+                    <div>
                         <img src={fiveStar} alt="Five Stars" />
                         <p>Based on {props.itemInfo.review_count} reviews</p>
-                    </React.Fragment>
+                    </div>
                      
                 }
                 {
                     props.itemInfo.rating === 4.5 &&
-                    <React.Fragment>
+                    <div>
                         <img src={fourPointFive} alt="Four Point Five Stars" />
                         <p>Based on {props.itemInfo.review_count} reviews</p>
-                    </React.Fragment>
+                    </div>
                     
                 }
                 {
                     props.itemInfo.rating === 4 &&
-                    <React.Fragment>
+                    <div>
                         <img src={fourStar} alt="Four Stars" />
                         <p>Based on {props.itemInfo.review_count} reviews</p>
-                    </React.Fragment>
+                    </div>
                     
                 }
                 {
                     props.itemInfo.rating === 3.5 &&
-                    <React.Fragment>
+                    <div>
                         <img src={threePointFive} alt="Three Point Five Stars"/>
                         <p>Based on {props.itemInfo.review_count} reviews</p>
-                    </React.Fragment>
+                    </div>
                     
                 }
                 {
                     props.itemInfo.rating === 3 &&
-                    <React.Fragment>
+                    <div>
                         <img src={threeStar} alt="Three Stars"/>
                         <p>Based on {props.itemInfo.review_count} reviews</p>
-                    </React.Fragment>
+                    </div>
                     
                 }
                 {
                     props.itemInfo.rating === 2.5 &&
-                    <React.Fragment>
+                    <div>
                         <img src={twoPointFive} alt="Two Point Five Stars"/>
                         <p>Based on {props.itemInfo.review_count} reviews</p>
-                    </React.Fragment>
+                    </div>
                     
                 }
                 {
                     props.itemInfo.rating === 2 &&
-                    <React.Fragment>
+                    <div>
                         <img src={twoStar} alt="Two Stars"/>
                         <p>Based on {props.itemInfo.review_count} reviews</p>
-                    </React.Fragment>
+                    </div>
                     
                     
                 }
                 {
                     props.itemInfo.rating === 1.5 &&
-                    <React.Fragment>
+                    <div>
                         <img src={onePointFive} alt="One Point Five Stars"/>
                         <p>Based on {props.itemInfo.review_count} reviews</p>
-                    </React.Fragment>
+                    </div>
                     
                 }
                 {
                     props.itemInfo.rating === 1 &&
-                    <React.Fragment>
+                    <div>
                         <img src={oneStar} alt="One Star"/>
                         <p>Based on {props.itemInfo.review_count} reviews</p>
-                    </React.Fragment>
+                    </div>
                     
                 }
                 {
                     props.itemInfo.rating === 0 &&
-                    <React.Fragment>
+                    <div>
                        <img src={zeroStar} alt="Zero Stars"/> 
                        <p>Based on {props.itemInfo.review_count} reviews</p>
-                    </React.Fragment>
+                    </div>
                     
                 }
               <button onClick={() => props.pushToFirebase(props.itemInfo)} key={props.itemInfo.id}>Add To List</button>  

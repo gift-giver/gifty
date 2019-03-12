@@ -28,6 +28,7 @@ body {
 }
 a {
     text-decoration:none;
+    color:black;
 }
 
 /* remove default padding */
@@ -184,14 +185,16 @@ main{
 
 /* SEARCH FORM STYLES */
 .searchBarContainer {
-    background: white;
     width: 50%;
-    height: 30%;
+    height: 50%;
     margin:0 auto;
-    margin-top:30%;
 }
 
+.searchBarForm {
+    background: #fff;
+    height: 30%;
 
+}
 fieldset {
     border:none;
 }
@@ -406,3 +409,57 @@ footer {
     50%{background-position:100% 97%}
     100%{background-position:0% 4%}
 } */
+
+
+/* MEDIA QUERIES START */
+/* @media(min-width:940px){
+    
+} */
+
+/* @media(min-width:768px){
+
+} */
+
+/* @media (min-width: 480px) {
+
+} */
+
+/* @media (max-width: 320px){ */
+    /* Login Page Styles for mobile starts 320px */
+    /* .loginForm {
+        padding: 70px 37px;
+        width: 90%;
+        height: 40vh;
+        border: black 4px solid;
+        margin: 0 auto;
+    } */
+    /* .loginForm a {
+        padding: 15px 20px;
+    } */
+
+    /* Main App Styles for mobile first starts 320px*/
+    /* .searchBarContainer{
+        width: 87%;
+    } */
+    /* .locationFilter, .keywordSearch {
+        width: 100%;
+        float: left;
+    }
+}  */
+@media(max-width:860px){
+    .loginForm {
+        width:60%;
+    }
+}
+@media(max-width:540px){
+    .loginForm {
+        width:70%;
+    }
+}
+@media(max-width:480px){
+    .loginForm {
+        width:85%;
+    }
+}
+
+/* MEDIA QUERIES END */
