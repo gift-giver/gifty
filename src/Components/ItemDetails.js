@@ -26,5 +26,4 @@ const ItemDetails = (props) => {
         )
 }
 
-
 export default ItemDetails;

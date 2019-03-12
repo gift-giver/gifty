@@ -36,7 +36,7 @@ class App extends Component {
   } 
 
   componentDidMount() {
-    
+    // fetches firebase key held in local storage; prevents error where key is lost if page is refreshed causing no reference to proper firebase list
     const getFirebaseKey = localStorage.getItem("key")
     const storedFirebaseKey = JSON.parse(getFirebaseKey)
 
@@ -174,12 +174,15 @@ class App extends Component {
     }
     // push new list to firebase reference, hold created firebase reference key for that object in variable firebaseKey
     const firebaseKey = dbRef.push(newFirebaseList)
-    console.log(firebaseKey.key)
+  
     this.initialFirebaseCall(firebaseKey.key)
-    // set state with current firebaseKey; allows session to save to one list which is later deletable
     
+    // saves firebase key to local storage; prevents the situation where, on page refresh, the firebase reference is lost
     const storedFirebaseKey = JSON.stringify(firebaseKey.key)
+
     localStorage.setItem("key", storedFirebaseKey)
+
+    // set state with current firebaseKey; allows session to save to one list which is later deletable
     this.setState({
       firebaseListId: firebaseKey.key,
       redirect: false
@@ -231,7 +234,7 @@ class App extends Component {
     } else if (listCheck !== -1){
       alert("This item has already been added to your list")
     
-    // add item if no restrictions are found to be true
+    // add item to firebase if no restrictions are found to be true
     } else {
       const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
 
@@ -302,7 +305,7 @@ class App extends Component {
       return <Redirect to="/" />
     }
   }
-  
+
   render() {
     return (
       <Router>
