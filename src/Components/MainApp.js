@@ -25,10 +25,12 @@ const MainApp = (props) => {
                     <Main
                         itemInfo={props.itemInfo}
                         ratingValue={props.ratingValue}
-                        pushToFirebase={props.pushToFirebase}
+                        handleClick={props.handleClick}
 
-                        modalContentData={props.modalContentData}
-                        modalContentIsHidden={props.modalContentIsHidden}
+                        modalData={props.modalData}
+                        modalIsHidden={props.modalIsHidden}
+                        onClickToModal={props.onClickToModal}
+                        onModalClose={props.onModalClose}
                     />
                 </main>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ItemDetails = (props) => {
+
  return (
             <div className="itemDetailsContainer">
                 <div className="backgroundBlur"></div>
@@ -16,7 +17,7 @@ const ItemDetails = (props) => {
                         <h2>{props.itemInfo.name}</h2>
                         <p>{props.itemInfo.rating}</p>
                       
-                        <button onClick={() => props.pushToFirebase(props.itemInfo)} key={props.itemInfo.id}>Add To List</button>
+                        <button onClick={() => props.handleClick(props.itemInfo)} key={props.itemInfo.id}>Add To List</button>
                         {/* //TODO: Need to add a if else or something here to change add my list to see my list when clicked */}
                    
                     </div>
