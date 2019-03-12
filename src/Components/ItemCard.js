@@ -15,14 +15,18 @@ const ItemCard = (props) => {
     // const rating = props.itemInfo.rating
     return (
         <React.Fragment>
-            <img src={props.itemInfo.image_url} alt={props.name} className="itemCardImage" />
+            <div className="itemCardImageContainer">
+              <img src={props.itemInfo.image_url} alt={props.name} className="itemCardImage" />  
+            </div>
+            
             <div className="itemInfoContainer">
                 <h2>{props.itemInfo.name}</h2>
                 <p>{props.itemInfo.price}</p>
+                <a href={`tel://` + props.itemInfo.display_phone}>{props.itemInfo.display_phone}</a>
+                <a href={`http://maps.google.com/?q=${props.itemInfo.location.display_address}`} target="_blank">{props.itemInfo.location.display_address}</a>
 
                 <div className="logoContainer">
-                    <p>Interested? Learn more!</p>
-                    <img src={logo} alt="Yelp Logo" className="logo" />
+                    <a href={props.itemInfo.url} target="_blank" rel="noopener noreferrer">Read more on Yelp<img src={logo} alt="Yelp Logo" className="logo" /></a>
                 </div>
 
                 {
@@ -106,7 +110,9 @@ const ItemCard = (props) => {
                     </React.Fragment>
                     
                 }
+              <button onClick={() => props.pushToFirebase(props.itemInfo)} key={props.itemInfo.id}>Add To List</button>  
             </div>
+            
         </React.Fragment>
     )
 }

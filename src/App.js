@@ -31,8 +31,6 @@ class App extends Component {
       userChoice: '',
       userName:"",
       redirect: false,
-      modalContentData: {},
-      modalContentIsHidden: true
     }
   } 
 
@@ -127,7 +125,6 @@ class App extends Component {
         // return filteredResults as the result of the map operation, new list info held within placeInfo
         return filteredResults
       })
-      console.log(placeInfo)
       // return placeInfo to caller -> used to set state
       return placeInfo
     }
@@ -217,6 +214,7 @@ class App extends Component {
 
   // checks user list for if an item with a matching ID is already saved; returns -1 if no matching item is found
   checkUserList = (itemInfo) => {
+
    return this.state.userList.findIndex((item) => {
       return item.restaurantInfo.id === itemInfo.id
     })
@@ -224,6 +222,7 @@ class App extends Component {
 
   // push item to firebase 
   pushToFirebase = (itemInfo) => {
+
     const listCheck = this.checkUserList(itemInfo);
 
     // if item has 10 or more items, do not allow more items to be added
@@ -289,6 +288,7 @@ class App extends Component {
   }
   
   confirmFullListFirebaseDelete = () => {
+
     const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
 
     dbRef.remove()
@@ -300,24 +300,6 @@ class App extends Component {
       return <Redirect to="/" />
     }
   }
-  onClickToModal = (info) => {
-
-    this.setState({
-      modalData: info,
-      modalIsHidden: false
-    })
-  }
-
-  onModalClose = () => {
-    this.setState({
-      modalData: {},
-      modalIsHidden: true
-    })
-  }
-  handleClick = (clickedItemInfo) => {
-    this.pushToFirebase(clickedItemInfo);
-    this.onModalClose();
-  } 
 
   render() {
     return (
@@ -349,11 +331,7 @@ class App extends Component {
                 priceValue={this.state.price}
                 ratingValue={this.state.rating}
                 itemInfo={this.state.filteredResultInfo}
-                modalData={this.state.modalData}
-                modalIsHidden={this.state.modalIsHidden}
-                onModalClose={this.onModalClose}
-                onClickToModal={this.onClickToModal}
-                handleClick={this.handleClick}
+                pushToFirebase={this.pushToFirebase}
               />
             )
           }} />

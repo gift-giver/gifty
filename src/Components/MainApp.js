@@ -4,7 +4,6 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 // import dependencies
 
-
 const MainApp = (props) => {
 
         return (
@@ -26,12 +25,7 @@ const MainApp = (props) => {
                     <Main
                         itemInfo={props.itemInfo}
                         ratingValue={props.ratingValue}
-                        handleClick={props.handleClick}
-
-                        modalData={props.modalData}
-                        modalIsHidden={props.modalIsHidden}
-                        onClickToModal={props.onClickToModal}
-                        onModalClose={props.onModalClose}
+                        pushToFirebase={props.pushToFirebase}
                     />
                 </main>
 
