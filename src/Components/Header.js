@@ -6,7 +6,7 @@ import {Link } from 'react-router-dom';
 const Header = (props) => {
     return (
       <React.Fragment>
-        <Link to="/MyList" className="myListLinkMain">See My List</Link>
+        <Link to="/MyList" className="myListLinkMain">See My List ({props.userListLength})</Link>
         <SearchBar 
           onFocusEvent={props.onFocusEvent}
           onSearchSubmit={props.onSearchSubmit}

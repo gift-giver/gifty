@@ -67,7 +67,7 @@ const SearchBar = (props) => {
                     />
                     <button type="submit">Search</button>
                     </div>
-                    </section>
+                </section>
 
             </fieldset>
             

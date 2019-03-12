@@ -27,6 +27,7 @@ class App extends Component {
       resultInfo: [],
       filteredResultInfo: [],
       userList: [],
+      userListLength: 0,
       userChoice: '',
       userName:"",
       redirect: false,
@@ -105,7 +106,9 @@ class App extends Component {
           term: userQuery,
           categories: 'restaurants, All',
           open_now: true,
-          image_url: true
+          image_url: true,
+          radius: 2500,
+          sort_by: "distance"
         }
       })
       
@@ -124,7 +127,7 @@ class App extends Component {
         // return filteredResults as the result of the map operation, new list info held within placeInfo
         return filteredResults
       })
-
+      console.log(placeInfo)
       // return placeInfo to caller -> used to set state
       return placeInfo
     }
@@ -202,9 +205,11 @@ class App extends Component {
           })
         }
       }
+      const returnedListLength = returnedList.length
       // set state with newly created array of firbase returned items; used to display list content in MyList
       this.setState({
         userList: returnedList,
+        userListLength: returnedListLength
         // firebaseListId: firebaseKey
       })
     })
@@ -257,7 +262,7 @@ class App extends Component {
   removeFullListFromFirebase = (event) => {
     
     Swal.fire({
-      title: 'Are you sure?',
+      title: "You're bacon my heart!",
       text: "You won't be able to revert this!",
       type: 'warning',
       showCancelButton: true,
@@ -335,6 +340,7 @@ class App extends Component {
           <Route path="/MainApp" render={() => {
             return (
               <MainApp
+                userListLength={this.state.userListLength}
                 onSearchSubmit={this.handleSearchSubmit}
                 onChangeEvent={this.handleOnChangeEvents}
                 onFocusEvent={this.handleFocusEvent}

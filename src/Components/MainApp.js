@@ -11,6 +11,7 @@ const MainApp = (props) => {
             <React.Fragment>
                 <header>
                     <Header
+                        userListLength={props.userListLength}
                         onSearchSubmit={props.onSearchSubmit}
                         onChangeEvent={props.onChangeEvent}
                         onFocusEvent={props.onFocusEvent}
