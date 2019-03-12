@@ -1,21 +1,23 @@
 import React from 'react';
 
-const SearchBar = (props) => {
 
+const SearchBar = (props) => {
+    
+   
     return (
         <form 
             action="submit"
             onSubmit={(event) => props.onSearchSubmit(event)}
         >
             <fieldset>
-                <section className="searchBarLeft">
+            <section className="searchBarLeft">
+                <legend>What are you hungry for?</legend>
                 <div className="keywordSearch">
-                    <legend>What are you hungry for?</legend>
-                    <label htmlFor="mainSearchBar">Search for local cuisine</label>
-                    <input 
+                    <label htmlFor="mainSearchBar" className="visibilityHidden">Search for local cuisine</label>
+                        <input 
                         type="text" 
                         id="mainSearchBar"
-                        placeholder="Search Items" 
+                        placeholder="Search Cuisine" 
                         name="cuisineTextInput"
                         onFocus={(event) => props.onFocusEvent(event)}
                         onChange={(event) => props.onChangeEvent(event)}
@@ -23,38 +25,10 @@ const SearchBar = (props) => {
                         required
                     >
                     </input>
-                </div>
-
-                <div className="priceFilter">
-                    <label htmlFor="priceSearch">Price level</label>
-                    <select name="price" id="priceSearch" value={props.priceValue} onChange={(event) => props.onChangeEvent(event)}>
-                        <option value="0">--</option>
-                        <option value="1">$</option>
-                        <option value="2">$$</option>
-                        <option value="3">$$$</option>
-                        <option value="4">$$$$</option>
-                    </select>
                     </div>
-                </section>
-                <section className="searchBarRight">
-                <div className="ratingFilter">
-                    <label htmlFor="ratingSearch"></label>
-                    <select name="rating" id="ratingSearch" value={props.ratingValue} onChange={(event) => props.onChangeEvent(event)}>
-                        <option value="0">0 star</option>                   
-                        <option value="1">1 star</option>
-                        <option value="1.5">1.5 star</option>
-                        <option value="2">2 star</option>
-                        <option value="2.5">2.5 star</option>
-                        <option value="3">3 star</option>
-                        <option value="3.5">3.5 star</option>
-                        <option value="4">4 star</option>
-                        <option value="4.5">4.5 star</option>
-                        <option value="5">5 star</option>
-                    </select>
-                </div>
-
-                <div className="locationFilter">
-                    <label htmlFor="locationSearch">Search by City</label>
+                    
+                     <div className="locationFilter">
+                    <label htmlFor="locationSearch" className='visibilityHidden'>Search by City</label>
                     <input 
                         type="text"
                         placeholder="Search City"
@@ -63,11 +37,25 @@ const SearchBar = (props) => {
                         value={props.locationTextInputValue}
                         name="locationTextInput"
                         id="locationSearch"
+                        required
                     />
-                    <button type="submit">Search</button>
                     </div>
-                    </section>
-
+            </section>
+               
+            <div className="buttonContainer">
+                <button type="submit"
+                    onClick={props.animateHeaderHeight}>Search
+                </button>
+                <button
+                    onClick={props.showFilterOptions}>
+                    {
+                    
+                    props.filterVisibility === true ?
+                        'Hide Filters' : 'Show Filters'
+                    }
+                    </button>
+            </div>
+                
             </fieldset>
             
         </form>

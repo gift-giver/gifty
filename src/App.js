@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import MainApp from './Components/MainApp.js';
 import MyList from './Components/MyList.js';
 import LoginPage from './Components/LoginPage.js';
+
 //dependencies
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -36,29 +37,26 @@ class App extends Component {
   } 
 
   componentDidMount() {
-    
+    // fetches firebase key held in local storage; prevents error where key is lost if page is refreshed causing no reference to proper firebase list
     const getFirebaseKey = localStorage.getItem("key")
     const storedFirebaseKey = JSON.parse(getFirebaseKey)
+
     this.setState({
       firebaseListId: storedFirebaseKey
     })
   }
-
-
 
   componentDidUpdate(prevProps, prevState) {
     // if prevState.rating or prevState.price isn't equal to what was specified by user: run this function
     if (prevState.rating !== this.state.rating || prevState.price !== this.state.price) {
       this.filterByRating(this.state.resultInfo);
     }
-
-    
   }
 
   // * EVENT HANDLERS * //
   //function to trigger axios call, following click of the submit button.
   handleSearchSubmit = async (event) => {
-
+    console.log('clicked')
     event.preventDefault();
     //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
     const data = await this.getSearchData(this.state.cuisineTextInput, this.state.locationTextInput);
@@ -116,7 +114,7 @@ class App extends Component {
           // attributes:"hot_and_new"
         }
       })
-      console.log(userQuery);
+      
       const listingResults = await listingSearch["data"]["businesses"];
 
       // filter out keys with a value of undefined; causes problems when pushing to firebase
@@ -157,7 +155,6 @@ class App extends Component {
     this.setState({
       filteredResultInfo: filteredArray
     })
-
   };
 
   getUserName = (event) => {
@@ -166,86 +163,84 @@ class App extends Component {
     })
   }
 
-  // handleNewListClick = (event) => {
-  //   event.preventDefault();
-  //   console.log("click")
-  // }
-
-  // handleNewListKeyPress = (event) => {
-  //   event.preventDefault();
-  //   if(event.charCode === 13){
-  //     console.log('keypress')
-  //   }
- 
-  // }
-
-// * FIREBASE FUNCTIONS * //
-// create a new firebase list 
-createNewFirebaseList = (event) => {
-  
-  // reference firebase object in which all  guest lists will live
-  const dbRef = firebase.database().ref(`GuestList`);
-  // new firebase list will live inside an object, reference by firebase provided key
-  const newFirebaseList = {
-    userName: this.state.userName
-  }
-  // push new list to firebase reference, hold created firebase reference key for that object in variable firebaseKey
-  const firebaseKey = dbRef.push(newFirebaseList)
-  console.log(firebaseKey.key)
-  this.initialFirebaseCall(firebaseKey.key)
-  // set state with current firebaseKey; allows session to save to one list which is later deletable
-  
-  const storedFirebaseKey = JSON.stringify(firebaseKey.key)
-  localStorage.setItem("key", storedFirebaseKey)
-  this.setState({
-    firebaseListId: firebaseKey.key,
-    redirect: false
-  })
-}
-
-initialFirebaseCall = (firebaseKey) => {
-  // reference firebase list; reference structure: GuestList -> newUserCreatedList
-  const dbRef = firebase.database().ref(`GuestList/${firebaseKey}`);
-  dbRef.on('value', response => {
-    // create a new array for items from firebase to be pushed to
-    const returnedList = [];
-    // a vraible that holds the info returned from firebase
-    const data = response.val();
-    // 2 for..in loops are required to access the info we have nested; 
-    //push values to new array, key for quick reference when deleting and restaurnat data used for display in MyLIst
-    for (let key in data) {
-      if (typeof data[key] !== "string") {
-        returnedList.push({
-          key: key,
-          restaurantInfo: data[key]
-        })
-      }
+  // * FIREBASE FUNCTIONS * //
+  // create a new firebase list 
+  createNewFirebaseList = (event) => {
+    
+    // reference firebase object in which all  guest lists will live
+    const dbRef = firebase.database().ref(`GuestList`);
+    // new firebase list will live inside an object, reference by firebase provided key
+    const newFirebaseList = {
+      userName: this.state.userName
     }
-    // set state with newly created array of firbase returned items; used to display list content in MyList
+    // push new list to firebase reference, hold created firebase reference key for that object in variable firebaseKey
+    const firebaseKey = dbRef.push(newFirebaseList)
+  
+    this.initialFirebaseCall(firebaseKey.key)
+    
+    // saves firebase key to local storage; prevents the situation where, on page refresh, the firebase reference is lost
+    const storedFirebaseKey = JSON.stringify(firebaseKey.key)
+
+    localStorage.setItem("key", storedFirebaseKey)
+
+    // set state with current firebaseKey; allows session to save to one list which is later deletable
     this.setState({
-      userList: returnedList,
-      // firebaseListId: firebaseKey
+      firebaseListId: firebaseKey.key,
+      redirect: false
     })
-  })
-}
-  checkuserList = (itemInfo) => {
-   return this.state.userList.filter((item) => {
+  }
+
+  initialFirebaseCall = (firebaseKey) => {
+    // reference firebase list; reference structure: GuestList -> newUserCreatedList
+    const dbRef = firebase.database().ref(`GuestList/${firebaseKey}`);
+    dbRef.on('value', response => {
+      // create a new array for items from firebase to be pushed to
+      const returnedList = [];
+      // a vraible that holds the info returned from firebase
+      const data = response.val();
+      // 2 for..in loops are required to access the info we have nested; 
+      //push values to new array, key for quick reference when deleting and restaurnat data used for display in MyLIst
+      for (let key in data) {
+        if (typeof data[key] !== "string") {
+          returnedList.push({
+            key: key,
+            restaurantInfo: data[key]
+          })
+        }
+      }
+      // set state with newly created array of firbase returned items; used to display list content in MyList
+      this.setState({
+        userList: returnedList,
+        // firebaseListId: firebaseKey
+      })
+    })
+  }
+
+  // checks user list for if an item with a matching ID is already saved; returns -1 if no matching item is found
+  checkUserList = (itemInfo) => {
+   return this.state.userList.findIndex((item) => {
       return item.restaurantInfo.id === itemInfo.id
     })
   }
 
   // push item to firebase 
   pushToFirebase = (itemInfo) => {
-    const listCheck = this.checkuserList(itemInfo);
-    console.log(!listCheck);
+    const listCheck = this.checkUserList(itemInfo);
 
-    if(this.state.userList.length + 1 <= 10 ){
-      console.log(this.state.userList.length + 1)
+    // if item has 10 or more items, do not allow more items to be added
+    if(this.state.userList.length === 10){
+      alert("You may only have 10 items in your list, please remove one to add a new item")
+    
+    // if item is found to exist in userLIst already, do not allow item to be added
+    } else if (listCheck !== -1){
+      alert("This item has already been added to your list")
+    
+    // add item to firebase if no restrictions are found to be true
+    } else {
       const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
-      
-      
+
       dbRef.push(itemInfo);
-      
+
       Swal.fire({
         position: 'top-end',
         type: 'success',
@@ -255,18 +250,9 @@ initialFirebaseCall = (firebaseKey) => {
       })
 
       this.setState({
-        modalContentData: { },
+        modalContentData: {},
         modalContentIsHidden: true
       })
-    
-    } else {
-      
-      // if (this.state.userList.length + 1 <= 10){
-        alert("You may only have 10 items in your list, please remove one to add a new item")
-      // } else if (!listCheck === false) {
-      //   alert("You've already got this!")
-      // }
-      
     }
   }
 
@@ -303,23 +289,15 @@ initialFirebaseCall = (firebaseKey) => {
             resultInfo: [],
             filteredResultInfo: [],
           }),
-
-          
         )
       }
     })
-
-    
-
-          
-
-    
   }
   
   confirmFullListFirebaseDelete = () => {
     const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
 
-    dbRef.remove();
+    dbRef.remove()
   }
   
   renderRedirect = () => {
@@ -327,30 +305,24 @@ initialFirebaseCall = (firebaseKey) => {
     if (this.state.redirect){
       return <Redirect to="/" />
     }
-   
   }
-  
-  // mainRenderRedirect = () => {
-  //   if(this.state.userName){
-  //     return <Redirect to="/MainApp" />
-  //   }
-  // }
-  
 
   render() {
     return (
       <Router>
         <div>
           <Route path="/" exact render={() => {
-            return (<LoginPage 
-              getUserName={this.getUserName}
-              userName={this.state.userName}
-              onChangeEvent={this.handleOnChangeEvents}
-              handleNewListClick={this.handleNewListClick}
-              handleNewListKeyPress={this.handleNewListKeyPress}
-              createNewFirebaseList={this.createNewFirebaseList} 
-            
-          />) }} />
+            return (
+              <LoginPage 
+                getUserName={this.getUserName}
+                userName={this.state.userName}
+                onChangeEvent={this.handleOnChangeEvents}
+                handleNewListClick={this.handleNewListClick}
+                handleNewListKeyPress={this.handleNewListKeyPress}
+                createNewFirebaseList={this.createNewFirebaseList} 
+              />
+            ) 
+          }} />
 
           
           <Route path="/MainApp" render={() => {
@@ -364,12 +336,14 @@ initialFirebaseCall = (firebaseKey) => {
                 priceValue={this.state.price}
                 ratingValue={this.state.rating}
                 itemInfo={this.state.filteredResultInfo}
+                userList={this.state.userList}
                 pushToFirebase={this.pushToFirebase} 
                 modalContentData={this.state.modalData}
                 modalContentIsHidden={this.state.modalIsHidden}
-                
-        />)
-    }} />
+              />
+            )
+          }} />
+
           {this.renderRedirect()}
           <Route path="/MyList" render={() => {
             return (

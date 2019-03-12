@@ -44,8 +44,6 @@ class MyList extends Component {
     randomizeSelection = () => {
 
         this.props.userList.length > 1 ? this.getRandomSelection() : alert("There must be more than 1 item in your list to receive a suggestion")
-        // get random number based on length of array myList
-        // user list must have more than 1 item in it to work
     }
 
     // called if userList has a length greater than 1 or triggered by the try again button, returns a random selection from userList
