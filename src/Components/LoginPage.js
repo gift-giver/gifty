@@ -3,7 +3,7 @@ import { Link, NavLink} from 'react-router-dom';
 
 //  const provider = new firebase.auth.GoogleAuthProvider();
 
-//TODO: firebase auth method to check everytime what login you would like to use for users with more then one login
+// TODO: firebase auth method to check everytime what login you would like to use for users with more then one login
 // provider.setCustomParameters({
 //     prompt: "select_account"    // force google to ask which account to use
 // })
@@ -24,8 +24,19 @@ class LoginPage extends Component {
             <div className="mainLogin">
                 <form className="loginForm clearfix">
                     <label className="listNameLabel"htmlFor="listName">Name Your Guest? </label>
-                    <input type="text" id="listName" placeholder="guest's name" />
-                        <Link className="linkToMainApp"onClick={this.props.createNewFirebaseList} to="/MainApp">Lettuce Eat!</Link>
+                    <input type="text" id="listName" placeholder="guest's name"
+                    onChange={this.props.onChangeEvent}
+                    value={this.props.userName}
+                    name='userName'    
+                    />
+                    
+                        <Link className="linkToMainApp" to="/MainApp"
+                        onClick={(event) => this.props.createNewFirebaseList(event)}
+                        className="linkToMainApp">
+                        
+                        
+                    </Link>
+                    
                 </form>
             </div>
 

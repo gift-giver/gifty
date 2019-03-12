@@ -1,6 +1,17 @@
 import React, {Component} from 'react';
 import RandomSelectionModal from './RandomSelectionModal.js';
 import { Link } from 'react-router-dom';
+import logo from './../assets/Yelp_trademark_RGB_outline.png';
+import fiveStar from "./../assets/5.png";
+import fourPointFive from "./../assets/4.5.png";
+import fourStar from "./../assets/4.png";
+import threePointFive from "./../assets/3.5.png";
+import threeStar from "./../assets/3.png";
+import twoPointFive from "./../assets/2.5.png";
+import twoStar from "./../assets/2.png";
+import onePointFive from "./../assets/1.5.png";
+import oneStar from "./../assets/1.png";
+import zeroStar from "./../assets/0.png";
 
 class MyList extends Component {
     constructor(){
@@ -33,12 +44,11 @@ class MyList extends Component {
 
     // called if userList has a length greater than 1 or triggered by the try again button, returns a random selection from userList
     getRandomSelection = () => {
-        // get random number based on length of array myList
-        const randomNumber = this.getRandomNumber()
-    
-        // user list must have more than 1 item in it to work
-        if (randomNumber !== this.state.randomNumber) {
 
+        const randomNumber = this.getRandomNumber()
+
+        if (randomNumber !== this.state.randomNumber) {
+            
             // select piece from that list using index
             const randomChoice = this.props.userList[randomNumber].restaurantInfo;
             // place info in modal that pops up on screen
@@ -61,40 +71,84 @@ class MyList extends Component {
 
     render(){
         return (
-            <div className='myListMain'>
-                <div className="myListMainHeader">
-                    <button onClick={this.randomizeSelection}>Feeling Lucky??</button> 
+            <React.Fragment>
+                <div className="myListHeader">
+                    <h2>List Name Goes Here!</h2>
                     <Link to="/MainApp" className="mainSearchLink">Search again!</Link>
-                 </div>
-                
-                <ul>
-                    {   
-                        this.props.userList.map((listItem) => {
-                            
-                            return (
-                                <li key={listItem.restaurantInfo.id} className="myListDetailCard">
-                                    <img src={listItem.restaurantInfo.image_url} alt={listItem.restaurantInfo.name}/>
-                                    <h2>{listItem.restaurantInfo.name}</h2>
-                                    <p>{listItem.restaurantInfo.price}</p>
+                </div>
+                <div className='myListMain'>
+                    <button onClick={this.randomizeSelection}>Feeling Lucky??</button> 
+                    <ul>
+                        {
+                            this.props.userList.map((listItem) => {
+                                console.log(listItem.restaurantInfo.image_url);
+                                {/* console.log(this.state.randomChoice) */}
+                                return (
+                                    <li key={listItem.restaurantInfo.id} className="myListDetailCard">
+                                        <img src={listItem.restaurantInfo.image_url}/>
+                                        <h2>{listItem.restaurantInfo.name}</h2>
+                                        <p>{listItem.restaurantInfo.price}</p>
+                                        <div className="logoContainer">
+                                            <a href={listItem.restaurantInfo.url} target="_blank"> <img src={logo} alt="Yelp Logo" className="logo" /></a>
+                                         </div>
+                                    {
+                                        listItem.restaurantInfo.rating === 5 &&
+                                        <img src={fiveStar} alt="Five Stars" /> 
+                                    }
+                                    {
+                                         listItem.restaurantInfo.rating === 4.5 &&
+                                        <img src={fourPointFive} alt="Four Point Five Stars" />
+                                    }
+                                    {
+                                         listItem.restaurantInfo.rating === 4 &&
+                                        <img src={fourStar} alt="Four Stars" />
+                                    }
+                                    {
+                                         listItem.restaurantInfo.rating === 3.5 &&
+                                        <img src={threePointFive} alt="Three Point Five Stars"/>
+                                    }
+                                    {
+                                         listItem.restaurantInfo.rating === 3 &&
+                                        <img src={threeStar} alt="Three Stars"/>
+                                    }
+                                    {
+                                         listItem.restaurantInfo.rating === 2.5 &&
+                                        <img src={twoPointFive} alt="Two Point Five Stars"/>
+                                    }
+                                    {
+                                         listItem.restaurantInfo.rating === 2 &&
+                                        <img src={twoStar} alt="Two Stars"/>
+                                    }
+                                    {
+                                         listItem.restaurantInfo.rating === 1.5 && 
+                                        <img src={onePointFive} alt="One Point Five Stars"/>
+                                    }
+                                    {
+                                         listItem.restaurantInfo.rating === 1 &&
+                                        <img src={oneStar} alt="One Star"/>
+                                    }
+                                    {
+                                     listItem.restaurantInfo.rating === 0 &&
+                                    <img src={zeroStar} alt="Zero Stars"/>
+                                    }
                                     <button onClick={(event) => this.props.removeFromFirebase(event)} id={listItem.key}>Remove</button>
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
 
-                {
-                this.state.randomModalShow === true ? 
-                <RandomSelectionModal
-                    randomizeSelection={this.randomizeSelection}
-                    getRandomSelection={this.getRandomSelection}
-                    randomChoice={this.state.randomChoice}
-                    randomModalToggle={this.randomModalToggle} 
-                    onRandModalClose = {this.onRandModalClose}
-                />
-                : null
-                }
-            </div>  
+                    {
+                    this.state.randomModalShow === true ? <RandomSelectionModal
+                            randomizeSelection={this.randomizeSelection}
+                            getRandomSelection={this.getRandomSelection}
+                            randomChoice={this.state.randomChoice}
+                            onRandModalClose={this.onRandModalClose}
+                        randomModalToggle={this.randomModalToggle} />
+                    : null
+                    }
+                    </div>  
+            </React.Fragment>
         )
     }
 }
