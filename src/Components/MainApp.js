@@ -7,6 +7,8 @@ import Footer from './Footer.js';
 import AnimateHeight from 'react-animate-height';
 import Loader from 'react-loaders'
 
+
+
 class MainApp extends Component {
     constructor() {
         super();
@@ -39,12 +41,14 @@ class MainApp extends Component {
         const { height } = this.state;
         return (
             <React.Fragment>
+
                     <header>
                 <AnimateHeight
                         height={height} 
                         // delay={200}    
                     >
                         <Header
+                            userListLength={props.userListLength}
                             onSearchSubmit={this.props.onSearchSubmit}
                             onChangeEvent={this.props.onChangeEvent}
                             onFocusEvent={this.props.onFocusEvent}
@@ -70,6 +74,7 @@ class MainApp extends Component {
                         pushToFirebase={this.props.pushToFirebase}
                         modalContentData={this.props.modalContentData}
                         modalContentIsHidden={this.props.modalContentIsHidden}
+
                     />
                     
                     

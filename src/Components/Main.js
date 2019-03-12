@@ -1,54 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ItemCard from './ItemCard.js';
-import ItemDetails from './ItemDetails.js';
 
-
-class Main extends Component {
-
-  constructor(){
-    super();
-
-    this.state = {
-      modalIsHidden: true,
-      modalData: {},
-    }
-  }
-
-
-  render() {
+const Main = (props) => {
     return (
-
       <div className="mainContainer">
-        
-        
         <section>
           <ul className="galleryGrid clearfix">
             {
-              this.props.itemInfo.map((info) => {
+              props.itemInfo.map((info) => {
                 return (
                   <li
-                    key={info.id}
-                    onClick={() => this.props.onClickToModal(info)}
+                    key={info.id}  
                   >
                     <ItemCard
                       itemInfo={info}
+                      pushToFirebase={props.pushToFirebase}
                     />
                   </li>
-               
                 )
               })
             }
             </ul>
-            {this.props.modalIsHidden === false ? <ItemDetails
-              itemInfo={this.props.modalData}
-              handleClick={this.props.handleClick}
-              onModalClose={this.props.onModalClose} 
-              /> : null}
-              
-
-            </section>
+          </section>
       </div>
     );
-  }
 }
 export default Main;

@@ -28,11 +28,10 @@ class App extends Component {
       resultInfo: [],
       filteredResultInfo: [],
       userList: [],
+      userListLength: 0,
       userChoice: '',
       userName:"",
       redirect: false,
-      modalContentData: {},
-      modalContentIsHidden: true
     }
   } 
 
@@ -106,7 +105,9 @@ class App extends Component {
           term: userQuery,
           categories: 'restaurants, All',
           open_now: true,
-          image_url: true
+          image_url: true,
+          radius: 2500,
+          sort_by: "distance"
         }
       })
       
@@ -125,7 +126,6 @@ class App extends Component {
         // return filteredResults as the result of the map operation, new list info held within placeInfo
         return filteredResults
       })
-
       // return placeInfo to caller -> used to set state
       return placeInfo
     }
@@ -203,9 +203,11 @@ class App extends Component {
           })
         }
       }
+      const returnedListLength = returnedList.length
       // set state with newly created array of firbase returned items; used to display list content in MyList
       this.setState({
         userList: returnedList,
+        userListLength: returnedListLength
         // firebaseListId: firebaseKey
       })
     })
@@ -213,6 +215,7 @@ class App extends Component {
 
   // checks user list for if an item with a matching ID is already saved; returns -1 if no matching item is found
   checkUserList = (itemInfo) => {
+
    return this.state.userList.findIndex((item) => {
       return item.restaurantInfo.id === itemInfo.id
     })
@@ -220,6 +223,7 @@ class App extends Component {
 
   // push item to firebase 
   pushToFirebase = (itemInfo) => {
+
     const listCheck = this.checkUserList(itemInfo);
 
     // if item has 10 or more items, do not allow more items to be added
@@ -258,7 +262,7 @@ class App extends Component {
   removeFullListFromFirebase = (event) => {
     
     Swal.fire({
-      title: 'Are you sure?',
+      title: "You're bacon my heart!",
       text: "You won't be able to revert this!",
       type: 'warning',
       showCancelButton: true,
@@ -285,6 +289,7 @@ class App extends Component {
   }
   
   confirmFullListFirebaseDelete = () => {
+
     const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
 
     dbRef.remove()
@@ -296,24 +301,6 @@ class App extends Component {
       return <Redirect to="/" />
     }
   }
-  onClickToModal = (info) => {
-
-    this.setState({
-      modalData: info,
-      modalIsHidden: false
-    })
-  }
-
-  onModalClose = () => {
-    this.setState({
-      modalData: {},
-      modalIsHidden: true
-    })
-  }
-  handleClick = (clickedItemInfo) => {
-    this.pushToFirebase(clickedItemInfo);
-    this.onModalClose();
-  } 
 
   render() {
     return (
@@ -336,6 +323,7 @@ class App extends Component {
           <Route path="/MainApp" render={() => {
             return (
               <MainApp
+                userListLength={this.state.userListLength}
                 onSearchSubmit={this.handleSearchSubmit}
                 onChangeEvent={this.handleOnChangeEvents}
                 onFocusEvent={this.handleFocusEvent}
@@ -344,10 +332,7 @@ class App extends Component {
                 priceValue={this.state.price}
                 ratingValue={this.state.rating}
                 itemInfo={this.state.filteredResultInfo}
-                userList={this.state.userList}
-                pushToFirebase={this.pushToFirebase} 
-                modalContentData={this.state.modalData}
-                modalContentIsHidden={this.state.modalIsHidden}
+                pushToFirebase={this.pushToFirebase}
 
               />
             )
