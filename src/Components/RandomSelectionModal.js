@@ -10,7 +10,8 @@ import twoStar from "./../assets/2.png";
 import onePointFive from "./../assets/1.5.png";
 import oneStar from "./../assets/1.png";
 import zeroStar from "./../assets/0.png";
-
+import phone from "./../assets/phoneIcon.png";
+import location from "./../assets/locationIcon.png"
 
 const RandomSelectionModal = (props) => {
 
@@ -26,19 +27,23 @@ const RandomSelectionModal = (props) => {
                 </div>
 
                 <div className="modalInfoContainer">
-                    <h2>You Butter Try This!</h2>
+
+                   <h2>You Butter Try This!</h2>
                     <p>{props.randomChoice.name}</p>
-                    <a href={`tel://` + props.randomChoice.display_phone}>Make a reservation: {props.randomChoice.display_phone}</a>
-                    <a href={`http://maps.google.com/?q=${props.randomChoice.location.display_address}`} target="_blank" rel="noopener noreferrer" >{props.randomChoice.location.display_address}</a>
-                    <div className="logoContainer">
-                        <a href={props.randomChoice.url} target="_blank" rel="noopener noreferrer">Read more on Yelp<img src={logo} alt="Yelp Logo" className="logo" /></a>
+                    <div className="locationModalIcon">
+                        <a href={`tel://` + props.randomChoice.display_phone}><img src={phone} aria-hidden='true'/><span className="sr-only">Call Us Now!</span></a>
+                        <a href={`http://maps.google.com/?q=${props.randomChoice.location.display_address}`} target="_blank" rel="noopener noreferrer" ><img src={location} aria-hidden="true" /><span className='sr-only'>Find Us Now</span></a>
+
                     </div>
+
                     {
                         props.randomChoice.rating === 5 &&
                         <div>
                             <img src={fiveStar} alt="Five Stars" />
-                            <p>Based on {props.randomChoice.review_count} reviews</p>
+                            <p> Based on {props.randomChoice.review_count} reviews</p>
+                
                         </div>
+
 
                     }
                     {
@@ -113,7 +118,12 @@ const RandomSelectionModal = (props) => {
                         </div>
 
                     }
-                    <button onClick={props.getRandomSelection}>Try Again!</button>
+
+                    <button
+                        className="tryAgain"
+                        onClick={props.getRandomSelection}>Try Again!
+                    </button> 
+
                 </div>
             </div>
         </div>

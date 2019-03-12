@@ -30,8 +30,10 @@ class MainApp extends Component {
         const { height, filterVisibility } = this.state;
 
         this.setState({
-            height: height === 150 ? 250 : 150,
-            filterVisibility: !filterVisibility
+
+            height: height === 120 ? 150 : 120,
+            filterVisibility:!filterVisibility
+
         })
     }
 
@@ -58,6 +60,7 @@ class MainApp extends Component {
                             showFilterOptions={this.showFilterOptions}
                             filterVisibility={this.state.filterVisibility}
                             userList={this.props.userList}
+
                         />
 
                     </AnimateHeight>

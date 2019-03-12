@@ -32,6 +32,8 @@ class App extends Component {
       userChoice: "",
       userName: "",
       redirect: false,
+      // For Pose
+      makeVisible: false 
     }
   }
 
@@ -350,6 +352,7 @@ class App extends Component {
                 ratingValue={this.state.rating}
                 itemInfo={this.state.filteredResultInfo}
                 pushToFirebase={this.pushToFirebase}
+
               />
             )
           }} />
