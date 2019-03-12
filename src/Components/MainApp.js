@@ -64,10 +64,10 @@ class MainApp extends Component {
 
                 <main>
                     <Main
+
                         itemInfo={this.props.itemInfo}
                         ratingValue={this.props.ratingValue}
                         pushToFirebase={this.props.pushToFirebase}
-                        
                         modalContentData={this.props.modalContentData}
                         modalContentIsHidden={this.props.modalContentIsHidden}
                     />

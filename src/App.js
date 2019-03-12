@@ -40,7 +40,7 @@ class App extends Component {
     // fetches firebase key held in local storage; prevents error where key is lost if page is refreshed causing no reference to proper firebase list
     const getFirebaseKey = localStorage.getItem("key")
     const storedFirebaseKey = JSON.parse(getFirebaseKey)
-
+    this.initialFirebaseCall(storedFirebaseKey)
     this.setState({
       firebaseListId: storedFirebaseKey
     })
@@ -107,11 +107,6 @@ class App extends Component {
           categories: 'restaurants, All',
           open_now: true,
           image_url: true
-
-          // attributes:"gender_neutral_restrooms",
-          // attributes:"open_to_all",
-          // attributes:"wheelchair_accessible",
-          // attributes:"hot_and_new"
         }
       })
       
@@ -248,11 +243,6 @@ class App extends Component {
         showConfirmButton: false,
         timer: 1500
       })
-
-      this.setState({
-        modalContentData: {},
-        modalContentIsHidden: true
-      })
     }
   }
 
@@ -306,6 +296,24 @@ class App extends Component {
       return <Redirect to="/" />
     }
   }
+  onClickToModal = (info) => {
+
+    this.setState({
+      modalData: info,
+      modalIsHidden: false
+    })
+  }
+
+  onModalClose = () => {
+    this.setState({
+      modalData: {},
+      modalIsHidden: true
+    })
+  }
+  handleClick = (clickedItemInfo) => {
+    this.pushToFirebase(clickedItemInfo);
+    this.onModalClose();
+  } 
 
   render() {
     return (
@@ -340,6 +348,7 @@ class App extends Component {
                 pushToFirebase={this.pushToFirebase} 
                 modalContentData={this.state.modalData}
                 modalContentIsHidden={this.state.modalIsHidden}
+
               />
             )
           }} />
