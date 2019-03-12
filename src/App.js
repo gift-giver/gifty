@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import MainApp from './Components/MainApp.js';
 import MyList from './Components/MyList.js';
 import LoginPage from './Components/LoginPage.js';
+
 //dependencies
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -54,7 +55,7 @@ class App extends Component {
   // * EVENT HANDLERS * //
   //function to trigger axios call, following click of the submit button.
   handleSearchSubmit = async (event) => {
-
+    console.log('clicked')
     event.preventDefault();
     //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
     const data = await this.getSearchData(this.state.cuisineTextInput, this.state.locationTextInput);
@@ -332,6 +333,7 @@ class App extends Component {
                 ratingValue={this.state.rating}
                 itemInfo={this.state.filteredResultInfo}
                 pushToFirebase={this.pushToFirebase}
+
               />
             )
           }} />
@@ -347,7 +349,7 @@ class App extends Component {
               />
             )
           }} />
-
+          
         </div>
       </Router>
     )
