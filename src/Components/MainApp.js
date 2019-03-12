@@ -23,8 +23,10 @@ class MainApp extends Component {
                 const { height } = this.state;
         
                 this.setState({
-                    height: height === 1000 ? 150 : 150,
+                    height: height === 1000 ? 120 : 120,
                     filterVisibility: false,
+                    makeVisible:true,
+                   
                 })
           }
     
@@ -32,7 +34,7 @@ class MainApp extends Component {
         const { height, filterVisibility } = this.state;
 
         this.setState({
-            height: height === 150 ? 250 : 150,
+            height: height === 120 ? 150 : 120,
             filterVisibility:!filterVisibility
         })
     }
@@ -48,7 +50,7 @@ class MainApp extends Component {
                         // delay={200}    
                     >
                         <Header
-                            userListLength={props.userListLength}
+                            userListLength={this.props.userListLength}
                             onSearchSubmit={this.props.onSearchSubmit}
                             onChangeEvent={this.props.onChangeEvent}
                             onFocusEvent={this.props.onFocusEvent}
@@ -60,7 +62,8 @@ class MainApp extends Component {
                             animateHeaderHeight={this.animateHeaderHeight}
                             showFilterOptions={this.showFilterOptions}
                             filterVisibility={this.state.filterVisibility}
-                             userList={this.props.userList}
+                            userList={this.props.userList}
+                            makeVisible={this.state.makeVisible}
                         />
  
                 </AnimateHeight>

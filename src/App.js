@@ -32,6 +32,8 @@ class App extends Component {
       userChoice: '',
       userName:"",
       redirect: false,
+      // For Pose
+      makeVisible: false 
     }
   } 
 
@@ -55,7 +57,6 @@ class App extends Component {
   // * EVENT HANDLERS * //
   //function to trigger axios call, following click of the submit button.
   handleSearchSubmit = async (event) => {
-    console.log('clicked')
     event.preventDefault();
     //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
     const data = await this.getSearchData(this.state.cuisineTextInput, this.state.locationTextInput);
@@ -333,6 +334,7 @@ class App extends Component {
                 ratingValue={this.state.rating}
                 itemInfo={this.state.filteredResultInfo}
                 pushToFirebase={this.pushToFirebase}
+                makeVisible={this.state.makeVisible}
 
               />
             )

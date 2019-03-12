@@ -16,7 +16,7 @@ const SearchBar = (props) => {
                     <label htmlFor="mainSearchBar" className="visibilityHidden">Search for local cuisine</label>
                         <input 
                         type="text" 
-                        id="mainSearchBar"
+                        className="mainSearchBar"
                         placeholder="Search Cuisine" 
                         name="cuisineTextInput"
                         onFocus={(event) => props.onFocusEvent(event)}
@@ -36,7 +36,7 @@ const SearchBar = (props) => {
                         onChange={(event) => props.onChangeEvent(event)}
                         value={props.locationTextInputValue}
                         name="locationTextInput"
-                        id="locationSearch"
+                        className="locationSearch"
                         required
                     />
                     </div>

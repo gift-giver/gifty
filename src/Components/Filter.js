@@ -2,7 +2,7 @@ import React from "react";
 
 const Filters = (props) => {
     return (
-        <section className="searchBarRight">
+        <section className="searchBarRight clearfix">
                     <div className="priceFilter">
                         <label htmlFor="priceSearch">Price</label>
                         <select name="price" id="priceSearch" value={props.priceValue} onChange={(event) => props.onChangeEvent(event)}>
