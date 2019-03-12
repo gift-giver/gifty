@@ -29,11 +29,11 @@ class App extends Component {
       filteredResultInfo: [],
       userList: [],
       userListLength: 0,
-      userChoice: '',
-      userName:"",
+      userChoice: "",
+      userName: "",
       redirect: false,
     }
-  } 
+  }
 
   componentDidMount() {
     // fetches firebase key held in local storage; prevents error where key is lost if page is refreshed causing no reference to proper firebase list
@@ -54,25 +54,33 @@ class App extends Component {
 
   // * EVENT HANDLERS * //
   //function to trigger axios call, following click of the submit button.
+
   handleSearchSubmit = async (event) => {
-    console.log('clicked')
+
     event.preventDefault();
-    //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
-    const data = await this.getSearchData(this.state.cuisineTextInput, this.state.locationTextInput);
-    // taking data from the axios call to be filtered
-    this.filterByRating(data)
-    //setting the state with the return from the axios call.
-    this.setState({
-      resultInfo: data
-    })
-    if (data.length === 0) {
-      Swal.fire(`Sorry, no results for ${this.state.cuisineTextInput}. Try again!`)
+
+    if (/^\s+$/i.test(this.state.cuisineTextInput) === false && this.state.cuisineTextInput !== ""
+      && /^\s+$/i.test(this.state.locationTextInput) === false && this.state.locationTextInput !== "") {
+      //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
+      const data = await this.getSearchData(this.state.cuisineTextInput, this.state.locationTextInput);
+      // taking data from the axios call to be filtered
+      this.filterByRating(data)
+      //setting the state with the return from the axios call.
+      this.setState({
+        resultInfo: data
+      })
+
+      if (data.length === 0) {
+        Swal.fire(`Sorry, no results for ${this.state.cuisineTextInput}. Try again!`)
+      }
+
+    } else {
+      Swal.fire(`Not a valid search entry`)
     }
   }
-
   // on focus of text inputs, clear input value
   handleFocusEvent = (event) => {
-    
+
     this.setState({
       [event.target.name]: ""
     })
@@ -98,19 +106,19 @@ class App extends Component {
           Authorization: `Bearer C7ZMd1ea7H3n1WxoD9MdVAa65MTz612MaPEKj6qOBy5hc0-JnSd76Svxv_7AoNH6_Y15XalttVt4pAvRadbAoSINmO2SttL2cJTTWNnONjEFv0CMS2OIeFJYZVKAXHYx `,
         },
         params: {
-          method: 'GET',
+          method: "GET",
           offset: 1,
           limit: 20,
           location: locationQuery,
           term: userQuery,
-          categories: 'restaurants, All',
+          categories: "restaurants, All",
           open_now: true,
           image_url: true,
           radius: 2500,
           sort_by: "distance"
         }
       })
-      
+
       const listingResults = await listingSearch["data"]["businesses"];
 
       // filter out keys with a value of undefined; causes problems when pushing to firebase
@@ -130,7 +138,7 @@ class App extends Component {
       return placeInfo
     }
     catch (error) {
-      console.log(error)
+      Swal.fire("No search results. We cannoli hope for next time.")
     }
   }
 
@@ -153,6 +161,7 @@ class App extends Component {
   };
 
   getUserName = (event) => {
+
     this.setState({
       userName: event.target.value
     })
@@ -161,18 +170,21 @@ class App extends Component {
   // * FIREBASE FUNCTIONS * //
   // create a new firebase list 
   createNewFirebaseList = (event) => {
-    
+
     // reference firebase object in which all  guest lists will live
-    const dbRef = firebase.database().ref(`GuestList`);
+    const dbRef = firebase.database().ref("GuestList");
+    // new firebase list will live inside an object, reference by firebase provided key
+    const userName = this.state.userName !== "" ? this.state.userName : "My Friend!"
     // new firebase list will live inside an object, reference by firebase provided key
     const newFirebaseList = {
-      userName: this.state.userName
+      userName: userName
     }
+
     // push new list to firebase reference, hold created firebase reference key for that object in variable firebaseKey
     const firebaseKey = dbRef.push(newFirebaseList)
-  
+
     this.initialFirebaseCall(firebaseKey.key)
-    
+
     // saves firebase key to local storage; prevents the situation where, on page refresh, the firebase reference is lost
     const storedFirebaseKey = JSON.stringify(firebaseKey.key)
 
@@ -181,14 +193,15 @@ class App extends Component {
     // set state with current firebaseKey; allows session to save to one list which is later deletable
     this.setState({
       firebaseListId: firebaseKey.key,
-      redirect: false
+      redirect: false,
+      userName: userName
     })
   }
 
   initialFirebaseCall = (firebaseKey) => {
     // reference firebase list; reference structure: GuestList -> newUserCreatedList
     const dbRef = firebase.database().ref(`GuestList/${firebaseKey}`);
-    dbRef.on('value', response => {
+    dbRef.on("value", response => {
       // create a new array for items from firebase to be pushed to
       const returnedList = [];
       // a vraible that holds the info returned from firebase
@@ -216,7 +229,7 @@ class App extends Component {
   // checks user list for if an item with a matching ID is already saved; returns -1 if no matching item is found
   checkUserList = (itemInfo) => {
 
-   return this.state.userList.findIndex((item) => {
+    return this.state.userList.findIndex((item) => {
       return item.restaurantInfo.id === itemInfo.id
     })
   }
@@ -227,15 +240,15 @@ class App extends Component {
     const listCheck = this.checkUserList(itemInfo);
 
     // if item has 10 or more items, do not allow more items to be added
-    if(this.state.userList.length === 10){
+    if (this.state.userList.length === 10) {
       Swal.fire("You already have 10 items in your list. Check it out!")
-      
-    
-    // if item is found to exist in userLIst already, do not allow item to be added
-    } else if (listCheck !== -1){
-      Swal.fire(`${itemInfo.name} has already been added to your list.` )
-          
-    // add item to firebase if no restrictions are found to be true
+
+
+      // if item is found to exist in userLIst already, do not allow item to be added
+    } else if (listCheck !== -1) {
+      Swal.fire(`${itemInfo.name} has already been added to your list.`)
+
+      // add item to firebase if no restrictions are found to be true
     } else {
       const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
 
@@ -245,8 +258,8 @@ class App extends Component {
         imageUrl: `${itemInfo.image_url}`,
         imageHeight: 200,
         imageWidth: 200,
-        position: 'top-center',
-        type: 'success',
+        position: "top-center",
+        type: "success",
         title: `${itemInfo.name} has been saved!`,
         showConfirmButton: false,
         timer: 1500
@@ -256,7 +269,7 @@ class App extends Component {
 
   // remove selected item from firebase; firebase key used as id on button, accessed by event.target.id
   removeFromFirebase = (event) => {
-    
+
     const key = event["target"]["id"]
     const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}/${key}`);
 
@@ -264,7 +277,7 @@ class App extends Component {
   }
 
   removeFullListFromFirebase = (event) => {
-    
+
     Swal.fire({
       title: "You're bacon my heart!",
       text: "You won't be able to revert this!",
@@ -272,11 +285,11 @@ class App extends Component {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.value) {
         Swal.fire(
-         "Your list has been deleted. Create a new one! ",
+          "Your list has been deleted. Create a new one! ",
           this.confirmFullListFirebaseDelete(),
 
           this.setState({
@@ -291,17 +304,17 @@ class App extends Component {
       }
     })
   }
-  
+
   confirmFullListFirebaseDelete = () => {
 
     const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
 
     dbRef.remove()
   }
-  
+
   renderRedirect = () => {
 
-    if (this.state.redirect){
+    if (this.state.redirect) {
       return <Redirect to="/" />
     }
   }
@@ -312,19 +325,19 @@ class App extends Component {
         <div>
           <Route path="/" exact render={() => {
             return (
-              <LoginPage 
+              <LoginPage
                 getUserName={this.getUserName}
                 userName={this.state.userName}
                 onChangeEvent={this.handleOnChangeEvents}
                 handleNewListClick={this.handleNewListClick}
                 handleNewListKeyPress={this.handleNewListKeyPress}
-                createNewFirebaseList={this.createNewFirebaseList} 
+                createNewFirebaseList={this.createNewFirebaseList}
               />
-            ) 
+            )
           }} />
 
-          
-          <Route path="/MainApp" render={() => {
+
+          <Route path="/search" render={() => {
             return (
               <MainApp
                 userListLength={this.state.userListLength}
@@ -337,23 +350,22 @@ class App extends Component {
                 ratingValue={this.state.rating}
                 itemInfo={this.state.filteredResultInfo}
                 pushToFirebase={this.pushToFirebase}
-
               />
             )
           }} />
 
           {this.renderRedirect()}
-          <Route path="/MyList" render={() => {
+          <Route path="/mylist" render={() => {
             return (
               <MyList
                 userList={this.state.userList}
-                removeFromFirebase={this.removeFromFirebase} 
+                removeFromFirebase={this.removeFromFirebase}
                 userName={this.state.userName}
                 removeFullListFromFirebase={this.removeFullListFromFirebase}
               />
             )
           }} />
-          
+
         </div>
       </Router>
     )
