@@ -3,9 +3,12 @@ import React, { Component } from 'react';
 import MainApp from './Components/MainApp.js';
 import MyList from './Components/MyList.js';
 import LoginPage from './Components/LoginPage.js';
+//dependencies
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
 // import router
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import firebase from './firebase.js';
 // import styles
 import './App.css';
@@ -25,19 +28,31 @@ class App extends Component {
       filteredResultInfo: [],
       userList: [],
       userChoice: '',
-      userName:""
+      userName:"",
+      redirect: false,
+      modalContentData: {},
+      modalContentIsHidden: true
     }
   } 
 
   componentDidMount() {
-   
+    
+    const getFirebaseKey = localStorage.getItem("key")
+    const storedFirebaseKey = JSON.parse(getFirebaseKey)
+    this.setState({
+      firebaseListId: storedFirebaseKey
+    })
   }
+
+
 
   componentDidUpdate(prevProps, prevState) {
     // if prevState.rating or prevState.price isn't equal to what was specified by user: run this function
     if (prevState.rating !== this.state.rating || prevState.price !== this.state.price) {
       this.filterByRating(this.state.resultInfo);
     }
+
+    
   }
 
   // * EVENT HANDLERS * //
@@ -54,7 +69,7 @@ class App extends Component {
       resultInfo: data
     })
     if (data.length === 0) {
-      alert("there are no results for this search" );
+      Swal.fire(`Sorry, no results for ${this.state.cuisineTextInput}. Try again!`)
     }
   }
 
@@ -150,11 +165,23 @@ class App extends Component {
     })
   }
 
+  // handleNewListClick = (event) => {
+  //   event.preventDefault();
+  //   console.log("click")
+  // }
+
+  // handleNewListKeyPress = (event) => {
+  //   event.preventDefault();
+  //   if(event.charCode === 13){
+  //     console.log('keypress')
+  //   }
+ 
+  // }
 
 // * FIREBASE FUNCTIONS * //
 // create a new firebase list 
-  createNewFirebaseList = (event) => {
-
+createNewFirebaseList = (event) => {
+  
   // reference firebase object in which all  guest lists will live
   const dbRef = firebase.database().ref(`GuestList`);
   // new firebase list will live inside an object, reference by firebase provided key
@@ -163,14 +190,18 @@ class App extends Component {
   }
   // push new list to firebase reference, hold created firebase reference key for that object in variable firebaseKey
   const firebaseKey = dbRef.push(newFirebaseList)
-  this.initialFirebaseCall(firebaseKey["path"]["pieces_"][1])
+  console.log(firebaseKey.key)
+  this.initialFirebaseCall(firebaseKey.key)
   // set state with current firebaseKey; allows session to save to one list which is later deletable
-  console.log(firebaseKey)
-
+  
+  const storedFirebaseKey = JSON.stringify(firebaseKey.key)
+  localStorage.setItem("key", storedFirebaseKey)
   this.setState({
-    firebaseListId: firebaseKey["path"]["pieces_"][1],
+    firebaseListId: firebaseKey.key,
+    redirect: false
   })
 }
+
 initialFirebaseCall = (firebaseKey) => {
   // reference firebase list; reference structure: GuestList -> newUserCreatedList
   const dbRef = firebase.database().ref(`GuestList/${firebaseKey}`);
@@ -196,18 +227,45 @@ initialFirebaseCall = (firebaseKey) => {
     })
   })
 }
+  checkuserList = (itemInfo) => {
+   return this.state.userList.filter((item) => {
+      return item.restaurantInfo.id === itemInfo.id
+    })
+  }
 
   // push item to firebase 
   pushToFirebase = (itemInfo) => {
+    const listCheck = this.checkuserList(itemInfo);
+    console.log(!listCheck);
 
-    if(this.state.userList.length <= 10){
-      
+    if(this.state.userList.length + 1 <= 10 ){
+      console.log(this.state.userList.length + 1)
       const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
-  
+      
+      
       dbRef.push(itemInfo);
+      
+      Swal.fire({
+        position: 'top-end',
+        type: 'success',
+        title: 'Your choice has been saved!',
+        showConfirmButton: false,
+        timer: 1500
+      })
 
+      this.setState({
+        modalContentData: { },
+        modalContentIsHidden: true
+      })
+    
     } else {
-      alert("You may only have 10 items in your list, please remove one to add a new item")
+      
+      // if (this.state.userList.length + 1 <= 10){
+        alert("You may only have 10 items in your list, please remove one to add a new item")
+      // } else if (!listCheck === false) {
+      //   alert("You've already got this!")
+      // }
+      
     }
   }
 
@@ -220,18 +278,81 @@ initialFirebaseCall = (firebaseKey) => {
     dbRef.remove()
   }
 
+  removeFullListFromFirebase = (event) => {
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+         "Your list has been deleted. Create a new one! ",
+          this.confirmFullListFirebaseDelete(),
+
+          this.setState({
+            redirect: true,
+            firebaseListId: "",
+            userName: "",
+            cuisineTextInput: "",
+            resultInfo: [],
+            filteredResultInfo: [],
+          }),
+
+          
+        )
+      }
+    })
+
+    
+
+          
+
+    
+  }
+  
+  confirmFullListFirebaseDelete = () => {
+    const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
+
+    dbRef.remove()
+    
+  }
+  
+  renderRedirect = () => {
+
+    if (this.state.redirect){
+      return <Redirect to="/" />
+    }
+   
+  }
+  
+  // mainRenderRedirect = () => {
+  //   if(this.state.userName){
+  //     return <Redirect to="/MainApp" />
+  //   }
+  // }
+  
+
   render() {
     return (
       <Router>
         <div>
           <Route path="/" exact render={() => {
-            return (<LoginPage createNewFirebaseList={this.createNewFirebaseList}
+            return (<LoginPage 
               getUserName={this.getUserName}
               userName={this.state.userName}
               onChangeEvent={this.handleOnChangeEvents}
+              handleNewListClick={this.handleNewListClick}
+              handleNewListKeyPress={this.handleNewListKeyPress}
+              createNewFirebaseList={this.createNewFirebaseList} 
             
           />) }} />
 
+          
           <Route path="/MainApp" render={() => {
             return (
               <MainApp
@@ -244,14 +365,19 @@ initialFirebaseCall = (firebaseKey) => {
                 ratingValue={this.state.rating}
                 itemInfo={this.state.filteredResultInfo}
                 pushToFirebase={this.pushToFirebase} 
-              />)
-          }} />
-          
+                modalContentData={this.state.modalData}
+                modalContentIsHidden={this.state.modalIsHidden}
+                
+        />)
+    }} />
+          {this.renderRedirect()}
           <Route path="/MyList" render={() => {
             return (
               <MyList
                 userList={this.state.userList}
                 removeFromFirebase={this.removeFromFirebase} 
+                userName={this.state.userName}
+                removeFullListFromFirebase={this.removeFullListFromFirebase}
               />
             )
           }} />
