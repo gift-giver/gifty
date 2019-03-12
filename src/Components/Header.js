@@ -2,35 +2,21 @@ import React, {Component } from 'react';
 import SearchBar from './SearchBar.js';
 import { Link } from 'react-router-dom';
 import Filter from "./Filter.js";
-import posed from 'react-pose'
 
 
-class Header extends Component {
-  constructor() {
-    super();
-  
-  }
-  
-  render() {
-    // const PosedDiv = posed.div({
-    //   top: {
-    //     y: '300px',
-    //   },
-    //   bottom: {
-    //     y: '20px'
-    //   }
-    // })
-  
-  
+const Header = (props) => {
 
-    return (
-      <React.Fragment>
+  return (
+
+    <React.Fragment>
+
+      {
+        props.userListLength > 0 &&
+        <Link to="/mylist" className="myListLinkMain">See My List ({props.userListLength})</Link>
+      }
+
+      <div className="searchBarContainer">
         {
-          this.props.userListLength > 0 &&
-          <Link to="/MyList" className="myListLinkMain">See My List({this.props.userListLength})</Link>
-        }
-
-        <div className="searchBarContainer" pose={this.props.makeVisible ? 'bottom' : 'top'}>
           <SearchBar
             onFocusEvent={this.props.onFocusEvent}
             onSearchSubmit={this.props.onSearchSubmit}
@@ -42,23 +28,22 @@ class Header extends Component {
             filterVisibility={this.props.filterVisibility}
             showFilterOptions={this.props.showFilterOptions}
           />
+        }
 
-          {
-            this.props.filterVisibility === true &&
-            <Filter
-              ratingValue={this.props.ratingValue}
-              showFilterOptions={this.props.showFilterOptions}
-              priceValue={this.props.priceValue}
+        {
+          props.filterVisibility === true &&
+          <Filter
+            ratingValue={props.ratingValue}
+            showFilterOptions={props.showFilterOptions}
+            priceValue={props.priceValue}
+            onChangeEvent={props.onChangeEvent}
+          />
 
-            />
-    
-          }
-        </div>
-       
-               
-        
-      </React.Fragment>
-    );
-  }
+        }
+      </div>
+
+
+    </React.Fragment>
+  );
 }
 export default Header;

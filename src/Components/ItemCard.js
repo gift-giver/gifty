@@ -14,16 +14,17 @@ import phone from "./../assets/phoneIcon.png";
 import location from "./../assets/locationIcon.png";
 
 const ItemCard = (props) => {
-    // const rating = props.itemInfo.rating
+
     return (
         <React.Fragment>
             <div className="itemCardImageContainer">
-              <img src={props.itemInfo.image_url} alt={props.name} className="itemCardImage" />  
+                <img src={props.itemInfo.image_url} alt={props.name} className="itemCardImage" />
             </div>
-            
+
             <div className="itemInfoContainer">
                 <h2>{props.itemInfo.name}</h2>
                 <p>{props.itemInfo.price}</p>
+
                 <div className="iconContainer">
                     <a href={`tel://` + props.itemInfo.display_phone} aria-label="Phone">
                         <img src={phone} aria-hidden="true" />
@@ -35,12 +36,14 @@ const ItemCard = (props) => {
                     </a>
                 </div>
 
+
                 <div className="logoContainer">
                     <a href={props.itemInfo.url} target="_blank" rel="noopener noreferrer">Read more on <img src={logo} alt="Yelp Logo" className="logo" /></a>
                 </div>
 
                 {
                     props.itemInfo.rating === 5 &&
+
                     <div className="ratingContainer">
                         <img src={fiveStar} alt="Five Stars" />
                         <p>Based on {props.itemInfo.review_count} reviews</p>
@@ -121,8 +124,9 @@ const ItemCard = (props) => {
                     
                 }
               <button onClick={() => props.pushToFirebase(props.itemInfo)} key={props.itemInfo.id} className='addToListButton'>Add To List</button>  
+
             </div>
-            
+
         </React.Fragment>
     )
 }

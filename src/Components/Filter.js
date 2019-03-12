@@ -2,6 +2,7 @@ import React from "react";
 
 const Filters = (props) => {
     return (
+
         <section className="searchBarRight clearfix">
                     <div className="priceFilter">
                         <label htmlFor="priceSearch">Price</label>
@@ -28,9 +29,7 @@ const Filters = (props) => {
                                 <option value="5">5 star</option>
                             </select>
                         </div>
-
-               
-                    </section>
+        </section>
     )
 }
 

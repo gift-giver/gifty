@@ -3,8 +3,8 @@ import React from 'react';
 const Footer = () => {
     return (
       <footer>
-          <p>Footer Placeholder</p>
+          <p>we're all weirdoughs 🍩</p>
       </footer>
     );
 }
-export default Footer;
+export default Footer; 

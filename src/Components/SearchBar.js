@@ -1,15 +1,15 @@
 import React from 'react';
 
-
 const SearchBar = (props) => {
-    
-   
+
     return (
-        <form 
+        <form
             action="submit"
             onSubmit={(event) => props.onSearchSubmit(event)}
+            className="searchBarForm"
         >
             <fieldset>
+
             <section className="searchBarLeft">
                  <legend>Penne for your Thoughts on dinner?</legend>
                 <div className="keywordSearch">
@@ -22,7 +22,7 @@ const SearchBar = (props) => {
                         onFocus={(event) => props.onFocusEvent(event)}
                         onChange={(event) => props.onChangeEvent(event)}
                         value={props.cuisineTextInputValue}
-                        required
+                        
                     >
                     </input>
                     </div>
@@ -37,30 +37,30 @@ const SearchBar = (props) => {
                         value={props.locationTextInputValue}
                         name="locationTextInput"
                         className="locationSearch"
-                        required
+                        
                     />
+
                     </div>
-            </section>
-               
-            <div className="buttonContainer">
-                <button type="submit"
-                    onClick={props.animateHeaderHeight}>Search
-                </button>
-                <button
-                    onClick={props.showFilterOptions}>
-                    {
-                    
-                    props.filterVisibility === true ?
-                        'Hide Filters' : 'Show Filters'
-                    }
+                </section>
+
+                <div className="buttonContainer">
+                    <button type="submit"
+                        onClick={props.animateHeaderHeight}>Search
                     </button>
-            </div>
-                
+                    <button
+                        onClick={props.showFilterOptions}>
+                        {
+
+                            props.filterVisibility === true ?
+                                'Hide Filters' : 'Show Filters'
+                        }
+                    </button>
+                </div>
+
             </fieldset>
-            
+
         </form>
     )
 }
 
 export default SearchBar;
-
