@@ -3,17 +3,19 @@ import SearchBar from './SearchBar.js';
 import { Link } from 'react-router-dom';
 import Filter from "./Filter.js";
 
-
 const Header = (props) => {
-    return (
-      <React.Fragment>
+
+  return (
+
+    <React.Fragment>
+
+      {
+        props.userListLength > 0 &&
+        <Link to="/MyList" className="myListLinkMain">See My List ({props.userListLength})</Link>
+      }
+
+      <div className="searchBarContainer">
         {
-          props.userListLength > 0 &&
-            <Link to="/MyList" className="myListLinkMain">See My List ({props.userListLength})</Link>
-        }
-        <div className="searchBarContainer">
-        {
-          
           <SearchBar
             onFocusEvent={props.onFocusEvent}
             onSearchSubmit={props.onSearchSubmit}
@@ -25,26 +27,22 @@ const Header = (props) => {
             filterVisibility={props.filterVisibility}
             showFilterOptions={props.showFilterOptions}
           />
-          
         }
-          
 
-          {
-            props.filterVisibility === true &&
-            <Filter
-              ratingValue={props.ratingValue}
-              showFilterOptions={props.showFilterOptions}
-              priceValue={props.priceValue}
+        {
+          props.filterVisibility === true &&
+          <Filter
+            ratingValue={props.ratingValue}
+            showFilterOptions={props.showFilterOptions}
+            priceValue={props.priceValue}
+            onChangeEvent={props.onChangeEvent}
+          />
 
-            />
-    
-          }
-        </div>
-       
-               
-        
-      </React.Fragment>
-    );
+        }
+      </div>
+
+    </React.Fragment>
+  );
 }
 
 export default Header;
