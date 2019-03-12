@@ -26,9 +26,9 @@ const SearchBar = (props) => {
                 </div>
 
                 <div className="priceFilter">
-                    <label htmlFor="priceSearch">Price level</label>
+                    <label htmlFor="priceSearch">Price</label>
                     <select name="price" id="priceSearch" value={props.priceValue} onChange={(event) => props.onChangeEvent(event)}>
-                        <option value="0">--</option>
+                        <option value="0">All</option>
                         <option value="1">$</option>
                         <option value="2">$$</option>
                         <option value="3">$$$</option>
@@ -38,7 +38,7 @@ const SearchBar = (props) => {
                 </section>
                 <section className="searchBarRight">
                 <div className="ratingFilter">
-                    <label htmlFor="ratingSearch"></label>
+                    <label htmlFor="ratingSearch">Rating</label>
                     <select name="rating" id="ratingSearch" value={props.ratingValue} onChange={(event) => props.onChangeEvent(event)}>
                         <option value="0">0 star</option>                   
                         <option value="1">1 star</option>
@@ -63,6 +63,7 @@ const SearchBar = (props) => {
                         value={props.locationTextInputValue}
                         name="locationTextInput"
                         id="locationSearch"
+                        required
                     />
                     <button type="submit">Search</button>
                     </div>

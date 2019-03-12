@@ -11,11 +11,11 @@ import { Link, NavLink} from 'react-router-dom';
 //     const auth = firebase.auth();
 
 class LoginPage extends Component {
+
     constructor(){
         super();
-        this.state={
 
-        }
+        this.state={}
     }
 
     render(){
