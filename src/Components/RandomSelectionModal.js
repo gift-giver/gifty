@@ -30,7 +30,10 @@ const RandomSelectionModal = (props) => {
                    <h2>Try This!</h2>
                    <p>{props.randomChoice.name}</p>
                     <a href={`tel://` + props.randomChoice.display_phone}>Make a reservation: {props.randomChoice.display_phone}</a>
-                    <a href={`http://maps.google.com/?q=${props.randomChoice.location.display_address}`} target="_blank">{props.randomChoice.location.display_address}</a>
+                    <a href={`http://maps.google.com/?q=${props.randomChoice.location.display_address}`} target="_blank" rel="noopener noreferrer" >{props.randomChoice.location.display_address}</a>
+                    <div className="logoContainer">
+                        <a href={props.randomChoice.url} target="_blank" rel="noopener noreferrer">Read more on Yelp<img src={logo} alt="Yelp Logo" className="logo" /></a>
+                    </div>
                     {
                         props.randomChoice.rating === 5 &&
                         <React.Fragment>

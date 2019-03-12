@@ -5,8 +5,6 @@ import Footer from './Footer.js';
 
 // import dependencies
 import AnimateHeight from 'react-animate-height';
-import Loader from 'react-loaders'
-
 
 
 class MainApp extends Component {
@@ -21,11 +19,15 @@ class MainApp extends Component {
 
           animateHeaderHeight = () => {
                 const { height } = this.state;
-        
-                this.setState({
-                    height: height === 1000 ? 150 : 150,
-                    filterVisibility: false,
-                })
+              if (this.props.cuisineTextInputValue.length > 0 && /^[^\t].*/.this.props.cuisineTextInputValue ){
+                  console.log("why")
+                  console.log(this.props.cuisineTextInputValue.length)
+                    this.setState({
+                        height: height === 1000 ? 150 : 150,
+                        filterVisibility: false,
+                    }) 
+                }
+                
           }
     
     showFilterOptions = () => {
@@ -48,7 +50,7 @@ class MainApp extends Component {
                         // delay={200}    
                     >
                         <Header
-                            userListLength={props.userListLength}
+                            userListLength={this.props.userListLength}
                             onSearchSubmit={this.props.onSearchSubmit}
                             onChangeEvent={this.props.onChangeEvent}
                             onFocusEvent={this.props.onFocusEvent}

@@ -228,12 +228,13 @@ class App extends Component {
 
     // if item has 10 or more items, do not allow more items to be added
     if(this.state.userList.length === 10){
-      alert("You may only have 10 items in your list, please remove one to add a new item")
+      Swal.fire("You already have 10 items in your list. Check it out!")
+      
     
     // if item is found to exist in userLIst already, do not allow item to be added
     } else if (listCheck !== -1){
-      alert("This item has already been added to your list")
-    
+      Swal.fire(`${itemInfo.name} has already been added to your list.` )
+          
     // add item to firebase if no restrictions are found to be true
     } else {
       const dbRef = firebase.database().ref(`GuestList/${this["state"]["firebaseListId"]}`);
@@ -241,9 +242,12 @@ class App extends Component {
       dbRef.push(itemInfo);
 
       Swal.fire({
-        position: 'top-end',
+        imageUrl: `${itemInfo.image_url}`,
+        imageHeight: 200,
+        imageWidth: 200,
+        position: 'top-center',
         type: 'success',
-        title: 'Your choice has been saved!',
+        title: `${itemInfo.name} has been saved!`,
         showConfirmButton: false,
         timer: 1500
       })

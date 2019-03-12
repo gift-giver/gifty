@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, NavLink} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 //  const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -30,12 +30,14 @@ class LoginPage extends Component {
                     onChange={this.props.onChangeEvent}
                     value={this.props.userName}
                     name='userName'    
-                    />
+                    required
+                     />
                     
-                    <Link className="linkToMainApp" to="/MainApp"
-                        onClick={(event) => this.props.createNewFirebaseList(event)}
-
-                    className="linkToMainApp">Lettuce Eat!</Link>
+                    <Link 
+                        className="linkToMainApp" to="/MainApp"
+                        onClick={(event) => this.props.createNewFirebaseList(event)}>
+                        Lettuce Eat!
+                    </Link>
                     
                 </form>
             </div>
