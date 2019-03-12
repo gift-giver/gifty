@@ -6,7 +6,7 @@ const MyListHeader = (props) => {
     <div className="myListHeader">
       <h2>Spec-taco-lar Eats with {props.userName}</h2>
 
-      <Link to="/MainApp" className="mainSearchLink">Search again</Link>
+      <Link to="/search" className="mainSearchLink">Search again</Link>
 
       <button onClick={props.randomizeSelection} className="randomizeButton">Lettuce recommend a restaurant for you!</button>
 

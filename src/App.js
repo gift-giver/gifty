@@ -337,7 +337,7 @@ class App extends Component {
           }} />
 
 
-          <Route path="/MainApp" render={() => {
+          <Route path="/search" render={() => {
             return (
               <MainApp
                 userListLength={this.state.userListLength}
@@ -355,7 +355,7 @@ class App extends Component {
           }} />
 
           {this.renderRedirect()}
-          <Route path="/MyList" render={() => {
+          <Route path="/mylist" render={() => {
             return (
               <MyList
                 userList={this.state.userList}
