@@ -8,6 +8,7 @@ const SearchBar = (props) => {
         <form 
             action="submit"
             onSubmit={(event) => props.onSearchSubmit(event)}
+            className="searchBarForm"
         >
             <fieldset>
             <section className="searchBarLeft">
@@ -23,6 +24,7 @@ const SearchBar = (props) => {
                         onChange={(event) => props.onChangeEvent(event)}
                         value={props.cuisineTextInputValue}
                         required
+                        pattern="[A-Za-z] [0-9]"
                     >
                     </input>
                     </div>
@@ -38,6 +40,7 @@ const SearchBar = (props) => {
                         name="locationTextInput"
                         id="locationSearch"
                         required
+                        
                     />
                     </div>
             </section>

@@ -8,10 +8,12 @@ const Header = (props) => {
     return (
       <React.Fragment>
         {
-          props.userList.length > 0 &&
-            <Link to="/MyList" className="myListLinkMain">See My List</Link>
+          props.userListLength > 0 &&
+            <Link to="/MyList" className="myListLinkMain">See My List ({props.userListLength})</Link>
         }
         <div className="searchBarContainer">
+        {
+          
           <SearchBar
             onFocusEvent={props.onFocusEvent}
             onSearchSubmit={props.onSearchSubmit}
@@ -23,6 +25,9 @@ const Header = (props) => {
             filterVisibility={props.filterVisibility}
             showFilterOptions={props.showFilterOptions}
           />
+          
+        }
+          
 
           {
             props.filterVisibility === true &&
