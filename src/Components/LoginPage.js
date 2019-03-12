@@ -15,7 +15,7 @@ const LoginPage = (props) => {
 
 
                 <Link
-                    className="linkToMainApp" to="/MainApp"
+                    className="linkToMainApp" to="/search"
                     onClick={(event) => props.createNewFirebaseList(event)}>
                     Lettuce Eat!
                 </Link>

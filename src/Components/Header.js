@@ -11,7 +11,7 @@ const Header = (props) => {
 
       {
         props.userListLength > 0 &&
-        <Link to="/MyList" className="myListLinkMain">See My List ({props.userListLength})</Link>
+        <Link to="/mylist" className="myListLinkMain">See My List ({props.userListLength})</Link>
       }
 
       <div className="searchBarContainer">
