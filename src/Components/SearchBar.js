@@ -10,7 +10,7 @@ const SearchBar = (props) => {
             <fieldset>
                 <section className="searchBarLeft">
                 <div className="keywordSearch">
-                    <legend>What are you hungry for?</legend>
+                    <legend>Penne for your Thoughts on dinner?</legend>
                     <label htmlFor="mainSearchBar">Search for local cuisine</label>
                     <input 
                         type="text" 

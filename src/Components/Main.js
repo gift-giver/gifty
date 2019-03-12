@@ -14,20 +14,6 @@ class Main extends Component {
     }
   }
 
-  onClickToModal = (info) => {
-
-    this.setState({
-      modalData: info,
-      modalIsHidden: false
-    })
-  }
-
-  onModalClose = () => {
-    this.setState({
-      modalData: {},
-      modalIsHidden:true
-    })
-  }
 
   render() {
     return (
@@ -42,7 +28,7 @@ class Main extends Component {
                 return (
                   <li
                     key={info.id}
-                    onClick={() => this.onClickToModal(info)}
+                    onClick={() => this.props.onClickToModal(info)}
                   >
                     <ItemCard
                       itemInfo={info}
@@ -53,12 +39,10 @@ class Main extends Component {
               })
             }
             </ul>
-            {this.state.modalIsHidden === false ? <ItemDetails
-              itemInfo={this.state.modalData}
-              pushToFirebase={this.props.pushToFirebase}
-              onModalClose={this.onModalClose} 
-              modalContentData={this.props.modalContentData}
-              modalContentIsHidden={this.props.modalContentIsHidden}
+            {this.props.modalIsHidden === false ? <ItemDetails
+              itemInfo={this.props.modalData}
+              handleClick={this.props.handleClick}
+              onModalClose={this.props.onModalClose} 
               /> : null}
               
 
