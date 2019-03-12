@@ -48,7 +48,7 @@ class MainApp extends Component {
                         // delay={200}    
                     >
                         <Header
-                            userListLength={props.userListLength}
+                            userListLength={this.props.userListLength}
                             onSearchSubmit={this.props.onSearchSubmit}
                             onChangeEvent={this.props.onChangeEvent}
                             onFocusEvent={this.props.onFocusEvent}
