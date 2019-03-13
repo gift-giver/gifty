@@ -20,7 +20,7 @@ class MainApp extends Component {
         if (/^\s+$/i.test(this.props.cuisineTextInputValue) === false && this.props.cuisineTextInputValue !== '') {
 
             this.setState({
-                height: height === 1000 ? 200 : 200,
+                height: height === 1000 ? 170 : 170,
                 filterVisibility: false,
             })
         }
