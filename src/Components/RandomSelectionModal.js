@@ -31,7 +31,7 @@ const RandomSelectionModal = (props) => {
                    <h2>You Butter Try This!</h2>
                     <p>{props.randomChoice.name}</p>
                     <div className="locationModalIcon">
-                        <a href={`tel://` + props.randomChoice.display_phone}><img src={phone} aria-hidden='true'/><span className="sr-only">Call Us Now!</span></a>
+                        <a href={`tel://` + props.randomChoice.display_phone}><img src={phone} aria-hidden='true' rel="noopener noreferrer" /><span className="sr-only">Call Us Now!</span></a>
                         <a href={`http://maps.google.com/?q=${props.randomChoice.location.display_address}`} target="_blank" rel="noopener noreferrer" ><img src={location} aria-hidden="true" /><span className='sr-only'>Find Us Now</span></a>
 
                     </div>
