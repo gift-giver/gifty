@@ -18,15 +18,15 @@ const Header = (props) => {
       <div className="searchBarContainer">
         {
           <SearchBar
-            onFocusEvent={this.props.onFocusEvent}
-            onSearchSubmit={this.props.onSearchSubmit}
-            onChangeEvent={this.props.onChangeEvent}
-            cuisineTextInputValue={this.props.cuisineTextInputValue}
-            locationTextInputValue={this.props.locationTextInputValue}
-            animateHeaderHeight={this.props.animateHeaderHeight}
-            headerHeight={this.props.headerHeight}
-            filterVisibility={this.props.filterVisibility}
-            showFilterOptions={this.props.showFilterOptions}
+            onFocusEvent={props.onFocusEvent}
+            onSearchSubmit={props.onSearchSubmit}
+            onChangeEvent={props.onChangeEvent}
+            cuisineTextInputValue={props.cuisineTextInputValue}
+            locationTextInputValue={props.locationTextInputValue}
+            animateHeaderHeight={props.animateHeaderHeight}
+            headerHeight={props.headerHeight}
+            filterVisibility={props.filterVisibility}
+            showFilterOptions={props.showFilterOptions}
           />
         }
 
