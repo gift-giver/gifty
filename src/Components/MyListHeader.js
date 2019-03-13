@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const MyListHeader = (props) => {
   return (
     <div className="myListHeader">
-      <h2>Spec-taco-lar Eats with {props.userName}</h2>
+      <h2>Ideas for Spec-taco-lar Eats with {props.userName}</h2>
 
       <Link to="/search" className="mainSearchLink">Search again</Link>
 

@@ -32,7 +32,7 @@ const MyListItemCard = (props) => {
           <a href={`http://maps.google.com/?q=${props.listItem.restaurantInfo.location.display_address}`} target="_blank" rel="noopener noreferrer"> <img src={location} aria-hidden="true"/><span className="sr-only"></span></a>
       </div>
           <div className="logoContainer">
-            <a href={props.listItem.restaurantInfo.url} target="_blank" rel="noopener noreferrer">Read more on<img src={logo} alt="Yelp Logo" className="logo" /></a>
+            <a href={props.listItem.restaurantInfo.url} target="_blank" rel="noopener noreferrer"><img src={logo} alt="Yelp Logo" className="logo" /></a>
           </div>
         
 
@@ -110,7 +110,7 @@ const MyListItemCard = (props) => {
         }
 
         <button onClick={(event) => props.removeFromFirebase(event)} id={props.listItem.key}
-        className="tryAgain">Remove</button>
+        className="removeItem">Remove</button>
 
       </div>
 
