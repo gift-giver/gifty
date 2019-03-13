@@ -19,9 +19,8 @@ class MainApp extends Component {
 
           animateHeaderHeight = () => {
                 const { height } = this.state;
-              if (this.props.cuisineTextInputValue.length > 0 && /^[^\t].*/.this.props.cuisineTextInputValue ){
-                  console.log("why")
-                  console.log(this.props.cuisineTextInputValue.length)
+              if (/^\s+$/i.test(this.props.cuisineTextInputValue) === false && this.props.cuisineTextInputValue !== ''){
+                
                     this.setState({
                         height: height === 1000 ? 150 : 150,
                         filterVisibility: false,

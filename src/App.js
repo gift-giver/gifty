@@ -55,18 +55,26 @@ class App extends Component {
   // * EVENT HANDLERS * //
   //function to trigger axios call, following click of the submit button.
   handleSearchSubmit = async (event) => {
-    console.log('clicked')
+    
     event.preventDefault();
-    //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
-    const data = await this.getSearchData(this.state.cuisineTextInput, this.state.locationTextInput);
-    // taking data from the axios call to be filtered
-    this.filterByRating(data)
-    //setting the state with the return from the axios call.
-    this.setState({
-      resultInfo: data
-    })
-    if (data.length === 0) {
-      Swal.fire(`Sorry, no results for ${this.state.cuisineTextInput}. Try again!`)
+
+    if (/^\s+$/i.test(this.state.cuisineTextInput) === false && this.state.cuisineTextInput !== ''
+      && /^\s+$/i.test(this.state.locationTextInput) === false && this.state.locationTextInput !== ''){
+      //data is the return from the axios call; await keyword means that promise must be resolved before value is set.
+      const data = await this.getSearchData(this.state.cuisineTextInput, this.state.locationTextInput);
+      // taking data from the axios call to be filtered
+      this.filterByRating(data)
+      //setting the state with the return from the axios call.
+      this.setState({
+        resultInfo: data
+      })
+
+      if (data.length === 0) {
+        Swal.fire(`Sorry, no results for ${this.state.cuisineTextInput}. Try again!`)
+      }
+
+    } else {
+      Swal.fire(`Not a valid search entry`)
     }
   }
 
@@ -80,7 +88,7 @@ class App extends Component {
 
   //on change sets the state based on input value.
   handleOnChangeEvents = (event) => {
-
+    
     this.setState({
       [event.target.name]: event.target.value,
     })
@@ -164,9 +172,11 @@ class App extends Component {
     
     // reference firebase object in which all  guest lists will live
     const dbRef = firebase.database().ref(`GuestList`);
+
+    const userName = this.state.userName !== "" ? this.state.userName : "My List"
     // new firebase list will live inside an object, reference by firebase provided key
     const newFirebaseList = {
-      userName: this.state.userName
+      userName: userName
     }
     // push new list to firebase reference, hold created firebase reference key for that object in variable firebaseKey
     const firebaseKey = dbRef.push(newFirebaseList)
@@ -181,7 +191,8 @@ class App extends Component {
     // set state with current firebaseKey; allows session to save to one list which is later deletable
     this.setState({
       firebaseListId: firebaseKey.key,
-      redirect: false
+      redirect: false,
+      userName: userName
     })
   }
 

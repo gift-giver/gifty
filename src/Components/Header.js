@@ -35,6 +35,7 @@ const Header = (props) => {
               ratingValue={props.ratingValue}
               showFilterOptions={props.showFilterOptions}
               priceValue={props.priceValue}
+              onChangeEvent={props.onChangeEvent}
 
             />
     

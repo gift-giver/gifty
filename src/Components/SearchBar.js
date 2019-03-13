@@ -23,8 +23,6 @@ const SearchBar = (props) => {
                         onFocus={(event) => props.onFocusEvent(event)}
                         onChange={(event) => props.onChangeEvent(event)}
                         value={props.cuisineTextInputValue}
-                        required
-                        pattern="[A-Za-z] [0-9]"
                     >
                     </input>
                     </div>
@@ -39,7 +37,6 @@ const SearchBar = (props) => {
                         value={props.locationTextInputValue}
                         name="locationTextInput"
                         id="locationSearch"
-                        required
                         
                     />
                     </div>
