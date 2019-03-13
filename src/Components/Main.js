@@ -4,7 +4,7 @@ import ItemCard from './ItemCard.js';
 const Main = (props) => {
   return (
     <div className="mainContainer">
-      <section>
+      <section className="wrapper">
         <ul className="galleryGrid clearfix">
           {
             props.itemInfo.map((info) => {

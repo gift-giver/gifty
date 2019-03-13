@@ -72,7 +72,9 @@ class MyList extends Component {
                     />
                 </header>
                 <main className="myListMain">
-                    <ul className="galleryGrid clearfix">
+                    <div className="wrapper">
+                        <ul className="galleryGrid clearfix">
+
                         {
                             this.props.userList.map((listItem) => {
                                 return (
@@ -88,6 +90,10 @@ class MyList extends Component {
                             })
                         }
                     </ul>
+                    </div>
+                        
+                
+                    
                 </main>
                 <Footer />
 

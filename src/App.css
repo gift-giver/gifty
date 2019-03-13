@@ -26,7 +26,9 @@ body {
 
 .wrapper {
     max-width: 1280px;
+    margin: 0 auto;
 }
+
 a {
     text-decoration:none;
     color:black;
@@ -79,6 +81,7 @@ input:placeholder{
     background-size:cover;
     background-repeat:no-repeat;
     text-align:center;
+    
 }
 
 /* LOGIN STYLES */
@@ -103,6 +106,7 @@ input:placeholder{
     background-color: rgba(40, 21, 101, 0.89957981483609073);
     
 }
+
 .loginForm label{
     width: 100%;
     text-align:center;
@@ -121,12 +125,14 @@ input:placeholder{
     width:100%;
     overflow:hidden;
 }
+
 .listNameLabel{
     color:white;
     font-size: 30px;
     width: 100%;
     text-align:center;
 }
+
 .loginForm{
     padding:60px;
     text-align:center;
@@ -137,6 +143,7 @@ input:placeholder{
     margin-top: 30vh;
     background-color: rgba(40, 21, 101, 0.89957981483609073);
 }
+
 .loginForm a{
     text-decoration:none;
     color:white;
@@ -149,6 +156,7 @@ input:placeholder{
     text-align:center;
     margin-top: 1rem; 
 }
+
 .loginForm input{
     padding: 10px 25px 10px 10px;
     border: none;
@@ -175,7 +183,6 @@ input:placeholder{
     position:relative;
     transition: .1s all linear;
      border-radius: 10px;
-    
 }
 
 .myListLinkMain {
@@ -233,6 +240,7 @@ button[type='submit'] {
     background-color:#281565;
     color:white;
 }
+
 legend{
     font-family: 'Scada', sans-serif;
 }
@@ -248,10 +256,6 @@ legend{
     text-align:center;
     margin-left:10%;
 
-}
-
-.priceFilter {
-    /* margin-right: 20px; */
 }
 
 .priceFilter,
@@ -286,25 +290,13 @@ legend{
     margin-top:0;
 }
 
-.locationSearch:hover,
-.locationSearch:focus,
-.mainSearchBar:hover,
-.mainSearchBar:focus {
-    
-}
-
 .locationFilter,
 .keywordSearch{
     width:50%;
     float:left;
 }
 
-.keywordSearch {
-}
-
-.searchBarLeft
-{
-    /* float:left; */
+.searchBarLeft {
     width:70%;
     text-align:center;
 }
@@ -324,12 +316,10 @@ legend{
 
 }
 
-
 /* CARDS */
 li {
-    width:30%;
+    width: calc(33.33% - 20px);
     max-height: 650px;
-
     list-style:none;
     float:left;
     margin: 10px;
@@ -344,10 +334,6 @@ li {
     font-size: 20px;
     height: 26px;
     overflow:hidden;
-}
-
-.itemInfoContainer p {
- 
 }
 
 .itemCardImageContainer {
@@ -377,11 +363,6 @@ li {
 }
 
 
-
-.addToListButton:hover {
-
-}
-
 .iconContainer {
     width:100%
 }
@@ -401,15 +382,15 @@ li {
     width:80%;
     
 }
-
+/* NEEEED */
 .mainContainer {
     position: relative;
+    background: #281565;
 }
 
 .galleryGrid {
     margin:0 auto;
     background-color:#281565;
-    padding-left: 5%;
 }
 
 
@@ -431,7 +412,6 @@ li {
 
 .myListMain {
     background-color:#281565;
-    height: 90vh;
     padding-top: 20vh;
 }
 
@@ -483,6 +463,10 @@ li {
     margin-right: 63%;
     transform:translateY(-120%);
     padding: 10px;
+    background: #281565;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 5px;
 }
 
 .locationModalIcon img {
@@ -521,6 +505,16 @@ li {
 
 }
 
+.removeItem {
+
+    position: relative;
+    bottom: 12px;
+    padding: 10px;
+    background: #281565;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
 .myListMainHeader {
     margin-bottom: 100px;
 }
@@ -541,18 +535,32 @@ li {
     text-transform: uppercase;
     background: #281565;
     color: white;
-    position: fixed;
     top: 16vh;
 }
 
 .randomizeButton,
 .redirectButton {
     padding: 5px 10px;
+    position: fixed;
+    transition: all .2s ease-in-out;
+}
+
+.randomizeButton:hover,
+.randomizeButton:focus {
+    background: white;
+    color: #281565;
+}
+
+.redirectButton:hover,
+.redirectButton:focus {
+    background: #281565;
+    color: white;
 }
 
 .redirectButton {
     background: #fff;
     border: 1px solid transparent;
+    top: 10vh;
 }
 
 /* FOOTER STYLES */
@@ -573,8 +581,7 @@ footer {
 
 @media(max-width:940px){
     li {
-        width: 40%;
-
+        width: calc(50% - 20px);
     }
     
 }
@@ -583,6 +590,11 @@ footer {
     .loginForm {
         width:60%;
     }
+
+    .mainSearchLink {
+        top: -50px;
+    }
+
 }
  /* @media(min-width:768px){ 
 
@@ -609,11 +621,29 @@ footer {
         width: 50%;
         float:left;
     }
+
+    .mainSearchLink {
+        top: -20px;
+    }
+
+    .myListHeader h2 {
+        display: none;
+    }
+
+    .itemDetailsImageContainer {
+        float: none;
+        width: 100%;
+    }
 }
 @media(max-width:540px){
     /* Login Page Styles for mobile starts 320px */
     .loginForm {
         width:70%;
+    }
+
+    .tryAgain {
+        transform: translateY(-25%);
+        margin-right: 0;
     }
 }
 @media(max-width:480px){
@@ -627,6 +657,8 @@ footer {
     .loginForm a{
         margin-left: 1px;
     }
+
+
 }
 
 @media(max-width: 450px) {
@@ -645,14 +677,30 @@ footer {
          width: 100%;
          float:none;
          
-
      }
+
 
      .itemInfoContainer {
          width: 100%;
          float:none;
         
      }
+
+     
+     .mainSearchLink, 
+     .randomizeButton,
+     .redirectButton {
+         font-size: .9rem;
+     }
+
+     .mainSearchLink {
+         top: -10px;
+     }
+}
+
+
+@media (max-width: 345px) {
+
 }
 /* @media (max-width: 320px){ */
     /* Login Page Styles for mobile starts 320px */
