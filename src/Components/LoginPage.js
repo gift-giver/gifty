@@ -5,14 +5,13 @@ const LoginPage = (props) => {
     return (
         <div className="mainLogin">
             <form className="loginForm clearfix">
-                <label className="listNameLabel" htmlFor="listName">Name Your Guest?</label>
-                <input type="text" id="listName" placeholder="guests name"
+                <label className="listNameLabel" htmlFor="listName">Come dine with me:</label>
+                <input type="text" id="listName" placeholder="guest's name"
                     onChange={props.onChangeEvent}
                     value={props.userName}
                     name='userName'
                     required
                 />
-
 
                 <Link
                     className="linkToMainApp" to="/search"
