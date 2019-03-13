@@ -38,7 +38,7 @@ const ItemCard = (props) => {
 
 
                 <div className="logoContainer">
-                    <a href={props.itemInfo.url} target="_blank" rel="noopener noreferrer">Read more on <img src={logo} alt="Yelp Logo" className="logo" /></a>
+                    <a href={props.itemInfo.url} target="_blank" rel="noopener noreferrer"><img src={logo} alt="Yelp Logo" className="logo" /></a>
                 </div>
 
                 {

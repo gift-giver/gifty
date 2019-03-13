@@ -10,6 +10,9 @@ import twoStar from "./../assets/2.png";
 import onePointFive from "./../assets/1.5.png";
 import oneStar from "./../assets/1.png";
 import zeroStar from "./../assets/0.png";
+import phone from "./../assets/phoneIcon.png";
+import location from "./../assets/locationIcon.png";
+
 
 const MyListItemCard = (props) => {
 
@@ -22,37 +25,41 @@ const MyListItemCard = (props) => {
       <div className="itemInfoContainer">
         <h2>{props.listItem.restaurantInfo.name}</h2>
         <p>{props.listItem.restaurantInfo.price}</p>
-        <a href={`tel://` + props.listItem.restaurantInfo.display_phone}>{props.listItem.restaurantInfo.display_phone}</a>
-        <a href={`http://maps.google.com/?q=${props.listItem.restaurantInfo.location.display_address}`} target="_blank" rel="noopener noreferrer">{props.listItem.restaurantInfo.location.display_address}</a>
-
-        <div className="logoContainer">
-          <a href={props.listItem.restaurantInfo.url} target="_blank" rel="noopener noreferrer">Read more on Yelp<img src={logo} alt="Yelp Logo" className="logo" /></a>
-        </div>
+        <div className="iconContainer">
+          <a href={`tel://` + props.listItem.restaurantInfo.display_phone}> <img src={phone} aria-hidden="true" rel="noopener noreferrer" />
+          <span className="sr-only"></span></a>
+          
+          <a href={`http://maps.google.com/?q=${props.listItem.restaurantInfo.location.display_address}`} target="_blank" rel="noopener noreferrer"> <img src={location} aria-hidden="true"/><span className="sr-only"></span></a>
+      </div>
+          <div className="logoContainer">
+            <a href={props.listItem.restaurantInfo.url} target="_blank" rel="noopener noreferrer">Read more on<img src={logo} alt="Yelp Logo" className="logo" /></a>
+          </div>
+        
 
         {
           props.listItem.restaurantInfo.rating === 5 &&
-          <div>
+          <div className="ratingContainer">
             <img src={fiveStar} alt="Five Stars" />
             <p>Based on {props.listItem.restaurantInfo.review_count} reviews</p>
           </div>
         }
         {
           props.listItem.restaurantInfo.rating === 4.5 &&
-          <div>
+          <div className="ratingContainer">
             <img src={fourPointFive} alt="Four Point Five Stars" />
             <p>Based on {props.listItem.restaurantInfo.review_count} reviews</p>
           </div>
         }
         {
           props.listItem.restaurantInfo.rating === 4 &&
-          <div>
+          <div className="ratingContainer">
             <img src={fourStar} alt="Four Stars" />
             <p>Based on {props.listItem.restaurantInfo.review_count} reviews</p>
           </div>
         }
         {
           props.listItem.restaurantInfo.rating === 3.5 &&
-          <div>
+          <div className="ratingContainer">
             <img src={threePointFive} alt="Three Point Five Stars" />
             <p>Based on {props.listItem.restaurantInfo.review_count} reviews</p>
           </div>
@@ -60,7 +67,7 @@ const MyListItemCard = (props) => {
         }
         {
           props.listItem.restaurantInfo.rating === 3 &&
-          <div>
+          <div className="ratingContainer">
             <img src={threeStar} alt="Three Stars" />
             <p>Based on {props.listItem.restaurantInfo.review_count} reviews</p>
           </div>
@@ -68,41 +75,42 @@ const MyListItemCard = (props) => {
         }
         {
           props.listItem.restaurantInfo.rating === 2.5 &&
-          <div>
+          <div className="ratingContainer">
             <img src={twoPointFive} alt="Two Point Five Stars" />
             <p>Based on {props.listItem.restaurantInfo.review_count} reviews</p>
           </div>
         }
         {
           props.listItem.restaurantInfo.rating === 2 &&
-          <div>
+          <div className="ratingContainer">
             <img src={twoStar} alt="Two Stars" />
             <p>Based on {props.listItem.restaurantInfo.review_count} reviews</p>
           </div>
         }
         {
           props.listItem.restaurantInfo.rating === 1.5 &&
-          <div>
+          <div className="ratingContainer">
             <img src={onePointFive} alt="One Point Five Stars" />
             <p>Based on {props.listItem.restaurantInfo.review_count} reviews</p>
           </div>
         }
         {
           props.listItem.restaurantInfo.rating === 1 &&
-          <div>
+          <div className="ratingContainer">
             <img src={oneStar} alt="One Star" />
             <p>Based on {props.listItem.restaurantInfo.review_count} reviews</p>
           </div>
         }
         {
           props.listItem.restaurantInfo.rating === 0 &&
-          <div>
+          <div className="ratingContainer">
             <img src={zeroStar} alt="Zero Stars" />
             <p>Based on {props.listItem.restaurantInfo.review_count} reviews</p>
           </div>
         }
 
-        <button onClick={(event) => props.removeFromFirebase(event)} id={props.listItem.key}>Remove</button>
+        <button onClick={(event) => props.removeFromFirebase(event)} id={props.listItem.key}
+        className="tryAgain">Remove</button>
 
       </div>
 

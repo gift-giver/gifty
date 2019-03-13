@@ -11,6 +11,7 @@ const Main = (props) => {
               return (
                 <li
                   key={info.id}
+                  className="clearfix"
                 >
                   <ItemCard
                     itemInfo={info}
