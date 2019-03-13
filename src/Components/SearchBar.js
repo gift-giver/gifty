@@ -47,7 +47,8 @@ const SearchBar = (props) => {
                     <button type="submit"
                         onClick={props.animateHeaderHeight}>Search
                     </button>
-                    <button
+                    <button 
+                        className="filterButton"
                         onClick={props.showFilterOptions}>
                         {
 

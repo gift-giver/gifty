@@ -75,7 +75,7 @@ input:placeholder{
 
 .mainAppMain{
     height: 90vh;
-    padding-top: 16.5vh;
+    padding-top: 16vh;
     background-image: linear-gradient(to top, rgba(40, 21, 101, 0.49957981483609073) 20%, rgba(125, 110, 245, 0.475210066936931) 70%, rgba(177, 213, 239, 0.4387955011106005) 100%),
     url('./assets/food-salad-restaurant-person.jpg');
     background-size:cover;
@@ -296,7 +296,8 @@ legend{
     float:left;
 }
 
-.searchBarLeft {
+.searchBarLeft
+{
     width:70%;
     text-align:center;
 }
@@ -529,7 +530,6 @@ li {
     width:100%;
 }
 
-
 .randomizeButton {
     border: 1px solid #fff;
     text-transform: uppercase;
@@ -561,6 +561,10 @@ li {
     background: #fff;
     border: 1px solid transparent;
     top: 10vh;
+}
+.buttonContainer > button:hover, 
+.buttonContainer > button:focus{
+    background-color:#7D6EF5;
 }
 
 /* FOOTER STYLES */
@@ -596,9 +600,29 @@ footer {
     }
 
 }
- /* @media(min-width:768px){ 
+@media(max-width:813px){
+    .galleryGrid{
+        padding-left:5%;
+    }
+}
+ @media(max-width:795px){ 
+    .locationFilter, .keywordSearch{
+        float:none;
+    }
 
-} */
+    .buttonContainer{
+        width:30%;
+        transform:none;
+    } 
+    .searchBarLeft{
+        float:left;
+    }
+}
+@media(max-width:600px){
+    .searchBarLeft legend{
+        display:none;
+    }
+}
 
 @media(max-width: 650px) {
     li {
@@ -607,7 +631,7 @@ footer {
     }
 
     .galleryGrid {
-        padding:0;
+        padding-left:0;
         margin:0;
         margin-top:5%;
     }
@@ -658,10 +682,36 @@ footer {
         margin-left: 1px;
     }
 
+    .searchBarLeft{
+        width:60%;
+        float:left;
+    }
+    .searchBarRight{
+        display:none;
+    }
+    .locationFilter, .keywordSearch{
+        width:100%;
+    }
 
+    .locationFilter input[type="text"],
+    .mainSearchBar {
+        width:100%;
+    }
+
+    .buttonContainer {
+        transform: none;
+        width:100%;
+    }
+    .filterButton{
+        display:none;
+    }
 }
 
 @media(max-width: 450px) {
+    .searchBarContainer legend {
+        display:none;
+    }
+
      li {
          width: 100%;
          margin: 10px 0;
@@ -676,7 +726,6 @@ footer {
      .itemCardImageContainer {
          width: 100%;
          float:none;
-         
      }
 
 
@@ -685,8 +734,7 @@ footer {
          float:none;
         
      }
-
-     
+  
      .mainSearchLink, 
      .randomizeButton,
      .redirectButton {
@@ -701,20 +749,11 @@ footer {
 
 @media (max-width: 345px) {
 
-}
-/* @media (max-width: 320px){ */
-    /* Login Page Styles for mobile starts 320px */
 
-    /* Main App Styles for mobile first starts 320px*/
-    /* .searchBarContainer{
-        width: 87%;
-    } */
-    /* .locationFilter, .keywordSearch {
+     .searchBarLeft {
         width: 100%;
-        float: left;
-    }
-}  */
+     }
 
-
+}
 /* MEDIA QUERIES END */
 
